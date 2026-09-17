@@ -76,13 +76,12 @@ const NavMain = ({ sidebarMenu }: ISidebarMenuProps) => {
             className={clsx(
               'flex items-center gap-3 w-full',
               'group-data-[collapsible=icon]:w-full! group-data-[collapsible=icon]:h-full!',
-              'data-active:bg-[#163A66]! data-active:text-white',
+              'data-active:bg-[#163A66]! data-active:text-white! data-active:hover:bg-gray-100! data-active:hover:text-primary! text-white! hover:text-primary!',
               baseClassName,
-              isActive ? 'hover:bg-primary-lighter! hover:text-white!' : 'hover:bg-gray-100!',
               !isMobile && (isCollapsed ? 'flex-col' : 'flex-row')
             )}
           >
-            {item.icon && <item.icon className={clsx('size-6!', isActive ? 'text-white!' : 'text-gray-600!')} />}
+            {item.icon && <item.icon className={clsx('size-6!')} />}
             <span className={clsx('font-bold text-xs', !isMobile && isCollapsed && 'hidden')}>{item.title}</span>
             <ArrowRightIcon
               className={clsx(
@@ -154,7 +153,7 @@ const NavMain = ({ sidebarMenu }: ISidebarMenuProps) => {
                           render={<Link to={subItem.url} onClick={handleCloseDrawerMobile} />}
                           isActive={isSubActive}
                           className={clsx(
-                            'data-active:bg-[#163A66] data-active:text-white text-white ml-1',
+                            'data-active:bg-[#163A66] data-active:text-white data-active:hover:bg-gray-100 data-active:hover:text-primary text-white hover:text-primary ml-1',
                             baseClassName,
                             'h-9!'
                           )}
@@ -177,7 +176,7 @@ const NavMain = ({ sidebarMenu }: ISidebarMenuProps) => {
               className={clsx(
                 'flex items-center gap-3 w-full',
                 'group-data-[collapsible=icon]:w-full! group-data-[collapsible=icon]:h-full!',
-                'data-active:bg-primary-lighter data-active:text-primary',
+                'data-active:bg-[#163A66] data-active:text-white data-active:hover:bg-gray-100 data-active:hover:text-primary text-white hover:text-primary',
                 baseClassName,
                 !isMobile && (isCollapsed ? 'flex-col' : 'flex-row')
               )}
@@ -186,7 +185,7 @@ const NavMain = ({ sidebarMenu }: ISidebarMenuProps) => {
                 setOpenedParents([])
               }}
             >
-              {item.icon && <item.icon className={clsx('size-6!', isActive ? 'text-primary' : 'text-gray-600')} />}
+              {item.icon && <item.icon className={clsx('size-6!')} />}
               <span className={clsx('font-bold text-xs', !isMobile && isCollapsed && 'hidden')}>{item.title}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -33,7 +33,7 @@ function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
     <tr
       data-slot='table-row'
       className={cn(
-        'border-b transition-colors hover:bg-muted/50 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted',
+        'border-b border-border transition-colors hover:bg-muted/50 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-[#b7caec]',
         className
       )}
       {...props}
@@ -46,7 +46,7 @@ function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
     <th
       data-slot='table-head'
       className={cn(
-        'h-10 px-2 text-start align-middle font-medium whitespace-nowrap text-foreground [&:has([role=checkbox])]:pe-0',
+        'h-10 py-2 sm:py-4 px-1 sm:px-2 first:pl-2 last:pr-2 sm:first:pl-4 sm:last:pr-4 text-start align-middle font-medium whitespace-nowrap text-foreground bg-[#F7F9FC]',
         className
       )}
       {...props}
@@ -58,7 +58,10 @@ function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
   return (
     <td
       data-slot='table-cell'
-      className={cn('p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pe-0', className)}
+      className={cn(
+        'py-2 sm:py-4 px-1 sm:px-2 first:pl-2 last:pr-2 sm:first:pl-4 sm:last:pr-4 align-middle whitespace-nowrap ',
+        className
+      )}
       {...props}
     />
   )
@@ -70,4 +73,4 @@ function TableCaption({ className, ...props }: React.ComponentProps<'caption'>) 
   )
 }
 
-export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption }
+export { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow }

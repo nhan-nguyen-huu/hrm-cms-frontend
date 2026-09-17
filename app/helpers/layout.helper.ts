@@ -10,14 +10,8 @@ export const layoutHelper = {
     return [
       {
         icon: EmployeeIcon,
-        title: t('sidebarMenu.employeeMgt.base'),
-        url: url(EMPLOYEE_MGT.BASE),
-        items: [
-          {
-            title: t('sidebarMenu.employeeMgt.employeeProfile'),
-            url: url(EMPLOYEE_MGT.BASE, EMPLOYEE_MGT.EMPLOYEE_PROFILE)
-          }
-        ]
+        title: t('sidebarMenu.employeeMgt.employeeProfile'),
+        url: url(EMPLOYEE_MGT.BASE, EMPLOYEE_MGT.EMPLOYEE_PROFILE)
       }
     ]
   }

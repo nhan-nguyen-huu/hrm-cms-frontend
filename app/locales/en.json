@@ -18,9 +18,39 @@
       "vi": "Vietnamese",
       "en": "English",
       "ko": "Korean"
+    },
+    "employeeAccountStatus": {
+      "working": "Working",
+      "maternityLeave": "Maternity Leave",
+      "terminated": "Terminated"
+    }
+  },
+  "tables": {
+    "baseTableKey": {
+      "select": "Select",
+      "action": "Action",
+      "delete": "Delete",
+      "download": "Download"
+    },
+    "employeeProfileTableKey": {
+      "code": "Employee Code",
+      "name": "Name",
+      "department": "Department",
+      "jobTitle": "Job Title",
+      "contractType": "Contract Type",
+      "joinDate": "Join Date",
+      "status": "Status"
     }
   },
   "msg": {
     "changeLanguageSuccess": "Change language successfully"
+  },
+  "empty": {
+    "noData": "No data."
+  },
+  "action": {
+    "importExcel": "Import from Excel",
+    "exportList": "Export list",
+    "addEmployee": "Add employee"
   }
 }

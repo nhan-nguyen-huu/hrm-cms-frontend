@@ -137,6 +137,8 @@
   --spacing-mw: 1400px;
   --spacing-height-header: 66px;
   --spacing-height-mobile: 66px;
+  --color-app-primay: #40526b;
+  --color-app-secondary: #101c2e;
 }
 @theme inline {
   --font-heading: var(--font-sans);
@@ -197,7 +199,7 @@
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
+  --border: oklch(0.9131 0.0144 254.61);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.785 0.115 256.46);
@@ -255,7 +257,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-app-primay;
   }
   button:not(:disabled),
   [role='button']:not(:disabled) {

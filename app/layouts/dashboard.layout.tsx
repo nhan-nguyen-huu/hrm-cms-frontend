@@ -3,9 +3,10 @@ import Header from '~/components/common/header'
 import RouteLoading from '~/components/loading/route-loading'
 import { AppSidebar } from '~/components/sidebar/app-sidebar'
 import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar'
+import { authHelper } from '~/helpers'
 import i18n from '~/lib/i18n'
 
-// export const clientLoader = () => authHelper.handleProtectedRoute('PRIVATE')
+export const clientLoader = () => authHelper.handleProtectedRoute('PRIVATE')
 
 export function meta() {
   const t = i18n.t.bind(i18n)

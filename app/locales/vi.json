@@ -18,9 +18,39 @@
       "vi": "Tiếng Việt",
       "en": "Tiếng Anh",
       "ko": "Tiếng Hàn"
+    },
+    "employeeAccountStatus": {
+      "working": "Đang làm việc",
+      "maternityLeave": "Nghỉ thai sản",
+      "terminated": "Ngừng làm việc"
+    }
+  },
+  "tables": {
+    "baseTableKey": {
+      "select": "Chọn",
+      "action": "Hành động",
+      "delete": "Xóa",
+      "download": "Tải xuống"
+    },
+    "employeeProfileTableKey": {
+      "code": "Mã nhân viên",
+      "name": "Tên",
+      "department": "Phòng ban",
+      "jobTitle": "Chức danh",
+      "contractType": "Loại hợp đồng",
+      "joinDate": "Ngày gia nhập",
+      "status": "Trạng thái"
     }
   },
   "msg": {
     "changeLanguageSuccess": "Đổi ngôn ngữ thành công"
+  },
+  "empty": {
+    "noData": "Không có dữ liệu."
+  },
+  "action": {
+    "importExcel": "Nhập từ Excel",
+    "exportList": "Xuất danh sách",
+    "addEmployee": "Thêm nhân viên"
   }
 }

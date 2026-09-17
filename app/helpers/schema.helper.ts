@@ -1,0 +1,23 @@
+import { z } from 'zod'
+import { EEmployeeAccountStatus } from '~/shared/enums/common.enum'
+import { EFilterPanelEmployeeProfileFormKey, EFilterPanelFormKey } from '~/shared/enums/form.enum'
+
+export const PASSWORD_REGEX =
+  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~])[A-Za-z\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]{8,10}$/
+
+export const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+export const PHONE_REGEX = /^(010|840)-[0-9]{4}-[0-9]{4}$/
+
+export const getFilterPanelSchema = () =>
+  z.object({
+    [EFilterPanelFormKey.Keyword]: z.string().optional()
+  })
+export type TFilterPanelFormSchema = z.infer<ReturnType<typeof getFilterPanelSchema>>
+
+export const getFilterPanelEmployeeProfileSchema = () =>
+  z.object({
+    ...getFilterPanelSchema().shape,
+    [EFilterPanelEmployeeProfileFormKey.EmployeeAccountStatus]: z.enum(EEmployeeAccountStatus).nullish()
+  })
+
+export type TFilterPanelEmployeeProfileFormSchema = z.infer<ReturnType<typeof getFilterPanelEmployeeProfileSchema>>

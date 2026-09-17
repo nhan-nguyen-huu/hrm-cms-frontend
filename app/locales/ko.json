@@ -18,9 +18,39 @@
       "vi": "베트남어",
       "en": "영어",
       "ko": "한국어"
+    },
+    "employeeAccountStatus": {
+      "working": "근무 중",
+      "maternityLeave": "출산 휴가",
+      "terminated": "퇴사"
+    }
+  },
+  "tables": {
+    "baseTableKey": {
+      "select": "선택하다",
+      "action": "작업",
+      "delete": "삭제",
+      "download": "다운로드"
+    },
+    "employeeProfileTableKey": {
+      "code": "사원 코드",
+      "name": "이름",
+      "department": "부서",
+      "jobTitle": "직책",
+      "contractType": "계약 유형",
+      "joinDate": "입사일",
+      "status": "상태"
     }
   },
   "msg": {
     "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다"
+  },
+  "empty": {
+    "noData": "데이터가 없습니다."
+  },
+  "action": {
+    "importExcel": "엑셀 가져오기",
+    "exportList": "목록 내보내기",
+    "addEmployee": "직원 추가"
   }
 }
