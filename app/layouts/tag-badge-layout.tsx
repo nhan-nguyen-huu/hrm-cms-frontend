@@ -10,7 +10,10 @@ interface ITagBadgeProps {
 const TagBadgeLayout = ({ children, className }: ITagBadgeProps) => {
   return (
     <span
-      className={clsx('py-1 px-3 font-semibold rounded-full wrap-break-word whitespace-normal text-center', className)}
+      className={clsx(
+        'py-1 px-3 font-semibold rounded-full wrap-break-word whitespace-normal text-center text-xs',
+        className
+      )}
     >
       {children}
     </span>
