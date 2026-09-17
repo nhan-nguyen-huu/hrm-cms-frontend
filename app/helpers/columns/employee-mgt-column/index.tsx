@@ -93,7 +93,7 @@ export const employeeMgtColumn = {
             </section>
           )
         },
-        size: 120
+        size: 160
       }
     ]
     return columns

@@ -3,10 +3,9 @@ import Header from '~/components/common/header'
 import RouteLoading from '~/components/loading/route-loading'
 import { AppSidebar } from '~/components/sidebar/app-sidebar'
 import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar'
-import { authHelper } from '~/helpers'
 import i18n from '~/lib/i18n'
 
-export const clientLoader = () => authHelper.handleProtectedRoute('PRIVATE')
+// export const clientLoader = () => authHelper.handleProtectedRoute('PRIVATE')
 
 export function meta() {
   const t = i18n.t.bind(i18n)
@@ -23,8 +22,10 @@ const DashboardLayout = () => {
           <Header />
           <section className='mt-height-mobile sm:mt-height-header'>
             {/* <Title title={t(titlePageKey)} backToListPage={isBackToListPage} /> */}
-            <section className='max-w-mw mx-auto w-full p-4'>
-              <Outlet />
+            <section className='bg-[#f3f5f9] h-[calc(100dvh-var(--spacing-height-mobile))] sm:h-[calc(100dvh-var(--spacing-height-header))] overflow-y-auto'>
+              <section className='max-w-mw mx-auto w-full p-4'>
+                <Outlet />
+              </section>
             </section>
           </section>
         </SidebarInset>

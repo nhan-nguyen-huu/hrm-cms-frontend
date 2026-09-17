@@ -22,7 +22,7 @@ const FilterPanel = ({ form, type = 'DEFAULT', placeholderKeyword }: IFilterPane
 
   return (
     <form
-      className='flex items-start flex-wrap gap-3 base-shadow p-3 rounded-[14px]'
+      className='flex items-start flex-wrap gap-3 base-shadow p-3 rounded-[14px] border border-border'
       onSubmit={(e) => {
         e.preventDefault()
       }}

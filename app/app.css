@@ -266,6 +266,33 @@
   html {
     @apply font-sans;
   }
+  /*  Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield !important;
+  }
+
+  *::selection {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 100px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+  }
+  ::-webkit-scrollbar-track {
+    background: #cececf;
+    border-radius: 100px;
+  }
 }
 
 @layer utilities {
