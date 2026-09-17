@@ -1,3 +1,14 @@
-import { type RouteConfig, index } from "@react-router/dev/routes"
+import { type RouteConfig, index, route } from '@react-router/dev/routes'
 
-export default [index("routes/home.tsx")] satisfies RouteConfig
+import { ROUTES } from './shared/constants/routes.constant'
+
+export default [
+  index('routes/home.tsx'),
+  route(ROUTES.DASHBOARD.BASE, 'layouts/dashboard.layout.tsx', [
+    index('routes/dashboard/index.tsx'),
+    route(ROUTES.DASHBOARD.EMPLOYEE_MGT.BASE, 'layouts/employee-mgt.layout.tsx', [
+      index('routes/dashboard/employee-mgt/index.tsx'),
+      route(ROUTES.DASHBOARD.EMPLOYEE_MGT.EMPLOYEE_PROFILE, 'routes/dashboard/employee-mgt/employee-profile/index.tsx')
+    ])
+  ])
+] satisfies RouteConfig

@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "title": "HRM CMS"
+  },
+  "common": {
+    "appName": "HRM CMS",
+    "companyName": "Specom",
+    "humanResourcesSystem": "Hệ thống quản lý nhân sự"
+  },
+  "sidebarMenu": {
+    "employeeMgt": {
+      "base": "Quản lý nhân viên",
+      "employeeProfile": "Hồ sơ nhân viên"
+    }
+  },
+  "enums": {
+    "language": {
+      "vi": "Tiếng Việt",
+      "en": "Tiếng Anh",
+      "ko": "Tiếng Hàn"
+    }
+  },
+  "msg": {
+    "changeLanguageSuccess": "Đổi ngôn ngữ thành công"
+  }
+}

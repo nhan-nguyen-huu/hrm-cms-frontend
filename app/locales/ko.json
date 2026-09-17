@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "title": "HRM CMS"
+  },
+  "common": {
+    "appName": "HRM CMS",
+    "companyName": "Specom",
+    "humanResourcesSystem": "인사 관리 시스템"
+  },
+  "sidebarMenu": {
+    "employeeMgt": {
+      "base": "직원 관리",
+      "employeeProfile": "직원 프로필"
+    }
+  },
+  "enums": {
+    "language": {
+      "vi": "베트남어",
+      "en": "영어",
+      "ko": "한국어"
+    }
+  },
+  "msg": {
+    "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다"
+  }
+}

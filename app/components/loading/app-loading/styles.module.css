@@ -1,0 +1,88 @@
+/* Ported from the "minimals.cc" (MUI Minimal UI Kit) SplashScreen animation: two squares that morph
+   between a squircle (25% radius) and a full circle (50% radius) while scaling/rotating, plus a
+   pulsing logo in the center. */
+
+@keyframes app-loading-box-one {
+  0% {
+    transform: scale(1.6) rotate(270deg);
+    opacity: 0.25;
+    border-radius: 25%;
+  }
+  25% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    border-radius: 25%;
+  }
+  50% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    border-radius: 50%;
+  }
+  75% {
+    transform: scale(1.6) rotate(270deg);
+    opacity: 1;
+    border-radius: 50%;
+  }
+  100% {
+    transform: scale(1.6) rotate(270deg);
+    opacity: 0.25;
+    border-radius: 25%;
+  }
+}
+
+@keyframes app-loading-box-two {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    border-radius: 25%;
+  }
+  25% {
+    transform: scale(1.2) rotate(270deg);
+    opacity: 0.25;
+    border-radius: 25%;
+  }
+  50% {
+    transform: scale(1.2) rotate(270deg);
+    opacity: 0.25;
+    border-radius: 50%;
+  }
+  75% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.25;
+    border-radius: 50%;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    border-radius: 25%;
+  }
+}
+
+@keyframes app-loading-logo-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  16.67%,
+  33.33% {
+    transform: scale(0.9);
+    opacity: 0.48;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.boxOne {
+  animation: app-loading-box-one 3.2s linear infinite;
+}
+
+.boxTwo {
+  animation: app-loading-box-two 3.2s linear infinite;
+}
+
+.logo {
+  animation: app-loading-logo-pulse 3s ease-in-out infinite;
+}
