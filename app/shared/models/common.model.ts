@@ -1,3 +1,8 @@
+export enum eScreenMode {
+  View = 'VIEW',
+  Create = 'CREATE',
+  Edit = 'EDIT'
+}
 export interface IRouteHandle {
   titleHeaderKeys?: string[]
   titlePageKey?: string
@@ -50,4 +55,9 @@ export interface ISidebarMenu {
     url: string
     hiddenSubMenu?: boolean
   }[]
+}
+
+export interface IStep {
+  title?: string
+  description?: string
 }

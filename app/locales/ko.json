@@ -5,7 +5,8 @@
   "common": {
     "appName": "HRM CMS",
     "companyName": "Specom",
-    "humanResourcesSystem": "인사 관리 시스템"
+    "humanResourcesSystem": "인사 관리 시스템",
+    "stepByStepEmployee": "Step {{activeStep}} / 4 · The system automatically saves a draft after each step"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -42,8 +43,12 @@
       "status": "상태"
     }
   },
+  "title": {
+    "addNewEmployee": "신규 직원 추가"
+  },
   "msg": {
-    "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다"
+    "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다",
+    "requiredFieldDraftNote": "* 표시된 항목은 필수 입력입니다. 임시 저장본은 7일간 보관됩니다."
   },
   "empty": {
     "noData": "데이터가 없습니다."
@@ -51,6 +56,31 @@
   "action": {
     "importExcel": "엑셀 가져오기",
     "exportList": "목록 내보내기",
-    "addEmployee": "직원 추가"
+    "addEmployee": "직원 추가",
+    "cancel": "취소",
+    "saveDraft": "임시 저장",
+    "back": "뒤로",
+    "continue": "계속",
+    "createEmployeeProfile": "직원 프로필 추가"
+  },
+  "stepper": {
+    "upsertEmployee": {
+      "personalInfo": {
+        "title": "개인 정보",
+        "description": "성명, 서류, 연락처"
+      },
+      "jobOrganization": {
+        "title": "직무 & 조직",
+        "description": "부서, 직책, 근무조"
+      },
+      "contractSalary": {
+        "title": "계약 & 급여",
+        "description": "계약 & 급여"
+      },
+      "accountConfirmation": {
+        "title": "계정 & 확인",
+        "description": "이메일, 권한, 검토"
+      }
+    }
   }
 }

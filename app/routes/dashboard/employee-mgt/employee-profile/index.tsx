@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router'
 import ButtonAction from '~/components/actions/button-action'
 import FilterPanel from '~/components/common/filter-panel'
 import HeaderPage from '~/components/common/header-page'
@@ -13,6 +14,7 @@ import {
 import { usePagination } from '~/hooks/use-pagination'
 import useRowSelection from '~/hooks/use-row-selection'
 import { generateMockEmployees } from '~/shared/constants/mock-employee.constant'
+import { BASE_ROUTES } from '~/shared/constants/routes.constant'
 import { EFilterPanelEmployeeProfileFormKey, EFilterPanelFormKey } from '~/shared/enums/form.enum'
 
 const DEFAULT_VALUES: TFilterPanelEmployeeProfileFormSchema = {
@@ -23,6 +25,7 @@ const DEFAULT_VALUES: TFilterPanelEmployeeProfileFormSchema = {
 const MOCK_EMPLOYEES = generateMockEmployees(10)
 
 const EmployeeProfilePage = () => {
+  const navi = useNavigate()
   const { t } = useTranslation()
   const columns = employeeMgtColumn.getMembership(t)
   const { rowSelection, setRowSelection } = useRowSelection()
@@ -42,7 +45,11 @@ const EmployeeProfilePage = () => {
         <section className='flex items-center justify-end gap-3'>
           <ButtonAction actionName={t('action.importExcel')} actionType='UPLOAD' />
           <ButtonAction actionName={t('action.exportList')} actionType='DOWNLOAD' />
-          <ButtonAction actionName={t('action.addEmployee')} actionType='CREATE' />
+          <ButtonAction
+            actionName={t('action.addEmployee')}
+            actionType='CREATE'
+            onClick={() => navi(BASE_ROUTES.CREATE)}
+          />
         </section>
       </HeaderPage>
       <FilterPanel form={filterPanelForm} placeholderKeyword='Tên, mã nhân viên, email...' />
