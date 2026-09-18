@@ -5,7 +5,8 @@
   "common": {
     "appName": "HRM CMS",
     "companyName": "Specom",
-    "humanResourcesSystem": "Human resources system"
+    "humanResourcesSystem": "Human resources system",
+    "stepByStepEmployee": "Step {{activeStep}} / 4 · The system automatically saves a draft after each step"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -42,8 +43,12 @@
       "status": "Status"
     }
   },
+  "title": {
+    "addNewEmployee": "Add New Employee"
+  },
   "msg": {
-    "changeLanguageSuccess": "Change language successfully"
+    "changeLanguageSuccess": "Change language successfully",
+    "requiredFieldDraftNote": "Fields marked with * are required. Drafts are kept for 7 days."
   },
   "empty": {
     "noData": "No data."
@@ -51,6 +56,31 @@
   "action": {
     "importExcel": "Import from Excel",
     "exportList": "Export list",
-    "addEmployee": "Add employee"
+    "addEmployee": "Add employee",
+    "cancel": "Cancel",
+    "saveDraft": "Save draft",
+    "back": "Back",
+    "continue": "Continue",
+    "createEmployeeProfile": "Add Employee Profile"
+  },
+  "stepper": {
+    "upsertEmployee": {
+      "personalInfo": {
+        "title": "Personal information",
+        "description": "Full name, documents, contact"
+      },
+      "jobOrganization": {
+        "title": "Job & organization",
+        "description": "Department, job title, shift"
+      },
+      "contractSalary": {
+        "title": "Contract & salary",
+        "description": "Contract & salary"
+      },
+      "accountConfirmation": {
+        "title": "Account & confirmation",
+        "description": "Email, permissions, review"
+      }
+    }
   }
 }

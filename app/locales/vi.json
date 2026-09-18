@@ -5,7 +5,8 @@
   "common": {
     "appName": "HRM CMS",
     "companyName": "Specom",
-    "humanResourcesSystem": "Hệ thống quản lý nhân sự"
+    "humanResourcesSystem": "Hệ thống quản lý nhân sự",
+    "stepByStepEmployee": "Bước {{activeStep}} / 4 · hệ thống tự lưu nháp sau mỗi bước"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -42,8 +43,12 @@
       "status": "Trạng thái"
     }
   },
+  "title": {
+    "addNewEmployee": "Thêm nhân viên mới"
+  },
   "msg": {
-    "changeLanguageSuccess": "Đổi ngôn ngữ thành công"
+    "changeLanguageSuccess": "Đổi ngôn ngữ thành công",
+    "requiredFieldDraftNote": "Trường có dấu * là bắt buộc. Bản nháp được giữ trong 7 ngày."
   },
   "empty": {
     "noData": "Không có dữ liệu."
@@ -51,6 +56,31 @@
   "action": {
     "importExcel": "Nhập từ Excel",
     "exportList": "Xuất danh sách",
-    "addEmployee": "Thêm nhân viên"
+    "addEmployee": "Thêm nhân viên",
+    "cancel": "Hủy",
+    "saveDraft": "Lưu nháp",
+    "back": "Quay lại",
+    "continue": "Tiếp tục",
+    "createEmployeeProfile": "Tạo hồ sơ nhân viên"
+  },
+  "stepper": {
+    "upsertEmployee": {
+      "personalInfo": {
+        "title": "Thông tin cá nhân",
+        "description": "Họ tên, giấy tờ, liên hệ"
+      },
+      "jobOrganization": {
+        "title": "Công việc & tổ chức",
+        "description": "Phòng ban, chức danh, ca làm"
+      },
+      "contractSalary": {
+        "title": "Hợp đồng & lương",
+        "description": "Hợp đồng & lương"
+      },
+      "accountConfirmation": {
+        "title": "Tài khoản & xác nhận",
+        "description": "Email, phân quyền, rà soát"
+      }
+    }
   }
 }

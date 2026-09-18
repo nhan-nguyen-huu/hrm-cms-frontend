@@ -1,3 +1,9 @@
+export const BASE_ROUTES = {
+  CREATE: 'create',
+  BASE_EDIT: 'edit',
+  EDIT: ':id/edit',
+  DETAIL: ':id'
+}
 export const ROUTES = {
   HOME: '/',
   AUTH: {
