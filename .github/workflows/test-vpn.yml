@@ -29,7 +29,11 @@ jobs:
           chmod 600 vpn.ovpn
           chmod 600 vpn-auth.txt
 
-          sed -i 's/^auth-user-pass.*/auth-user-pass vpn-auth.txt/' vpn.ovpn
+          if grep -q '^auth-user-pass' vpn.ovpn; then
+            sed -i 's/^auth-user-pass.*/auth-user-pass vpn-auth.txt/' vpn.ovpn
+          else
+            echo "auth-user-pass vpn-auth.txt" >> vpn.ovpn
+          fi
 
       - name: Connect VPN
         run: |
@@ -40,8 +44,11 @@ jobs:
 
           echo "Waiting for VPN connection..."
 
+          VPN_CONNECTED=false
+
           for i in {1..30}; do
             if ip addr show | grep -q "tun0"; then
+              VPN_CONNECTED=true
               echo "VPN connected successfully."
               break
             fi
@@ -52,8 +59,13 @@ jobs:
 
           echo ""
           echo "========== VPN LOG =========="
-          cat /tmp/openvpn.log
+          sudo cat /tmp/openvpn.log
           echo "============================="
+
+          if [ "$VPN_CONNECTED" != "true" ]; then
+            echo "VPN connection failed."
+            exit 1
+          fi
 
       - name: Check network
         run: |
