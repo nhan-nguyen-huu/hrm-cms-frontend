@@ -1,0 +1,73 @@
+name: Test VPN
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-vpn:
+    runs-on: ubuntu-latest
+
+    environment: dev
+
+    steps:
+      - name: Install OpenVPN
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openvpn netcat-openbsd
+
+      - name: Create VPN config
+        run: |
+          cat > vpn.ovpn <<'EOF'
+          ${{ secrets.VPN_CONFIG }}
+          EOF
+
+          cat > vpn-auth.txt <<'EOF'
+          ${{ secrets.VPN_USERNAME }}
+          ${{ secrets.VPN_PASSWORD }}
+          EOF
+
+          chmod 600 vpn.ovpn
+          chmod 600 vpn-auth.txt
+
+          sed -i 's/^auth-user-pass.*/auth-user-pass vpn-auth.txt/' vpn.ovpn
+
+      - name: Connect VPN
+        run: |
+          sudo openvpn \
+            --config vpn.ovpn \
+            --daemon \
+            --log /tmp/openvpn.log
+
+          echo "Waiting for VPN connection..."
+
+          for i in {1..30}; do
+            if ip addr show | grep -q "tun0"; then
+              echo "VPN connected successfully."
+              break
+            fi
+
+            echo "Waiting... ($i/30)"
+            sleep 2
+          done
+
+          echo ""
+          echo "========== VPN LOG =========="
+          cat /tmp/openvpn.log
+          echo "============================="
+
+      - name: Check network
+        run: |
+          echo "========== NETWORK =========="
+          ip addr
+
+          echo ""
+          echo "========== ROUTES =========="
+          ip route
+
+      - name: Test server SSH port
+        run: |
+          echo "Testing 192.168.222.11:22..."
+
+          nc -zv -w 10 192.168.222.11 22
+
+          echo "Server SSH port is reachable!"
