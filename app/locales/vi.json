@@ -43,12 +43,25 @@
       "status": "Trạng thái"
     }
   },
+  "inputLabel": {
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu"
+  },
+  "inputPlaceholder": {
+    "logInWithEmailOrAdminID": "Đăng nhập bằng email hoặc ID quản trị viên"
+  },
   "title": {
     "addNewEmployee": "Thêm nhân viên mới"
   },
   "msg": {
     "changeLanguageSuccess": "Đổi ngôn ngữ thành công",
-    "requiredFieldDraftNote": "Trường có dấu * là bắt buộc. Bản nháp được giữ trong 7 ngày."
+    "requiredFieldDraftNote": "Trường có dấu * là bắt buộc. Bản nháp được giữ trong 7 ngày.",
+    "loginSuccess": "Đăng nhập thành công",
+    "logOutSuccess": "Đăng xuất thành công"
+  },
+  "confirm": {
+    "confirmLogoutTitle": "Bạn có muốn đăng xuất không?",
+    "confirmLogoutDescription": "Bạn có chắc chắn muốn đăng xuất khỏi hệ thống không?"
   },
   "empty": {
     "noData": "Không có dữ liệu."
@@ -61,7 +74,8 @@
     "saveDraft": "Lưu nháp",
     "back": "Quay lại",
     "continue": "Tiếp tục",
-    "createEmployeeProfile": "Tạo hồ sơ nhân viên"
+    "createEmployeeProfile": "Tạo hồ sơ nhân viên",
+    "logout": "Đăng xuất"
   },
   "stepper": {
     "upsertEmployee": {
@@ -82,5 +96,16 @@
         "description": "Email, phân quyền, rà soát"
       }
     }
+  },
+  "error": {
+    "badRequest": "Yêu cầu không hợp lệ.",
+    "unauthorized": "Yêu cầu xác thực.",
+    "forbidden": "Bạn không có quyền truy cập tài nguyên này.",
+    "notFound": "Không tìm thấy tài nguyên được yêu cầu.",
+    "internalServerError": "Đã xảy ra lỗi máy chủ nội bộ.",
+    "badGateway": "Đã xảy ra lỗi cổng kết nối.",
+    "serviceUnavailable": "Dịch vụ hiện không khả dụng.",
+    "unknown": "Đã xảy ra lỗi.",
+    "login": "Đăng nhập"
   }
 }
