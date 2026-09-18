@@ -4,6 +4,19 @@ on:
   push:
     branches:
       - dev
+  workflow_dispatch:
+    inputs:
+      rollback_to:
+        description: 'Tên thư mục release muốn rollback về (để trống = deploy bình thường)'
+        required: false
+        default: ''
+
+env:
+  APP_NAME: hrm-cms-frontend
+  RELEASES_DIR: /var/www/releases/hrm-cms-frontend
+  CURRENT_LINK: /var/www/hrm-cms-frontend
+  UPLOAD_DIR: /home/thangvo/deploy
+  KEEP_RELEASES: 5
 
 jobs:
   deploy:
@@ -12,15 +25,11 @@ jobs:
 
     steps:
       # ========================================
-      # Checkout
+      # Checkout & Build
       # ========================================
 
       - name: Checkout
         uses: actions/checkout@v4
-
-      # ========================================
-      # Node
-      # ========================================
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -28,8 +37,37 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
+      - name: Install dependencies
+        if: github.event.inputs.rollback_to == ''
+        run: npm ci
+
+      - name: Build
+        if: github.event.inputs.rollback_to == ''
+        run: npm run build
+        env:
+          VITE_BASE_URL_API: ${{ secrets.VITE_BASE_URL_API }}
+          VITE_MODE: ${{ secrets.VITE_MODE }}
+
+      - name: Verify build output
+        if: github.event.inputs.rollback_to == ''
+        run: |
+          # Dừng sớm nếu build ra rỗng — tránh deploy một thư mục trống
+          # rồi mới phát hiện site trắng.
+          if [ ! -f build/client/index.html ]; then
+            echo "::error::build/client/index.html không tồn tại. Build thất bại."
+            exit 1
+          fi
+
+          FILE_COUNT=$(find build/client -type f | wc -l)
+          echo "Build OK — $FILE_COUNT files, $(du -sh build/client | cut -f1)"
+
+          if [ "$FILE_COUNT" -lt 3 ]; then
+            echo "::error::Build chỉ có $FILE_COUNT file, nghi ngờ build lỗi."
+            exit 1
+          fi
+
       # ========================================
-      # OpenVPN
+      # VPN
       # ========================================
 
       - name: Install OpenVPN
@@ -48,8 +86,7 @@ jobs:
           ${{ secrets.VPN_PASSWORD }}
           EOF
 
-          chmod 600 vpn.ovpn
-          chmod 600 vpn-auth.txt
+          chmod 600 vpn.ovpn vpn-auth.txt
 
           if grep -q '^auth-user-pass' vpn.ovpn; then
             sed -i 's/^auth-user-pass.*/auth-user-pass vpn-auth.txt/' vpn.ovpn
@@ -59,108 +96,198 @@ jobs:
 
       - name: Connect VPN
         run: |
-          sudo openvpn \
-            --config vpn.ovpn \
-            --daemon \
-            --log /tmp/openvpn.log
+          sudo openvpn --config vpn.ovpn --daemon --log /tmp/openvpn.log
 
-          echo "Waiting for VPN connection..."
-
-          VPN_CONNECTED=false
-
+          echo "Đang chờ kết nối VPN..."
           for i in {1..30}; do
             if ip addr show | grep -q "tun0"; then
-              VPN_CONNECTED=true
-              echo "VPN connected successfully."
-              break
+              echo "VPN đã kết nối."
+              exit 0
             fi
-
-            echo "Waiting... ($i/30)"
+            echo "Chờ... ($i/30)"
             sleep 2
           done
 
-          echo ""
           echo "========== VPN LOG =========="
           sudo cat /tmp/openvpn.log
           echo "============================="
-
-          if [ "$VPN_CONNECTED" != "true" ]; then
-            echo "VPN connection failed."
-            exit 1
-          fi
-
-      # ========================================
-      # Test SSH Port
-      # ========================================
+          echo "::error::Kết nối VPN thất bại."
+          exit 1
 
       - name: Test SSH port
         run: |
-          echo "Testing ${{ secrets.SSH_HOST }}:22..."
-
-          nc -zv -w 10 \
-            ${{ secrets.SSH_HOST }} \
-            22
-
-          echo "SSH port is reachable!"
+          nc -zv -w 10 ${{ secrets.SSH_HOST }} 22
 
       # ========================================
-      # Install dependencies
+      # Upload
       # ========================================
 
-      - name: Install dependencies
-        run: npm ci
-
-      # ========================================
-      # Build
-      # ========================================
-
-      - name: Build
-        run: npm run build
-        env:
-          VITE_BASE_URL_API: ${{ secrets.VITE_BASE_URL_API }}
-          VITE_MODE: ${{ secrets.VITE_MODE }}
-
-      # ========================================
-      # Upload build/client
-      # ========================================
-
-      - name: Upload build/client to EC2
+      - name: Upload build to server
+        if: github.event.inputs.rollback_to == ''
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: 'build/client/*'
-          target: '/home/thangvo/deploy'
+          target: ${{ env.UPLOAD_DIR }}
+          rm: true # dọn thư mục upload trước khi đẩy, tránh sót file cũ
 
       # ========================================
-      # Deploy
+      # Deploy — symlink, KHÔNG động tới nginx
       # ========================================
 
       - name: Deploy
+        if: github.event.inputs.rollback_to == ''
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
+          script_stop: true # dừng ngay khi có lệnh lỗi
           script: |
-            echo "Starting deployment..."
+            set -euo pipefail
 
-            sudo rm -rf /var/www/hrm-cms-frontend/*
+            RELEASES_DIR="${{ env.RELEASES_DIR }}"
+            CURRENT_LINK="${{ env.CURRENT_LINK }}"
+            UPLOAD_DIR="${{ env.UPLOAD_DIR }}"
+            KEEP=${{ env.KEEP_RELEASES }}
 
-            sudo cp -r /home/thangvo/deploy/build/client/* /var/www/hrm-cms-frontend/
+            RELEASE_NAME="$(date +%Y%m%d-%H%M%S)-${GITHUB_SHA:-manual}"
+            RELEASE_PATH="$RELEASES_DIR/$RELEASE_NAME"
 
-            sudo chown -R www-data:www-data /var/www/hrm-cms-frontend
+            echo "==> Release: $RELEASE_NAME"
 
-            sudo find /var/www/hrm-cms-frontend -type d -exec chmod 755 {} \;
-            sudo find /var/www/hrm-cms-frontend -type f -exec chmod 644 {} \;
+            # --- 1. Tạo thư mục release mới -----------------------------
+            sudo mkdir -p "$RELEASE_PATH"
+            sudo cp -r "$UPLOAD_DIR"/build/client/* "$RELEASE_PATH"/
 
-            echo "Testing Nginx configuration..."
+            # --- 2. Kiểm tra trước khi chuyển sang bản mới --------------
+            # Nếu bản mới hỏng thì dừng ở đây, symlink vẫn trỏ bản cũ
+            # nên site đang chạy không bị ảnh hưởng.
+            if [ ! -f "$RELEASE_PATH/index.html" ]; then
+              echo "index.html không có trong release mới. Huỷ deploy."
+              sudo rm -rf "$RELEASE_PATH"
+              exit 1
+            fi
 
-            sudo nginx -t
+            # --- 3. Phân quyền ------------------------------------------
+            sudo chown -R www-data:www-data "$RELEASE_PATH"
+            sudo find "$RELEASE_PATH" -type d -exec chmod 755 {} \;
+            sudo find "$RELEASE_PATH" -type f -exec chmod 644 {} \;
 
-            echo "Reloading Nginx..."
+            # --- 4. Lưu lại bản đang chạy để rollback -------------------
+            PREVIOUS=""
+            if [ -L "$CURRENT_LINK" ]; then
+              PREVIOUS="$(readlink -f "$CURRENT_LINK")"
+              echo "==> Bản đang chạy: $(basename "$PREVIOUS")"
+            elif [ -d "$CURRENT_LINK" ]; then
+              # Lần đầu chuyển từ thư mục thật sang symlink:
+              # đổi tên thư mục cũ thay vì xoá, để còn đường lùi.
+              echo "==> $CURRENT_LINK đang là thư mục thật, backup lại"
+              sudo mv "$CURRENT_LINK" "${CURRENT_LINK}.bak.$(date +%s)"
+            fi
 
-            sudo systemctl reload nginx
+            # --- 5. Đổi symlink — đây là bước "go live" -----------------
+            # ln -sfn là thao tác atomic: không có khoảnh khắc nào
+            # đường dẫn bị trống. Nginx đọc symlink ở từng request nên
+            # có hiệu lực ngay, KHÔNG cần reload.
+            sudo ln -sfn "$RELEASE_PATH" "$CURRENT_LINK"
+            echo "==> Đã trỏ sang $RELEASE_NAME"
 
-            echo "Deployment completed successfully!"
+            # --- 6. Kiểm tra ngay trên server ---------------------------
+            sleep 1
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/ || echo "000")
+            echo "==> HTTP localhost: $HTTP_CODE"
+
+            if [ "$HTTP_CODE" != "200" ]; then
+              echo "Kiểm tra thất bại (HTTP $HTTP_CODE). Đang rollback..."
+              if [ -n "$PREVIOUS" ]; then
+                sudo ln -sfn "$PREVIOUS" "$CURRENT_LINK"
+                echo "Đã rollback về $(basename "$PREVIOUS")"
+              fi
+              exit 1
+            fi
+
+            # --- 7. Dọn release cũ --------------------------------------
+            cd "$RELEASES_DIR"
+            ls -dt */ 2>/dev/null | tail -n +$((KEEP + 1)) | while read -r old; do
+              echo "==> Xoá release cũ: $old"
+              sudo rm -rf "$old"
+            done
+
+            # --- 8. Dọn thư mục upload ----------------------------------
+            rm -rf "$UPLOAD_DIR"/build
+
+            echo "==> Deploy hoàn tất: $RELEASE_NAME"
+            ls -dt "$RELEASES_DIR"/*/ | head -5
+
+      # ========================================
+      # Rollback thủ công (chạy qua workflow_dispatch)
+      # ========================================
+
+      - name: Rollback
+        if: github.event.inputs.rollback_to != ''
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script_stop: true
+          script: |
+            set -euo pipefail
+
+            TARGET="${{ env.RELEASES_DIR }}/${{ github.event.inputs.rollback_to }}"
+
+            if [ ! -d "$TARGET" ]; then
+              echo "Không tìm thấy release: $TARGET"
+              echo "Các release hiện có:"
+              ls -dt ${{ env.RELEASES_DIR }}/*/
+              exit 1
+            fi
+
+            sudo ln -sfn "$TARGET" "${{ env.CURRENT_LINK }}"
+            echo "==> Đã rollback về ${{ github.event.inputs.rollback_to }}"
+
+            sleep 1
+            curl -s -o /dev/null -w "HTTP: %{http_code}\n" http://localhost/
+
+      # ========================================
+      # Smoke test từ bên ngoài
+      # ========================================
+
+      - name: Smoke test
+        run: |
+          BASE="http://${{ secrets.SSH_HOST }}"
+
+          echo "==> Trang chủ"
+          ROOT=$(curl -s -o /dev/null -w "%{http_code}" "$BASE/")
+          echo "    HTTP $ROOT"
+
+          echo "==> SPA route (kiểm tra try_files)"
+          SPA=$(curl -s -o /dev/null -w "%{http_code}" "$BASE/some/deep/route")
+          echo "    HTTP $SPA"
+
+          echo "==> Asset chính"
+          ASSET=$(curl -s "$BASE/" | grep -o '/assets/[^"]*\.js' | head -1)
+          if [ -n "$ASSET" ]; then
+            AC=$(curl -s -o /dev/null -w "%{http_code}" "$BASE$ASSET")
+            echo "    $ASSET -> HTTP $AC"
+          fi
+
+          if [ "$ROOT" != "200" ]; then
+            echo "::error::Trang chủ trả về HTTP $ROOT"
+            exit 1
+          fi
+
+          echo "Smoke test đạt."
+
+      # ========================================
+      # Dọn dẹp
+      # ========================================
+
+      - name: Disconnect VPN
+        if: always()
+        run: |
+          sudo pkill openvpn || true
+          rm -f vpn.ovpn vpn-auth.txt
