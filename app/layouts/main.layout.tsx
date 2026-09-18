@@ -1,7 +1,8 @@
 import { Navigate } from 'react-router'
+import { authHelper } from '~/helpers'
 import { ROUTES } from '~/shared/constants/routes.constant'
 
-// export const clientLoader = () => authHelper.handleProtectedRoute('ROOT')
+export const clientLoader = () => authHelper.handleProtectedRoute('ROOT')
 
 const MainLayout = () => {
   return (

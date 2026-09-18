@@ -1,6 +1,7 @@
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse } from 'react-router'
 import AppLoading from '~/components/loading/app-loading'
+import GlobalLoader from '~/components/loading/global-loader/global-loader'
 import { Toaster } from '~/components/ui/sonner'
 import { TooltipProvider } from '~/components/ui/tooltip'
 import { Provider } from '~/providers'
@@ -34,6 +35,7 @@ export default function App() {
   return (
     <Provider>
       <Toaster position='top-center' richColors duration={2000} offset={{ top: 40 }} />
+      <GlobalLoader />
       <Outlet />
       <ReactQueryDevtools initialIsOpen={false} />
     </Provider>

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { EEmployeeAccountStatus } from '~/shared/enums/common.enum'
-import { EFilterPanelEmployeeProfileFormKey, EFilterPanelFormKey } from '~/shared/enums/form.enum'
+import { EFilterPanelEmployeeProfileFormKey, EFilterPanelFormKey, ELoginFormKey } from '~/shared/enums/form.enum'
 
 export const PASSWORD_REGEX =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~])[A-Za-z\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]{8,10}$/
@@ -21,3 +21,11 @@ export const getFilterPanelEmployeeProfileSchema = () =>
   })
 
 export type TFilterPanelEmployeeProfileFormSchema = z.infer<ReturnType<typeof getFilterPanelEmployeeProfileSchema>>
+
+export const getLoginSchema = () =>
+  z.object({
+    [ELoginFormKey.Username]: z.string().optional(),
+    [ELoginFormKey.Password]: z.string().optional()
+  })
+
+export type LoginFormSchema = z.infer<ReturnType<typeof getLoginSchema>>

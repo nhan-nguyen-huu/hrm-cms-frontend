@@ -43,12 +43,25 @@
       "status": "Status"
     }
   },
+  "inputLabel": {
+    "username": "Username",
+    "password": "Password"
+  },
+  "inputPlaceholder": {
+    "logInWithEmailOrAdminID": "Log in with email or admin ID"
+  },
   "title": {
     "addNewEmployee": "Add New Employee"
   },
   "msg": {
     "changeLanguageSuccess": "Change language successfully",
-    "requiredFieldDraftNote": "Fields marked with * are required. Drafts are kept for 7 days."
+    "requiredFieldDraftNote": "Fields marked with * are required. Drafts are kept for 7 days.",
+    "loginSuccess": "Login successful",
+    "logOutSuccess": "Logout successful"
+  },
+  "confirm": {
+    "confirmLogoutTitle": "Do you want to log out?",
+    "confirmLogoutDescription": "Are you sure you want to log out of the system?"
   },
   "empty": {
     "noData": "No data."
@@ -61,7 +74,9 @@
     "saveDraft": "Save draft",
     "back": "Back",
     "continue": "Continue",
-    "createEmployeeProfile": "Add Employee Profile"
+    "createEmployeeProfile": "Add Employee Profile",
+    "login": "Login",
+    "logout": "Log Out"
   },
   "stepper": {
     "upsertEmployee": {
@@ -82,5 +97,15 @@
         "description": "Email, permissions, review"
       }
     }
+  },
+  "error": {
+    "badRequest": "Invalid request.",
+    "unauthorized": "Authentication is required.",
+    "forbidden": "You do not have permission to access this resource.",
+    "notFound": "The requested resource was not found.",
+    "internalServerError": "An internal server error occurred.",
+    "badGateway": "A gateway error occurred.",
+    "serviceUnavailable": "The service is currently unavailable.",
+    "unknown": "An error occurred."
   }
 }

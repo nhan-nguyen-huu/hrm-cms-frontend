@@ -43,12 +43,25 @@
       "status": "상태"
     }
   },
+  "inputLabel": {
+    "username": "아이디",
+    "password": "비밀번호"
+  },
+  "inputPlaceholder": {
+    "logInWithEmailOrAdminID": "이메일 또는 관리자 ID로 로그인"
+  },
   "title": {
     "addNewEmployee": "신규 직원 추가"
   },
   "msg": {
     "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다",
-    "requiredFieldDraftNote": "* 표시된 항목은 필수 입력입니다. 임시 저장본은 7일간 보관됩니다."
+    "requiredFieldDraftNote": "* 표시된 항목은 필수 입력입니다. 임시 저장본은 7일간 보관됩니다.",
+    "loginSuccess": "로그인에 성공했습니다.",
+    "logOutSuccess": "로그아웃에 성공했습니다."
+  },
+  "confirm": {
+    "confirmLogoutTitle": "로그아웃하시겠습니까?",
+    "confirmLogoutDescription": "정말 로그아웃하시겠습니까?"
   },
   "empty": {
     "noData": "데이터가 없습니다."
@@ -61,7 +74,9 @@
     "saveDraft": "임시 저장",
     "back": "뒤로",
     "continue": "계속",
-    "createEmployeeProfile": "직원 프로필 추가"
+    "createEmployeeProfile": "직원 프로필 추가",
+    "login": "로그인",
+    "logout": "로그아웃"
   },
   "stepper": {
     "upsertEmployee": {
@@ -82,5 +97,15 @@
         "description": "이메일, 권한, 검토"
       }
     }
+  },
+  "error": {
+    "badRequest": "잘못된 요청입니다.",
+    "unauthorized": "인증이 필요합니다.",
+    "forbidden": "접근 권한이 없습니다.",
+    "notFound": "요청한 리소스를 찾을 수 없습니다.",
+    "internalServerError": "서버 내부 오류가 발생했습니다.",
+    "badGateway": "게이트웨이 오류가 발생했습니다.",
+    "serviceUnavailable": "서비스를 사용할 수 없습니다.",
+    "unknown": "오류가 발생했습니다."
   }
 }

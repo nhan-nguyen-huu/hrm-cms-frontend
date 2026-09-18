@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import Logout from '~/components/common/logout'
 import SelectLanguage from '~/components/common/select-language'
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
 import { SidebarTrigger, useSidebar } from '~/components/ui/sidebar'
@@ -34,7 +35,7 @@ const Header = () => {
         </section>
         <SelectLanguage />
 
-        {/* <Logout /> */}
+        <Logout />
       </section>
     </section>
   )
