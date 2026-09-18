@@ -1,0 +1,166 @@
+name: HRM CMS Frontend
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: dev
+
+    steps:
+      # ========================================
+      # Checkout
+      # ========================================
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ========================================
+      # Node
+      # ========================================
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # ========================================
+      # OpenVPN
+      # ========================================
+
+      - name: Install OpenVPN
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openvpn netcat-openbsd
+
+      - name: Create VPN config
+        run: |
+          cat > vpn.ovpn <<'EOF'
+          ${{ secrets.VPN_CONFIG }}
+          EOF
+
+          cat > vpn-auth.txt <<'EOF'
+          ${{ secrets.VPN_USERNAME }}
+          ${{ secrets.VPN_PASSWORD }}
+          EOF
+
+          chmod 600 vpn.ovpn
+          chmod 600 vpn-auth.txt
+
+          if grep -q '^auth-user-pass' vpn.ovpn; then
+            sed -i 's/^auth-user-pass.*/auth-user-pass vpn-auth.txt/' vpn.ovpn
+          else
+            echo "auth-user-pass vpn-auth.txt" >> vpn.ovpn
+          fi
+
+      - name: Connect VPN
+        run: |
+          sudo openvpn \
+            --config vpn.ovpn \
+            --daemon \
+            --log /tmp/openvpn.log
+
+          echo "Waiting for VPN connection..."
+
+          VPN_CONNECTED=false
+
+          for i in {1..30}; do
+            if ip addr show | grep -q "tun0"; then
+              VPN_CONNECTED=true
+              echo "VPN connected successfully."
+              break
+            fi
+
+            echo "Waiting... ($i/30)"
+            sleep 2
+          done
+
+          echo ""
+          echo "========== VPN LOG =========="
+          sudo cat /tmp/openvpn.log
+          echo "============================="
+
+          if [ "$VPN_CONNECTED" != "true" ]; then
+            echo "VPN connection failed."
+            exit 1
+          fi
+
+      # ========================================
+      # Test SSH Port
+      # ========================================
+
+      - name: Test SSH port
+        run: |
+          echo "Testing ${{ secrets.SSH_HOST }}:22..."
+
+          nc -zv -w 10 \
+            ${{ secrets.SSH_HOST }} \
+            22
+
+          echo "SSH port is reachable!"
+
+      # ========================================
+      # Install dependencies
+      # ========================================
+
+      - name: Install dependencies
+        run: npm ci
+
+      # ========================================
+      # Build
+      # ========================================
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_BASE_URL_API: ${{ secrets.VITE_BASE_URL_API }}
+          VITE_MODE: ${{ secrets.VITE_MODE }}
+
+      # ========================================
+      # Upload build/client
+      # ========================================
+
+      - name: Upload build/client to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: 'build/client/*'
+          target: '/home/ubuntu/deploy'
+
+      # ========================================
+      # Deploy
+      # ========================================
+
+      - name: Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            echo "Starting deployment..."
+
+            sudo rm -rf /var/www/hrm-cms-frontend/*
+
+            sudo cp -r /home/ubuntu/deploy/build/client/* /var/www/hrm-cms-frontend/
+
+            sudo chown -R www-data:www-data /var/www/hrm-cms-frontend
+
+            sudo find /var/www/hrm-cms-frontend -type d -exec chmod 755 {} \;
+            sudo find /var/www/hrm-cms-frontend -type f -exec chmod 644 {} \;
+
+            echo "Testing Nginx configuration..."
+
+            sudo nginx -t
+
+            echo "Reloading Nginx..."
+
+            sudo systemctl reload nginx
+
+            echo "Deployment completed successfully!"
