@@ -131,7 +131,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: 'build/client/*'
-          target: '/home/ubuntu/deploy'
+          target: '/home/thangvo/deploy'
 
       # ========================================
       # Deploy
@@ -148,7 +148,7 @@ jobs:
 
             sudo rm -rf /var/www/hrm-cms-frontend/*
 
-            sudo cp -r /home/ubuntu/deploy/build/client/* /var/www/hrm-cms-frontend/
+            sudo cp -r /home/thangvo/deploy/build/client/* /var/www/hrm-cms-frontend/
 
             sudo chown -R www-data:www-data /var/www/hrm-cms-frontend
 
