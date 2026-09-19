@@ -24,6 +24,19 @@
       "working": "근무 중",
       "maternityLeave": "출산 휴가",
       "terminated": "퇴사"
+    },
+    "gender": {
+      "male": "남성",
+      "famale": "여성"
+    },
+    "maritalStatus": {
+      "single": "미혼",
+      "married": "기혼"
+    },
+    "nationality": {
+      "vi": "베트남",
+      "en": "영국",
+      "ko": "한국"
     }
   },
   "tables": {
@@ -45,13 +58,36 @@
   },
   "inputLabel": {
     "username": "아이디",
-    "password": "비밀번호"
+    "password": "비밀번호",
+    "fullName": "성명",
+    "birthDate": "생년월일",
+    "gender": "성별",
+    "cccdNumber": "신분증 번호",
+    "dateOfIssue": "발급일",
+    "placeOfIssue": "발급 장소",
+    "phoneNumber": "전화번호",
+    "personalEmail": "개인 이메일",
+    "emergencyContact": "비상 연락처",
+    "permanentAddress": "상주 주소",
+    "currentResidence": "현재 거주지",
+    "maritalStatus": "결혼 여부",
+    "nationality": "국적",
+    "numberOfDependents": "부양가족 수"
   },
   "inputPlaceholder": {
-    "logInWithEmailOrAdminID": "이메일 또는 관리자 ID로 로그인"
+    "logInWithEmailOrAdminID": "이메일 또는 관리자 ID로 로그인",
+    "pleaseEnterInformation": "정보를 입력해 주세요",
+    "pleaseSelectDate": "날짜를 선택해 주세요",
+    "enterIfDifferentFromPermanentAddress": "상주 주소와 다를 경우 입력하세요"
+  },
+  "inputValidate": {
+    "thisInformationIsRequired": "이 정보는 필수입니다"
   },
   "title": {
-    "addNewEmployee": "신규 직원 추가"
+    "addNewEmployee": "신규 직원 추가",
+    "basicInfo": "기본 정보",
+    "contact": "연락처",
+    "additionalInfo": "추가 정보"
   },
   "msg": {
     "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다",

@@ -5,6 +5,7 @@ import { Button } from '~/components/ui/button'
 
 interface IActionUpsertEmployeeProps {
   activeStep?: number
+  disabledContinueAction?: boolean
   onCancel?: () => void
   onSaveDraft?: () => void
   onBack?: () => void
@@ -13,6 +14,7 @@ interface IActionUpsertEmployeeProps {
 }
 const ActionUpsertEmployee = ({
   activeStep = 0,
+  disabledContinueAction,
   onSaveDraft,
   onCancel,
   onBack,
@@ -21,9 +23,9 @@ const ActionUpsertEmployee = ({
 }: IActionUpsertEmployeeProps) => {
   const { t } = useTranslation()
   return (
-    <section className='flex items-center justify-between gap-4 border border-border p-4 rounded-[14px] bg-white'>
+    <section className='flex items-center justify-between flex-wrap gap-4 border border-border p-4 rounded-[14px] bg-white'>
       <p className='text-xs text-[#93A2B6]'>{t('msg.requiredFieldDraftNote')}</p>
-      <section className='flex items-center gap-3'>
+      <section className='flex items-center flex-wrap gap-3'>
         <Button variant={'outline'} onClick={() => onCancel?.()}>
           {t('action.cancel')}
         </Button>
@@ -37,7 +39,7 @@ const ActionUpsertEmployee = ({
           </Button>
         )}
         {activeStep < 3 && (
-          <Button onClick={() => onContinue?.()}>
+          <Button onClick={() => onContinue?.()} disabled={disabledContinueAction}>
             <span>{t('action.continue')}</span>
             <ArrowRightIcon />
           </Button>

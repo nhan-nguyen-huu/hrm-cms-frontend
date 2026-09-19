@@ -4,9 +4,22 @@ import 'dayjs/locale/ko'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import updateLocale from 'dayjs/plugin/updateLocale'
 import i18n from 'i18next'
+import type { Locale } from 'react-day-picker'
+import { enUS } from 'react-day-picker/locale/en-US'
+import { ko } from 'react-day-picker/locale/ko'
+import { vi } from 'react-day-picker/locale/vi'
+import { ELanguage } from '~/shared/enums/common.enum'
 
 dayjs.extend(updateLocale)
 dayjs.extend(relativeTime)
+
+const DAY_PICKER_LOCALES: Record<ELanguage, Locale> = {
+  [ELanguage.Vi]: vi,
+  [ELanguage.En]: enUS,
+  [ELanguage.Ko]: ko
+}
+
+export const getDayPickerLocale = (language: string): Locale => DAY_PICKER_LOCALES[language as ELanguage] ?? enUS
 
 export const DATE_FORMAT = 'YYYY-MM-DD'
 export const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm'

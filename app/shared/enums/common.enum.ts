@@ -14,3 +14,19 @@ export enum EErrorCode {
   Test = 'MSG_001',
   ResetPassword = 'AUTH_545'
 }
+
+export enum EGender {
+  Male = 'MALE',
+  Famale = 'FAMALE'
+}
+
+export enum EMaritalStatus {
+  Single = 'SINGLE',
+  Married = 'MARRIED'
+}
+
+export enum ENationality {
+  Vi = 'VI',
+  En = 'EN',
+  Ko = 'KO'
+}

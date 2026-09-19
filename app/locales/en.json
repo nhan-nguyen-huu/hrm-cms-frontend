@@ -24,6 +24,19 @@
       "working": "Working",
       "maternityLeave": "Maternity Leave",
       "terminated": "Terminated"
+    },
+    "gender": {
+      "male": "Male",
+      "famale": "Female"
+    },
+    "maritalStatus": {
+      "single": "Single",
+      "married": "Married"
+    },
+    "nationality": {
+      "vi": "Vietnam",
+      "en": "England",
+      "ko": "South Korea"
     }
   },
   "tables": {
@@ -45,13 +58,36 @@
   },
   "inputLabel": {
     "username": "Username",
-    "password": "Password"
+    "password": "Password",
+    "fullName": "Full name",
+    "birthDate": "Date of birth",
+    "gender": "Gender",
+    "cccdNumber": "ID card number",
+    "dateOfIssue": "Date of issue",
+    "placeOfIssue": "Place of issue",
+    "phoneNumber": "Phone number",
+    "personalEmail": "Personal email",
+    "emergencyContact": "Emergency contact",
+    "permanentAddress": "Permanent address",
+    "currentResidence": "Current residence",
+    "maritalStatus": "Marital status",
+    "nationality": "Nationality",
+    "numberOfDependents": "Number of dependents"
   },
   "inputPlaceholder": {
-    "logInWithEmailOrAdminID": "Log in with email or admin ID"
+    "logInWithEmailOrAdminID": "Log in with email or admin ID",
+    "pleaseEnterInformation": "Please enter information",
+    "pleaseSelectDate": "Please select a date",
+    "enterIfDifferentFromPermanentAddress": "Enter if different from permanent address"
+  },
+  "inputValidate": {
+    "thisInformationIsRequired": "This information is required"
   },
   "title": {
-    "addNewEmployee": "Add New Employee"
+    "addNewEmployee": "Add New Employee",
+    "basicInfo": "Basic information",
+    "contact": "Contact",
+    "additionalInfo": "Additional information"
   },
   "msg": {
     "changeLanguageSuccess": "Change language successfully",
