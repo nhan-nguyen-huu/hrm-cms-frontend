@@ -3,8 +3,6 @@ import { useState } from 'react'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import { ChevronDownIcon } from 'lucide-react'
-import { enUS } from 'react-day-picker/locale/en-US'
-import { ko } from 'react-day-picker/locale/ko'
 import type { ControllerFieldState, ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { CalendarIcon } from '~/assets/svgs'
@@ -12,9 +10,8 @@ import TimeColumn from '~/components/common/time-column'
 import { Button } from '~/components/ui/button'
 import { Calendar } from '~/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
-import { DATE_FORMAT_DOT, DATE_TIME_FORMAT_FULL, dateHelper } from '~/helpers'
+import { DATE_FORMAT_DOT, DATE_TIME_FORMAT_FULL, dateHelper, getDayPickerLocale } from '~/helpers'
 import i18n from '~/lib/i18n'
-import { ELanguage } from '~/shared/enums/common.enum'
 import type { TTimePart } from '~/shared/types/common.type'
 
 type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> = Omit<
@@ -100,7 +97,7 @@ const FormDateTimePickerField = <TFieldValues extends FieldValues, TName extends
 
   const value: Date | undefined = field.value
 
-  const locale = i18n.language === ELanguage.Ko ? ko : enUS
+  const locale = getDayPickerLocale(i18n.language)
 
   const displayValue = value ? dateHelper.formatDate(value, showTime ? DATE_TIME_FORMAT_FULL : DATE_FORMAT_DOT) : null
 
@@ -138,8 +135,8 @@ const FormDateTimePickerField = <TFieldValues extends FieldValues, TName extends
         }
       >
         <section className='flex items-center gap-3'>
-          <CalendarIcon className='text-muted-foreground size-5' />
-          {displayValue ?? <span className='text-muted-foreground'>{placeHolder}</span>}
+          <CalendarIcon className='text-app-primay size-5' />
+          {displayValue ?? <span className='text-[#B4C0CE] text-sm'>{placeHolder}</span>}
         </section>
         <ChevronDownIcon />
       </PopoverTrigger>
@@ -153,6 +150,9 @@ const FormDateTimePickerField = <TFieldValues extends FieldValues, TName extends
               selected={value}
               onSelect={handleDateSelect}
               locale={locale}
+              captionLayout='dropdown'
+              startMonth={new Date(1900, 0)}
+              endMonth={new Date(2100, 11)}
               {...calendarProps}
             />
             {showTime && (

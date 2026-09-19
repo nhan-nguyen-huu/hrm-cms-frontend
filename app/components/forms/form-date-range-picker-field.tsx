@@ -1,17 +1,14 @@
 import { useState } from 'react'
 
 import { ChevronDownIcon } from 'lucide-react'
-import { enUS } from 'react-day-picker/locale/en-US'
-import { ko } from 'react-day-picker/locale/ko'
 import type { ControllerFieldState, ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { CalendarIcon } from '~/assets/svgs'
 import { Button } from '~/components/ui/button'
 import { Calendar } from '~/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
-import { DATE_FORMAT_DOT, dateHelper } from '~/helpers'
+import { DATE_FORMAT_DOT, dateHelper, getDayPickerLocale } from '~/helpers'
 import i18n from '~/lib/i18n'
-import { ELanguage } from '~/shared/enums/common.enum'
 
 type FormCalendarRangeFieldProps<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> = Omit<
   React.ComponentProps<typeof Calendar>,
@@ -48,7 +45,7 @@ const FormDateRangePickerField = <TFieldValues extends FieldValues, TName extend
         }
       >
         <section className='flex items-center gap-3'>
-          <CalendarIcon className='text-muted-foreground size-5' />
+          <CalendarIcon className='text-app-primay size-5' />
           {validFrom ? (
             validTo ? (
               <>
@@ -58,7 +55,7 @@ const FormDateRangePickerField = <TFieldValues extends FieldValues, TName extend
               dateHelper.formatDate(validFrom, DATE_FORMAT_DOT)
             )
           ) : (
-            <span className='text-muted-foreground'>{placeHolder}</span>
+            <span className='text-[#B4C0CE] text-sm '>{placeHolder}</span>
           )}
         </section>
         <ChevronDownIcon className='text-muted-foreground' />
@@ -85,7 +82,7 @@ const FormDateRangePickerField = <TFieldValues extends FieldValues, TName extend
           endMonth={new Date(2100, 11)}
           captionLayout='dropdown'
           className='border-b border-input'
-          locale={i18n.language === ELanguage.Ko ? ko : enUS}
+          locale={getDayPickerLocale(i18n.language)}
           {...calendarProps}
         />
         <section className='p-2 ml-auto'>

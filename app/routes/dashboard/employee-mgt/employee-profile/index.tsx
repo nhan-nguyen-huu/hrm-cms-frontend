@@ -42,7 +42,7 @@ const EmployeeProfilePage = () => {
         title={t('sidebarMenu.employeeMgt.employeeProfile')}
         description='248 nhân viên đang làm việc · 6 hồ sơ chờ duyệt thay đổi'
       >
-        <section className='flex items-center justify-end gap-3'>
+        <section className='flex items-center justify-end gap-3 flex-wrap'>
           <ButtonAction actionName={t('action.importExcel')} actionType='UPLOAD' />
           <ButtonAction actionName={t('action.exportList')} actionType='DOWNLOAD' />
           <ButtonAction

@@ -3,7 +3,7 @@ import { commonHelper } from '~/helpers'
 import type { IStep } from '~/shared/models/common.model'
 
 import { EnIcon, KoIcon, ViIcon } from '../../assets/svgs'
-import { EEmployeeAccountStatus, ELanguage } from '../enums/common.enum'
+import { EEmployeeAccountStatus, EGender, ELanguage, EMaritalStatus, ENationality } from '../enums/common.enum'
 
 export const DATA = {
   GET_LANGUAGE: (t: TFunction) => {
@@ -46,5 +46,8 @@ export const DATA = {
       }
     ]
     return STEPS
-  }
+  },
+  GET_OPTIONS_GENDER: commonHelper.getEnumOptions(EGender, 'gender'),
+  GET_OPTIONS_MARITALSTATUS: commonHelper.getEnumOptions(EMaritalStatus, 'maritalStatus'),
+  GET_OPTIONS_NATIONLITY: commonHelper.getEnumOptions(ENationality, 'nationality')
 }

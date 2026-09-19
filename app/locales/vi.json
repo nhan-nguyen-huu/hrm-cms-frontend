@@ -24,6 +24,19 @@
       "working": "Đang làm việc",
       "maternityLeave": "Nghỉ thai sản",
       "terminated": "Ngừng làm việc"
+    },
+    "gender": {
+      "male": "Nam",
+      "famale": "Nữ"
+    },
+    "maritalStatus": {
+      "single": "Độc thân",
+      "married": "Đã kết hôn"
+    },
+    "nationality": {
+      "vi": "Việt Nam",
+      "en": "Anh",
+      "ko": "Hàn Quốc"
     }
   },
   "tables": {
@@ -45,13 +58,36 @@
   },
   "inputLabel": {
     "username": "Tên đăng nhập",
-    "password": "Mật khẩu"
+    "password": "Mật khẩu",
+    "fullName": "Họ và tên",
+    "birthDate": "Ngày sinh",
+    "gender": "Giới tính",
+    "cccdNumber": "Số CCCD",
+    "dateOfIssue": "Ngày cấp",
+    "placeOfIssue": "Nơi cấp",
+    "phoneNumber": "Số điện thoại",
+    "personalEmail": "Email cá nhân",
+    "emergencyContact": "Liên hệ khẩn cấp",
+    "permanentAddress": "Địa chỉ thường trú",
+    "currentResidence": "Chỗ ở hiện tại",
+    "maritalStatus": "Tình trạng hôn nhân",
+    "nationality": "Quốc tịch",
+    "numberOfDependents": "Số người phụ thuộc"
   },
   "inputPlaceholder": {
-    "logInWithEmailOrAdminID": "Đăng nhập bằng email hoặc ID quản trị viên"
+    "logInWithEmailOrAdminID": "Đăng nhập bằng email hoặc ID quản trị viên",
+    "pleaseEnterInformation": "Vui lòng nhập thông tin",
+    "pleaseSelectDate": "Vui lòng chọn ngày",
+    "enterIfDifferentFromPermanentAddress": "Nhập nếu khác địa chỉ thường trú"
+  },
+  "inputValidate": {
+    "thisInformationIsRequired": "Thông tin này là bắt buộc"
   },
   "title": {
-    "addNewEmployee": "Thêm nhân viên mới"
+    "addNewEmployee": "Thêm nhân viên mới",
+    "basicInfo": "Thông tin cơ bản",
+    "contact": "Liên hệ",
+    "additionalInfo": "Thông tin bổ sung"
   },
   "msg": {
     "changeLanguageSuccess": "Đổi ngôn ngữ thành công",
