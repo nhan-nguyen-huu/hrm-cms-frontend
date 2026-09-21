@@ -22,9 +22,14 @@ const ActionUpsertEmployee = ({
   onCreate
 }: IActionUpsertEmployeeProps) => {
   const { t } = useTranslation()
+  const [requiredFieldNoteBefore, requiredFieldNoteAfter] = t('msg.requiredFieldDraftNote').split('*')
   return (
     <section className='flex items-center justify-between flex-wrap gap-4 border border-border p-4 rounded-[14px] bg-white'>
-      <p className='text-xs text-[#93A2B6]'>{t('msg.requiredFieldDraftNote')}</p>
+      <p className='text-xs text-[#93A2B6]'>
+        {requiredFieldNoteBefore}
+        <span className='text-destructive'>*</span>
+        {requiredFieldNoteAfter}
+      </p>
       <section className='flex items-center flex-wrap gap-3'>
         <Button variant={'outline'} onClick={() => onCancel?.()}>
           {t('action.cancel')}

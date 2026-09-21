@@ -25,7 +25,9 @@ export const formHelper = {
 
       [ePersonalEmployeeFormKey.MaritalStatus]: EMaritalStatus.Single,
       [ePersonalEmployeeFormKey.Nationality]: ENationality.Vi,
-      [ePersonalEmployeeFormKey.NumberOfDependents]: '0'
+      [ePersonalEmployeeFormKey.NumberOfDependents]: '0',
+
+      [ePersonalEmployeeFormKey.Avatar]: undefined
     }
   }
 }

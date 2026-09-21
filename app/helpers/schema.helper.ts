@@ -7,6 +7,8 @@ export const PASSWORD_REGEX =
 
 export const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
 export const PHONE_REGEX = /^(010|840)-[0-9]{4}-[0-9]{4}$/
+export const PHONE_NUMBER_REGEX = /^[0-9]{10}$/
+export const CCCD_NUMBER_REGEX = /^[0-9]{12}$/
 
 export const getFilterPanelSchema = () =>
   z.object({

@@ -81,19 +81,32 @@
     "enterIfDifferentFromPermanentAddress": "Nhập nếu khác địa chỉ thường trú"
   },
   "inputValidate": {
-    "thisInformationIsRequired": "Thông tin này là bắt buộc"
+    "thisInformationIsRequired": "Thông tin này là bắt buộc",
+    "invalidEmailFormat": "Định dạng email không hợp lệ",
+    "invalidPhoneFormat": "Số điện thoại phải có đủ 10 số",
+    "invalidCccdFormat": "Số CCCD phải có đủ 12 số"
   },
   "title": {
     "addNewEmployee": "Thêm nhân viên mới",
     "basicInfo": "Thông tin cơ bản",
     "contact": "Liên hệ",
-    "additionalInfo": "Thông tin bổ sung"
+    "additionalInfo": "Thông tin bổ sung",
+    "editImage": "Chỉnh sửa ảnh",
+    "rotate": "Xoay",
+    "zoom": "Phóng to",
+    "portraitPhoto": "Ảnh chân dung",
+    "note": "Lưu ý",
+    "importProgress": "Tiến độ nhập"
   },
   "msg": {
     "changeLanguageSuccess": "Đổi ngôn ngữ thành công",
     "requiredFieldDraftNote": "Trường có dấu * là bắt buộc. Bản nháp được giữ trong 7 ngày.",
     "loginSuccess": "Đăng nhập thành công",
-    "logOutSuccess": "Đăng xuất thành công"
+    "logOutSuccess": "Đăng xuất thành công",
+    "uploadPhotoHint": "JPG, PNG · tỷ lệ 1:1 · tối đa 2 MB",
+    "cccdDuplicateWarning": "Số CCCD là khoá chống trùng hồ sơ. Nếu đã tồn tại trong hệ thống, hệ thống sẽ cảnh báo và mở hồ sơ cũ thay vì tạo mới.",
+    "optional": "Tùy chọn",
+    "maxFileSizeExceeded": "Vui lòng chọn ảnh có dung lượng tối đa 2mb"
   },
   "confirm": {
     "confirmLogoutTitle": "Bạn có muốn đăng xuất không?",
@@ -111,7 +124,11 @@
     "back": "Quay lại",
     "continue": "Tiếp tục",
     "createEmployeeProfile": "Tạo hồ sơ nhân viên",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "reset": "Đặt lại",
+    "save": "Lưu",
+    "uploadPhoto": "Tải ảnh lên",
+    "updateImage": "Cập nhật hình ảnh"
   },
   "stepper": {
     "upsertEmployee": {

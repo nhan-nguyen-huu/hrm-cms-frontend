@@ -1,5 +1,6 @@
 import type { TFunction } from 'i18next'
 import z from 'zod'
+import { CCCD_NUMBER_REGEX, EMAIL_REGEX, PHONE_NUMBER_REGEX } from '~/helpers/schema.helper'
 import { EGender, EMaritalStatus, ENationality } from '~/shared/enums/common.enum'
 import { ePersonalEmployeeFormKey } from '~/shared/enums/form.enum'
 
@@ -11,7 +12,8 @@ export const getPersonalEmployeeSchema = (t: TFunction) =>
     [ePersonalEmployeeFormKey.Gender]: z.enum(EGender, { error: t('inputValidate.thisInformationIsRequired') }),
     [ePersonalEmployeeFormKey.CccdNumber]: z
       .string()
-      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') })
+      .regex(CCCD_NUMBER_REGEX, { message: t('inputValidate.invalidCccdFormat') }),
     [ePersonalEmployeeFormKey.DateOfIssue]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
     [ePersonalEmployeeFormKey.PlaceOfIssue]: z
       .string()
@@ -20,12 +22,13 @@ export const getPersonalEmployeeSchema = (t: TFunction) =>
     // Contact
     [ePersonalEmployeeFormKey.PhoneNumber]: z
       .string()
-      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
-
-    [ePersonalEmployeeFormKey.Email]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
-    [ePersonalEmployeeFormKey.EmergencyContact]: z
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') })
+      .regex(PHONE_NUMBER_REGEX, { message: t('inputValidate.invalidPhoneFormat') }),
+    [ePersonalEmployeeFormKey.Email]: z
       .string()
-      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') })
+      .regex(EMAIL_REGEX, t('inputValidate.invalidEmailFormat')),
+    [ePersonalEmployeeFormKey.EmergencyContact]: z.string().optional(),
     [ePersonalEmployeeFormKey.PermanentAddress]: z
       .string()
       .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
@@ -34,7 +37,15 @@ export const getPersonalEmployeeSchema = (t: TFunction) =>
     // Additional
     [ePersonalEmployeeFormKey.MaritalStatus]: z.enum(EMaritalStatus).optional(),
     [ePersonalEmployeeFormKey.Nationality]: z.enum(ENationality).optional(),
-    [ePersonalEmployeeFormKey.NumberOfDependents]: z.string().optional()
+    [ePersonalEmployeeFormKey.NumberOfDependents]: z.string().optional(),
+
+    // Avatar
+    [ePersonalEmployeeFormKey.Avatar]: z
+      .instanceof(File)
+      .optional()
+      .refine((file) => file instanceof File, {
+        message: t('inputValidate.thisInformationIsRequired')
+      })
   })
 
 export type TPersonalEmployeeSchema = z.infer<ReturnType<typeof getPersonalEmployeeSchema>>

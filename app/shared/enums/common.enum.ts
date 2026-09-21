@@ -30,3 +30,7 @@ export enum ENationality {
   En = 'EN',
   Ko = 'KO'
 }
+
+export enum EAspectType {
+  Employee = 'EMPLOYEE'
+}
