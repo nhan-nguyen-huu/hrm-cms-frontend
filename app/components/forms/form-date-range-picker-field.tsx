@@ -31,8 +31,16 @@ const FormDateRangePickerField = <TFieldValues extends FieldValues, TName extend
   const validFrom = field.value?.validFrom
   const validTo = field.value?.validTo
   const { t } = useTranslation()
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    setOpen(nextOpen)
+    if (!nextOpen) {
+      field.onBlur()
+    }
+  }
+
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger
         render={
           <Button

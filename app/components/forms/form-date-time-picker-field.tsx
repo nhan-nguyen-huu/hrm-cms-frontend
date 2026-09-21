@@ -121,8 +121,15 @@ const FormDateTimePickerField = <TFieldValues extends FieldValues, TName extends
     return !endOfUnit(value, type, unitValue).isAfter(minDateTime)
   }
 
+  const handleOpenChange = (nextOpen: boolean) => {
+    setOpen(nextOpen)
+    if (!nextOpen) {
+      field.onBlur()
+    }
+  }
+
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger
         render={
           <Button
