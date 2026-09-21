@@ -38,6 +38,13 @@ const EmployeeProfilePage = () => {
   })
   return (
     <section className='flex flex-col gap-4'>
+      {/* <OrgPosition
+        departmentName='Kỹ thuật'
+        projectName='SP Core Platform'
+        memberCount={32}
+        managerName='Trần Quốc Hưng'
+        employeeName='Đặng Hoài Nam'
+      /> */}
       <HeaderPage
         title={t('sidebarMenu.employeeMgt.employeeProfile')}
         description='248 nhân viên đang làm việc · 6 hồ sơ chờ duyệt thay đổi'

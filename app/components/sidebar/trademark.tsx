@@ -1,6 +1,8 @@
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
+import { LogoSimpleImage } from '~/assets/images'
+import ImageCustom from '~/components/customs/image-custom'
 import { useSidebar } from '~/components/ui/sidebar'
 import { ROUTES } from '~/shared/constants/routes.constant'
 
@@ -20,9 +22,7 @@ const Trademark = () => {
         }}
       >
         <section className={clsx('flex items-center gap-3', isCollapsed && 'justify-center')}>
-          <p className='size-9 flex items-center justify-center bg-primary rounded-[11px] text-[15px] font-bold text-white'>
-            S
-          </p>
+          <ImageCustom src={LogoSimpleImage} className='size-9' />
           {!isCollapsed && (
             <section className='flex flex-col'>
               <p className='font-semibold text-white text-sm uppercase'>{t('common.companyName')}</p>

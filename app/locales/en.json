@@ -6,7 +6,9 @@
     "appName": "HRM CMS",
     "companyName": "Specom",
     "humanResourcesSystem": "Human resources system",
-    "stepByStepEmployee": "Step {{activeStep}} / 4 · The system automatically saves a draft after each step"
+    "stepByStepEmployee": "Step {{activeStep}} / 4 · The system automatically saves a draft after each step",
+    "orgPositionDepartment": "{{departmentName}} Department",
+    "orgPositionProject": "{{projectName}} Project · {{memberCount}} members"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -96,7 +98,8 @@
     "zoom": "Zoom",
     "portraitPhoto": "Portrait photo",
     "note": "Note",
-    "importProgress": "Import progress"
+    "importProgress": "Import progress",
+    "orgPosition": "Organization position"
   },
   "msg": {
     "changeLanguageSuccess": "Change language successfully",

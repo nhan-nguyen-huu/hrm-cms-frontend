@@ -6,7 +6,9 @@
     "appName": "HRM CMS",
     "companyName": "Specom",
     "humanResourcesSystem": "Hệ thống quản lý nhân sự",
-    "stepByStepEmployee": "Bước {{activeStep}} / 4 · hệ thống tự lưu nháp sau mỗi bước"
+    "stepByStepEmployee": "Bước {{activeStep}} / 4 · hệ thống tự lưu nháp sau mỗi bước",
+    "orgPositionDepartment": "Phòng {{departmentName}}",
+    "orgPositionProject": "Dự án {{projectName}} · {{memberCount}} thành viên"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -96,7 +98,8 @@
     "zoom": "Phóng to",
     "portraitPhoto": "Ảnh chân dung",
     "note": "Lưu ý",
-    "importProgress": "Tiến độ nhập"
+    "importProgress": "Tiến độ nhập",
+    "orgPosition": "Vị trí trong tổ chức"
   },
   "msg": {
     "changeLanguageSuccess": "Đổi ngôn ngữ thành công",
