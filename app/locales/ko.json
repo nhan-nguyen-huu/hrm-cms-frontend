@@ -81,19 +81,32 @@
     "enterIfDifferentFromPermanentAddress": "상주 주소와 다를 경우 입력하세요"
   },
   "inputValidate": {
-    "thisInformationIsRequired": "이 정보는 필수입니다"
+    "thisInformationIsRequired": "이 정보는 필수입니다",
+    "invalidEmailFormat": "이메일 형식이 올바르지 않습니다",
+    "invalidPhoneFormat": "전화번호는 10자리여야 합니다",
+    "invalidCccdFormat": "신분증 번호는 12자리여야 합니다"
   },
   "title": {
     "addNewEmployee": "신규 직원 추가",
     "basicInfo": "기본 정보",
     "contact": "연락처",
-    "additionalInfo": "추가 정보"
+    "additionalInfo": "추가 정보",
+    "editImage": "이미지 편집",
+    "rotate": "회전",
+    "zoom": "확대/축소",
+    "portraitPhoto": "증명사진",
+    "note": "참고",
+    "importProgress": "입력 진행률"
   },
   "msg": {
     "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다",
     "requiredFieldDraftNote": "* 표시된 항목은 필수 입력입니다. 임시 저장본은 7일간 보관됩니다.",
     "loginSuccess": "로그인에 성공했습니다.",
-    "logOutSuccess": "로그아웃에 성공했습니다."
+    "logOutSuccess": "로그아웃에 성공했습니다.",
+    "uploadPhotoHint": "JPG, PNG · 비율 1:1 · 최대 2 MB",
+    "cccdDuplicateWarning": "신분증 번호는 중복 등록을 방지하는 키입니다. 시스템에 이미 존재하는 경우, 새로 생성하는 대신 기존 정보를 열람하도록 경고가 표시됩니다.",
+    "optional": "선택사항",
+    "maxFileSizeExceeded": "최대 2MB 이하의 이미지를 선택해주세요"
   },
   "confirm": {
     "confirmLogoutTitle": "로그아웃하시겠습니까?",
@@ -112,7 +125,11 @@
     "continue": "계속",
     "createEmployeeProfile": "직원 프로필 추가",
     "login": "로그인",
-    "logout": "로그아웃"
+    "logout": "로그아웃",
+    "reset": "초기화",
+    "save": "저장",
+    "uploadPhoto": "사진 업로드",
+    "updateImage": "이미지 업데이트"
   },
   "stepper": {
     "upsertEmployee": {

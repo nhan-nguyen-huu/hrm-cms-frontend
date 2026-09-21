@@ -30,5 +30,8 @@ export enum ePersonalEmployeeFormKey {
   // Additional
   MaritalStatus = 'maritalStatus',
   Nationality = 'nationality',
-  NumberOfDependents = 'numberOfDependents'
+  NumberOfDependents = 'numberOfDependents',
+
+  // Avatar
+  Avatar = 'avatar'
 }

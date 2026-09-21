@@ -36,10 +36,11 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
     setActiveStep((prev) => prev - 1)
   }
   const handleContinue = () => {
+    console.log('Check: ', personalEmployeeForm.getValues())
     setActiveStep((prev) => prev + 1)
   }
   const handleCreate = () => {
-    console.log('Check')
+    console.log('Check: ', personalEmployeeForm.getValues())
   }
 
   const handleGetDisabledContinueAction = () => {

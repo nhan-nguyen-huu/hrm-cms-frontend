@@ -81,19 +81,32 @@
     "enterIfDifferentFromPermanentAddress": "Enter if different from permanent address"
   },
   "inputValidate": {
-    "thisInformationIsRequired": "This information is required"
+    "thisInformationIsRequired": "This information is required",
+    "invalidEmailFormat": "Invalid email format",
+    "invalidPhoneFormat": "Phone number must have 10 digits",
+    "invalidCccdFormat": "ID card number must have 12 digits"
   },
   "title": {
     "addNewEmployee": "Add New Employee",
     "basicInfo": "Basic information",
     "contact": "Contact",
-    "additionalInfo": "Additional information"
+    "additionalInfo": "Additional information",
+    "editImage": "Edit Image",
+    "rotate": "Rotate",
+    "zoom": "Zoom",
+    "portraitPhoto": "Portrait photo",
+    "note": "Note",
+    "importProgress": "Import progress"
   },
   "msg": {
     "changeLanguageSuccess": "Change language successfully",
     "requiredFieldDraftNote": "Fields marked with * are required. Drafts are kept for 7 days.",
     "loginSuccess": "Login successful",
-    "logOutSuccess": "Logout successful"
+    "logOutSuccess": "Logout successful",
+    "uploadPhotoHint": "JPG, PNG · ratio 1:1 · max 2 MB",
+    "cccdDuplicateWarning": "The ID card number is used to prevent duplicate records. If it already exists in the system, the system will warn you and open the existing record instead of creating a new one.",
+    "optional": "Optional",
+    "maxFileSizeExceeded": "Please select an image up to 2 MB"
   },
   "confirm": {
     "confirmLogoutTitle": "Do you want to log out?",
@@ -112,7 +125,11 @@
     "continue": "Continue",
     "createEmployeeProfile": "Add Employee Profile",
     "login": "Login",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "reset": "Reset",
+    "save": "Save",
+    "uploadPhoto": "Upload photo",
+    "updateImage": "Update image"
   },
   "stepper": {
     "upsertEmployee": {
