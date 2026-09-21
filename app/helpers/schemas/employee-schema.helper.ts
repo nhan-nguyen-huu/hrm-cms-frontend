@@ -40,12 +40,7 @@ export const getPersonalEmployeeSchema = (t: TFunction) =>
     [ePersonalEmployeeFormKey.NumberOfDependents]: z.string().optional(),
 
     // Avatar
-    [ePersonalEmployeeFormKey.Avatar]: z
-      .instanceof(File)
-      .optional()
-      .refine((file) => file instanceof File, {
-        message: t('inputValidate.thisInformationIsRequired')
-      })
+    [ePersonalEmployeeFormKey.Avatar]: z.instanceof(File).optional()
   })
 
 export type TPersonalEmployeeSchema = z.infer<ReturnType<typeof getPersonalEmployeeSchema>>
