@@ -6,7 +6,9 @@
     "appName": "HRM CMS",
     "companyName": "Specom",
     "humanResourcesSystem": "인사 관리 시스템",
-    "stepByStepEmployee": "Step {{activeStep}} / 4 · The system automatically saves a draft after each step"
+    "stepByStepEmployee": "Step {{activeStep}} / 4 · The system automatically saves a draft after each step",
+    "orgPositionDepartment": "{{departmentName}} Department",
+    "orgPositionProject": "{{projectName}} Project · {{memberCount}} members"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -96,7 +98,8 @@
     "zoom": "확대/축소",
     "portraitPhoto": "증명사진",
     "note": "참고",
-    "importProgress": "입력 진행률"
+    "importProgress": "입력 진행률",
+    "orgPosition": "조직 내 위치"
   },
   "msg": {
     "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다",

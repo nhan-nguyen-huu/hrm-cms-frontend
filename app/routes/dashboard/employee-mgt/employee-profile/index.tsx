@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router'
 import ButtonAction from '~/components/actions/button-action'
 import FilterPanel from '~/components/common/filter-panel'
 import HeaderPage from '~/components/common/header-page'
+import OrgPosition from '~/components/common/org-position'
 import TableCustom from '~/components/customs/table-custom'
 import { employeeMgtColumn } from '~/helpers/columns/employee-mgt-column'
 import {
@@ -38,6 +39,13 @@ const EmployeeProfilePage = () => {
   })
   return (
     <section className='flex flex-col gap-4'>
+      <OrgPosition
+        departmentName='Kỹ thuật'
+        projectName='SP Core Platform'
+        memberCount={32}
+        managerName='Trần Quốc Hưng'
+        employeeName='Đặng Hoài Nam'
+      />
       <HeaderPage
         title={t('sidebarMenu.employeeMgt.employeeProfile')}
         description='248 nhân viên đang làm việc · 6 hồ sơ chờ duyệt thay đổi'
