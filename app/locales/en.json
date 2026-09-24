@@ -124,7 +124,12 @@
     "memberCount": "Members",
     "fteEquivalent": "FTE equivalent",
     "averageAllocation": "Average allocation",
-    "overAllocated": "Total allocation over 100%"
+    "overAllocated": "Total allocation over 100%",
+    "employee": "Employee",
+    "projectRole": "Project role",
+    "allocationRate": "Allocation",
+    "joinedFrom": "Joined from",
+    "confirmOverAllocation": "Confirm allocation over 100% and record the reason in the log"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "Log in with email or admin ID",
@@ -132,13 +137,17 @@
     "pleaseSelectDate": "Please select a date",
     "enterIfDifferentFromPermanentAddress": "Enter if different from permanent address",
     "departmentAll": "Department: All",
-    "searchProject": "Project name, code, PM…"
+    "searchProject": "Project name, code, PM…",
+    "selectEmployee": "Select an employee",
+    "select": "Select"
   },
   "inputValidate": {
     "thisInformationIsRequired": "This information is required",
     "invalidEmailFormat": "Invalid email format",
     "invalidPhoneFormat": "Phone number must have 10 digits",
-    "invalidCccdFormat": "ID card number must have 12 digits"
+    "invalidCccdFormat": "ID card number must have 12 digits",
+    "invalidAllocation": "Allocation must be a whole number from 1 to 100",
+    "confirmOverAllocation": "Confirmation is required when total allocation exceeds 100%"
   },
   "title": {
     "addNewEmployee": "Add New Employee",
@@ -154,7 +163,10 @@
     "orgPosition": "Organization position",
     "projectMembers": "Project members",
     "projectInfo": "Project information",
-    "staffAllocation": "Staff allocation"
+    "staffAllocation": "Staff allocation",
+    "addProjectMember": "Add member to project",
+    "totalAllocation": "Total allocation",
+    "totalAllocationOver": "Total allocation over 100%"
   },
   "msg": {
     "changeLanguageSuccess": "Change language successfully",
@@ -166,7 +178,11 @@
     "optional": "Optional",
     "maxFileSizeExceeded": "Please select an image up to 2 MB",
     "overAllocationWarning": "{{names}} are allocated over 100% across all projects. Please adjust before the next attendance closing.",
-    "memberOverAllocated": "Allocated {{total}}% across all projects — over 100%"
+    "memberOverAllocated": "Allocated {{total}}% across all projects — over 100%",
+    "thisProject": "{{name}} (this project)",
+    "overAllocationHint": "Lower the allocation on other projects or confirm the exception below. Allocation over 100% is flagged on the department staffing report.",
+    "newMemberNotified": "The new member is notified in the app",
+    "addMemberSuccess": "{{name}} was added to the project"
   },
   "confirm": {
     "confirmLogoutTitle": "Do you want to log out?",
@@ -194,7 +210,8 @@
     "editProject": "Edit project",
     "addMember": "Add member",
     "edit": "Edit",
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "addToProject": "Add to project"
   },
   "stepper": {
     "upsertEmployee": {

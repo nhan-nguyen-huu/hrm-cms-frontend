@@ -1,8 +1,14 @@
 import type { TFunction } from 'i18next'
 import { commonHelper } from '~/helpers'
+import type { TGetTranslateEnumFn } from '~/hooks/user-transfer-enum'
 import { ROUTES } from '~/shared/constants/routes.constant'
-import type { IBreadcrumbItem, IInfoRow, IStep, ITabItem } from '~/shared/models/common.model'
-import type { IProjectAllocationSummary } from '~/shared/models/project.model'
+import type { IBreadcrumbItem, IInfoRow, IOption, IStep, ITabItem } from '~/shared/models/common.model'
+import type {
+  IAllocationCheckRow,
+  IProject,
+  IProjectAllocationSummary,
+  IProjectMemberCandidate
+} from '~/shared/models/project.model'
 
 import { EnIcon, KoIcon, ViIcon } from '../../assets/svgs'
 import {
@@ -115,6 +121,44 @@ export const DATA = {
       {
         label: t('inputLabel.averageAllocation'),
         value: summary?.averageAllocation == null ? '-' : `${commonHelper.formatNumber(summary.averageAllocation)}%`
+      }
+    ]
+    return ROWS
+  },
+  // Employee select of the "add member" dialog: "Đinh Thu Trâm · NV0175 · Kỹ thuật"
+  GET_OPTIONS_PROJECT_MEMBER_CANDIDATE: (
+    candidates: IProjectMemberCandidate[],
+    getTranslateEnum: TGetTranslateEnumFn
+  ): IOption[] =>
+    candidates.map((candidate) => ({
+      value: candidate.id,
+      label: [
+        candidate.name,
+        candidate.code,
+        candidate.department &&
+          getTranslateEnum({ enumPath: 'department', enumType: EDepartment, value: candidate.department })
+      ]
+        .filter(Boolean)
+        .join(' · ')
+    })),
+  // Allocation check of the "add member" dialog: the employee's other projects + this project
+  GET_ALLOCATION_CHECK_ROWS: (
+    t: TFunction,
+    project?: IProject,
+    candidate?: IProjectMemberCandidate,
+    allocation?: number
+  ) => {
+    const ROWS: IAllocationCheckRow[] = [
+      ...(candidate?.allocations ?? []).map((item, index) => ({
+        key: item.projectId ?? String(index),
+        label: [item.projectName, item.projectCode].filter(Boolean).join(' · '),
+        allocation: item.allocation ?? 0
+      })),
+      {
+        key: 'current',
+        label: t('msg.thisProject', { name: [project?.name, project?.code].filter(Boolean).join(' · ') }),
+        allocation: allocation ?? 0,
+        isCurrent: true
       }
     ]
     return ROWS

@@ -62,7 +62,8 @@ const CardInfo = ({
             {icon ?? avatarText}
           </section>
         )}
-        <section className='flex min-w-0 flex-1 flex-col gap-1'>
+        {/* basis-64: below ~16rem the actions wrap to their own line instead of squeezing the title column */}
+        <section className='flex min-w-0 flex-1 basis-64 flex-col gap-1'>
           <section className='flex flex-wrap items-center gap-2.5'>
             <p className={clsx('font-bold tracking-[-0.015em] text-app-secondary', sizeClass.title)}>{title || '-'}</p>
             {badge}

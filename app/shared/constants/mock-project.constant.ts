@@ -1,5 +1,6 @@
 import { EDepartment, EProjectStatus } from '~/shared/enums/common.enum'
-import type { IProject, IProjectDetail, IProjectMember } from '~/shared/models/project.model'
+import type { IOption } from '~/shared/models/common.model'
+import type { IProject, IProjectDetail, IProjectMember, IProjectMemberCandidate } from '~/shared/models/project.model'
 
 // Sample data from design artifact "Specom HRM UI" (screen CmsDuAn) — replace with the project API once available
 export const MOCK_PROJECTS: IProject[] = [
@@ -294,3 +295,50 @@ export const getMockProjectDetail = (id?: string): IProjectDetail | undefined =>
   if (!project) return undefined
   return { members: [], ...project, ...MOCK_PROJECT_DETAIL_EXTRAS[project.id ?? ''] }
 }
+
+// Employees that can be added to a project (design screen CmsDuAnThemThanhVien: Đinh Thu Trâm is at 80% elsewhere)
+export const MOCK_PROJECT_MEMBER_CANDIDATES: IProjectMemberCandidate[] = [
+  {
+    id: 'NV0175',
+    code: 'NV0175',
+    name: 'Đinh Thu Trâm',
+    email: 'tram.dinh@specom.vn',
+    jobTitle: 'Kỹ sư phần mềm',
+    department: EDepartment.Technology,
+    allocations: [
+      { projectId: 'DA-KT-03', projectCode: 'DA-KT-03', projectName: 'Customer Portal', allocation: 50 },
+      { projectId: 'DA-KT-05', projectCode: 'DA-KT-05', projectName: 'Infrastructure Upgrade', allocation: 30 }
+    ]
+  },
+  {
+    id: 'NV0176',
+    code: 'NV0176',
+    name: 'Mai Quốc Bảo',
+    email: 'bao.mai@specom.vn',
+    jobTitle: 'Kỹ sư phần mềm',
+    department: EDepartment.Technology,
+    allocations: [{ projectId: 'DA-KT-02', projectCode: 'DA-KT-02', projectName: 'Specom Mobile App', allocation: 40 }]
+  },
+  {
+    id: 'NV0177',
+    code: 'NV0177',
+    name: 'Tạ Ngọc Hân',
+    email: 'han.ta@specom.vn',
+    jobTitle: 'Kỹ sư kiểm thử',
+    department: EDepartment.Technology,
+    allocations: []
+  }
+]
+
+// Project roles — master data from BE later; same vocabulary as MOCK_SP_CORE_MEMBERS
+export const MOCK_PROJECT_ROLE_OPTIONS: IOption[] = [
+  'Project PM',
+  'Backend',
+  'Frontend',
+  'QA',
+  'DevOps',
+  'System architecture',
+  'Integration',
+  'Business analysis',
+  'Data & reporting'
+].map((role) => ({ label: role, value: role }))

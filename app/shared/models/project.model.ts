@@ -55,3 +55,31 @@ export interface IProjectDetail extends IProject {
   members?: IProjectMember[]
   allocationSummary?: IProjectAllocationSummary
 }
+
+// A project the employee already works on, with the % of time allocated to it
+export interface IEmployeeProjectAllocation {
+  projectId?: string
+  projectCode?: string
+  projectName?: string
+  allocation?: number
+}
+
+// Employee that can be added to a project, with their current allocations on other projects
+export interface IProjectMemberCandidate {
+  id?: string
+  code?: string
+  name?: string
+  email?: string
+  jobTitle?: string
+  department?: EDepartment
+  allocations?: IEmployeeProjectAllocation[]
+}
+
+// One row of the allocation check in the "add member" dialog
+export interface IAllocationCheckRow {
+  key: string
+  label: string
+  allocation: number
+  // The project the member is being added to
+  isCurrent?: boolean
+}
