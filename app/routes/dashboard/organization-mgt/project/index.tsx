@@ -5,6 +5,7 @@ import { useForm, useWatch } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import ButtonAction from '~/components/actions/button-action'
 import { isActiveFilterValue } from '~/components/customs/filter-panel-custom'
+import { dateHelper } from '~/helpers/date.helper'
 import { type TFilterPanelProjectFormSchema, getFilterPanelProjectSchema } from '~/helpers/schema.helper'
 import { usePagination } from '~/hooks/use-pagination'
 import OrganizationHeaderPage from '~/routes/dashboard/organization-mgt/components/organization-header-page'
@@ -14,28 +15,12 @@ import ProjectTable from '~/routes/dashboard/organization-mgt/components/project
 import { MOCK_PROJECTS } from '~/shared/constants/mock-project.constant'
 import { EProjectStatus } from '~/shared/enums/common.enum'
 import { EFilterPanelFormKey, EFilterPanelProjectFormKey } from '~/shared/enums/form.enum'
-import type { IProject } from '~/shared/models/project.model'
 
 const DEFAULT_VALUES: TFilterPanelProjectFormSchema = {
   [EFilterPanelFormKey.Keyword]: '',
   [EFilterPanelProjectFormKey.Department]: null,
   [EFilterPanelProjectFormKey.Status]: null,
   [EFilterPanelProjectFormKey.Year]: null
-}
-
-// NaN when the month is missing or malformed (MM/YYYY expected)
-const getYear = (month?: string) => Number(month?.split('/')[1])
-
-// Years covered by at least one project, used as options for the period filter
-const getYearOptions = (projects: IProject[]) => {
-  const years = new Set<number>()
-  projects.forEach((project) => {
-    const start = getYear(project.startMonth)
-    const end = getYear(project.endMonth)
-    if (Number.isNaN(start) || Number.isNaN(end)) return
-    for (let year = start; year <= end; year++) years.add(year)
-  })
-  return [...years].sort().map((year) => ({ label: String(year), value: String(year) }))
 }
 
 const ProjectPage = () => {
@@ -50,7 +35,7 @@ const ProjectPage = () => {
 
   // TODO: replace MOCK_PROJECTS with the project list API (server-side filter + paging) once available
   const projects = MOCK_PROJECTS
-  const yearOptions = useMemo(() => getYearOptions(projects), [projects])
+  const yearOptions = useMemo(() => dateHelper.getYearOptionsFromMonthRanges(projects), [projects])
 
   const filteredProjects = useMemo(() => {
     const keyword = filters.keyword?.trim().toLowerCase() ?? ''
@@ -66,13 +51,11 @@ const ProjectPage = () => {
         return false
       if (isActiveFilterValue(department) && project.department !== department) return false
       if (isActiveFilterValue(status) && project.status !== status) return false
-      if (isActiveFilterValue(year)) {
-        const selected = Number(year)
-        const start = getYear(project.startMonth)
-        const end = getYear(project.endMonth)
-        // A project without a valid period cannot match a year filter
-        if (Number.isNaN(start) || Number.isNaN(end) || selected < start || selected > end) return false
-      }
+      if (
+        isActiveFilterValue(year) &&
+        !dateHelper.isYearInMonthRange(Number(year), project.startMonth, project.endMonth)
+      )
+        return false
       return true
     })
   }, [projects, filters])
