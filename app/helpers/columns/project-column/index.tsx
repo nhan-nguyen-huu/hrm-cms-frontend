@@ -44,7 +44,7 @@ export const projectColumn = {
         accessorKey: EProjectTableKey.ProjectManager,
         header: () => <TitleHead title={t('tables.projectTableKey.projectManager')} className='text-left' />,
         cell: ({ row }) => (
-          <EmployeeInfo name={row.original.projectManager.name} email={row.original.projectManager.email} />
+          <EmployeeInfo name={row.original.projectManager?.name} email={row.original.projectManager?.email} />
         ),
         size: 200
       },
@@ -58,7 +58,10 @@ export const projectColumn = {
         id: EProjectTableKey.Period,
         header: () => <TitleHead title={t('tables.projectTableKey.period')} className='pl-4 text-left' />,
         cell: ({ row }) => (
-          <ContentBody content={`${row.original.startMonth} – ${row.original.endMonth}`} className='pl-4 text-left' />
+          <ContentBody
+            content={[row.original.startMonth, row.original.endMonth].filter(Boolean).join(' – ')}
+            className='pl-4 text-left'
+          />
         ),
         size: 170
       },

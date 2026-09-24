@@ -33,7 +33,7 @@ const ProjectTable = ({
       data={data}
       loading={loading}
       emptyText={t('empty.noData')}
-      getRowId={(row) => row.id}
+      getRowId={(row) => row.id ?? row.code ?? ''}
       page={page}
       totalPage={totalPage}
       onPageChange={onPageChange}

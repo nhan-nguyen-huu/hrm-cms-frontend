@@ -23,13 +23,17 @@ const DEFAULT_VALUES: TFilterPanelProjectFormSchema = {
   [EFilterPanelProjectFormKey.Year]: null
 }
 
-const getYear = (month: string) => Number(month.split('/')[1])
+// NaN when the month is missing or malformed (MM/YYYY expected)
+const getYear = (month?: string) => Number(month?.split('/')[1])
 
 // Years covered by at least one project, used as options for the period filter
 const getYearOptions = (projects: IProject[]) => {
   const years = new Set<number>()
   projects.forEach((project) => {
-    for (let year = getYear(project.startMonth); year <= getYear(project.endMonth); year++) years.add(year)
+    const start = getYear(project.startMonth)
+    const end = getYear(project.endMonth)
+    if (Number.isNaN(start) || Number.isNaN(end)) return
+    for (let year = start; year <= end; year++) years.add(year)
   })
   return [...years].sort().map((year) => ({ label: String(year), value: String(year) }))
 }
@@ -54,7 +58,7 @@ const ProjectPage = () => {
     return projects.filter((project) => {
       if (
         keyword &&
-        ![project.name, project.code, project.projectManager.name, project.projectManager.email]
+        ![project.name, project.code, project.projectManager?.name, project.projectManager?.email]
           .join(' ')
           .toLowerCase()
           .includes(keyword)
@@ -64,7 +68,10 @@ const ProjectPage = () => {
       if (isActiveFilterValue(status) && project.status !== status) return false
       if (isActiveFilterValue(year)) {
         const selected = Number(year)
-        if (selected < getYear(project.startMonth) || selected > getYear(project.endMonth)) return false
+        const start = getYear(project.startMonth)
+        const end = getYear(project.endMonth)
+        // A project without a valid period cannot match a year filter
+        if (Number.isNaN(start) || Number.isNaN(end) || selected < start || selected > end) return false
       }
       return true
     })

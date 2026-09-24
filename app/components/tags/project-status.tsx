@@ -3,7 +3,7 @@ import TagBadgeLayout from '~/layouts/tag-badge-layout'
 import { EProjectStatus } from '~/shared/enums/common.enum'
 
 interface IProjectStatusProps {
-  status: EProjectStatus
+  status?: EProjectStatus
 }
 const ProjectStatus = ({ status }: IProjectStatusProps) => {
   const { getTranslateEnum } = useTransferEnum()
@@ -14,7 +14,7 @@ const ProjectStatus = ({ status }: IProjectStatusProps) => {
     [EProjectStatus.Completed]: 'bg-gray-100 text-gray-700'
   }
   return (
-    <TagBadgeLayout className={classNameVariant[status]}>
+    <TagBadgeLayout className={status ? classNameVariant[status] : 'bg-gray-100 text-gray-700'}>
       {getTranslateEnum({
         enumPath: 'projectStatus',
         enumType: EProjectStatus,
