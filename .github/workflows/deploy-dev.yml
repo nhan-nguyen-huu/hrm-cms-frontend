@@ -29,6 +29,55 @@ jobs:
           cache: 'npm'
 
       # ========================================
+      # OpenVPN
+      # ========================================
+
+      - name: Install OpenVPN
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openvpn netcat-openbsd
+
+      - name: Create VPN config
+        run: |
+          cat > vpn.ovpn <<'EOF'
+          ${{ secrets.VPN_CONFIG }}
+          EOF
+
+          chmod 600 vpn.ovpn
+
+      - name: Connect VPN
+        run: |
+          sudo openvpn \
+            --config vpn.ovpn \
+            --daemon \
+            --log /tmp/openvpn.log
+
+          echo "Waiting for VPN connection..."
+
+          VPN_CONNECTED=false
+
+          for i in {1..30}; do
+            if ip addr show | grep -q "tun0"; then
+              VPN_CONNECTED=true
+              echo "VPN connected successfully."
+              break
+            fi
+
+            echo "Waiting... ($i/30)"
+            sleep 2
+          done
+
+          echo ""
+          echo "========== VPN LOG =========="
+          sudo cat /tmp/openvpn.log
+          echo "============================="
+
+          if [ "$VPN_CONNECTED" != "true" ]; then
+            echo "VPN connection failed."
+            exit 1
+          fi
+
+      # ========================================
       # Test SSH Port
       # ========================================
 
