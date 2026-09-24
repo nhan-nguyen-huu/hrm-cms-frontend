@@ -5,13 +5,13 @@ import ContentBody from '~/components/customs/table-custom/components/content-bo
 import TitleHead from '~/components/customs/table-custom/components/title-head'
 import EmployeeInfo from '~/components/tags/employee-info'
 import ProjectStatus from '~/components/tags/project-status'
-import { commonHelper } from '~/helpers/common.helper'
+import type { TGetTranslateEnumFn } from '~/hooks/user-transfer-enum'
 import { EDepartment } from '~/shared/enums/common.enum'
 import { EBaseTableKey, EProjectTableKey } from '~/shared/enums/table.enum'
 import type { IProject } from '~/shared/models/project.model'
 
 export const projectColumn = {
-  getList: (t: TFunction) => {
+  getList: (t: TFunction, getTranslateEnum: TGetTranslateEnumFn) => {
     const columns: ColumnDef<IProject>[] = [
       {
         accessorKey: EProjectTableKey.Name,
@@ -28,15 +28,16 @@ export const projectColumn = {
       {
         accessorKey: EProjectTableKey.Department,
         header: () => <TitleHead title={t('tables.projectTableKey.department')} className='text-left' />,
-        cell: ({ row }) => {
-          const key = Object.entries(EDepartment).find(([, value]) => value === row.original.department)?.[0]
-          return (
-            <ContentBody
-              content={key ? t(`enums.department.${commonHelper.toCamelCase(key)}`) : undefined}
-              className='text-left'
-            />
-          )
-        },
+        cell: ({ row }) => (
+          <ContentBody
+            content={getTranslateEnum({
+              enumPath: 'department',
+              enumType: EDepartment,
+              value: row.original.department
+            })}
+            className='text-left'
+          />
+        ),
         size: 110
       },
       {
