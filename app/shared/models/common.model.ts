@@ -57,6 +57,12 @@ export interface ISidebarMenu {
   }[]
 }
 
+// Label / value row of an info card
+export interface IInfoRow {
+  label: string
+  value: string
+}
+
 export interface IBreadcrumbItem {
   key: string
   label?: string

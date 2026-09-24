@@ -1,7 +1,8 @@
 import type { TFunction } from 'i18next'
 import { commonHelper } from '~/helpers'
 import { ROUTES } from '~/shared/constants/routes.constant'
-import type { IBreadcrumbItem, IStep, ITabItem } from '~/shared/models/common.model'
+import type { IBreadcrumbItem, IInfoRow, IStep, ITabItem } from '~/shared/models/common.model'
+import type { IProjectAllocationSummary } from '~/shared/models/project.model'
 
 import { EnIcon, KoIcon, ViIcon } from '../../assets/svgs'
 import {
@@ -99,5 +100,23 @@ export const DATA = {
       BREADCRUMB_SEGMENT.PROJECT(t)
     ]
     return TABS
+  },
+  // Rows of the "Staff allocation" card on the project detail page
+  GET_PROJECT_ALLOCATION_ROWS: (t: TFunction, summary?: IProjectAllocationSummary) => {
+    const ROWS: IInfoRow[] = [
+      {
+        label: t('inputLabel.memberCount'),
+        value: summary?.memberCount == null ? '-' : t('common.personCount', { count: summary.memberCount })
+      },
+      {
+        label: t('inputLabel.fteEquivalent'),
+        value: summary?.fte == null ? '-' : t('common.fteValue', { value: commonHelper.formatNumber(summary.fte) })
+      },
+      {
+        label: t('inputLabel.averageAllocation'),
+        value: summary?.averageAllocation == null ? '-' : `${commonHelper.formatNumber(summary.averageAllocation)}%`
+      }
+    ]
+    return ROWS
   }
 }

@@ -1,6 +1,7 @@
 import { TriangleAlert } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Card } from '~/components/ui/card'
+import { DATA } from '~/shared/constants/data.constant'
 import type { IProjectAllocationSummary } from '~/shared/models/project.model'
 
 interface IProjectAllocationCardProps {
@@ -9,25 +10,9 @@ interface IProjectAllocationCardProps {
 
 // "Staff allocation" side card: aggregates over all project members, provided by BE
 const ProjectAllocationCard = ({ summary }: IProjectAllocationCardProps) => {
-  const { t, i18n } = useTranslation()
-  const formatNumber = (value?: number) =>
-    value == null ? '-' : new Intl.NumberFormat(i18n.language, { maximumFractionDigits: 1 }).format(value)
+  const { t } = useTranslation()
+  const rows = DATA.GET_PROJECT_ALLOCATION_ROWS(t, summary)
   const overAllocatedNames = summary?.overAllocatedMemberNames ?? []
-
-  const rows = [
-    {
-      label: t('inputLabel.memberCount'),
-      value: summary?.memberCount == null ? '-' : t('common.personCount', { count: summary.memberCount })
-    },
-    {
-      label: t('inputLabel.fteEquivalent'),
-      value: summary?.fte == null ? '-' : t('common.fteValue', { value: formatNumber(summary.fte) })
-    },
-    {
-      label: t('inputLabel.averageAllocation'),
-      value: summary?.averageAllocation == null ? '-' : `${formatNumber(summary.averageAllocation)}%`
-    }
-  ]
 
   return (
     <Card className='gap-3 px-4'>

@@ -3,12 +3,10 @@ import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import ProjectStatus from '~/components/tags/project-status'
 import { Card } from '~/components/ui/card'
-import { dateHelper } from '~/helpers/date.helper'
+import { DATE_FORMAT_SLASH, dateHelper } from '~/helpers/date.helper'
 import { useTransferEnum } from '~/hooks/user-transfer-enum'
 import { EDepartment } from '~/shared/enums/common.enum'
 import type { IProjectDetail } from '~/shared/models/project.model'
-
-const DISPLAY_DATE_FORMAT = 'DD/MM/YYYY'
 
 interface IProjectInfoCardProps {
   project?: IProjectDetail
@@ -41,10 +39,10 @@ const ProjectInfoCard = ({ project }: IProjectInfoCardProps) => {
       </InfoRow>
       <InfoRow label={t('inputLabel.projectManager')}>{project?.projectManager?.name}</InfoRow>
       <InfoRow label={t('inputLabel.startDate')}>
-        {dateHelper.formatDate(project?.startDate, DISPLAY_DATE_FORMAT)}
+        {dateHelper.formatDate(project?.startDate, DATE_FORMAT_SLASH)}
       </InfoRow>
       <InfoRow label={t('inputLabel.plannedEndDate')}>
-        {dateHelper.formatDate(project?.endDate, DISPLAY_DATE_FORMAT)}
+        {dateHelper.formatDate(project?.endDate, DATE_FORMAT_SLASH)}
       </InfoRow>
       <InfoRow label={t('inputLabel.status')}>{project?.status && <ProjectStatus status={project.status} />}</InfoRow>
       <section className='flex flex-col gap-1 rounded-lg bg-[#F7F9FC] p-3'>
