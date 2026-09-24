@@ -13,3 +13,5 @@ export const useTransferEnum = () => {
 
   return { getTranslateEnum }
 }
+
+export type TGetTranslateEnumFn = ReturnType<typeof useTransferEnum>['getTranslateEnum']

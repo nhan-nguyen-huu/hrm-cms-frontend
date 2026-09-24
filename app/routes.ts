@@ -20,6 +20,10 @@ export default [
         index('routes/dashboard/employee-mgt/employee-profile/index.tsx'),
         route(BASE_ROUTES.CREATE, 'routes/dashboard/employee-mgt/employee-profile/create-employee-profile/index.tsx')
       ])
+    ]),
+    route(ROUTES.DASHBOARD.ORGANIZATION_MGT.BASE, 'layouts/organization-mgt.layout.tsx', [
+      index('routes/dashboard/organization-mgt/index.tsx'),
+      route(ROUTES.DASHBOARD.ORGANIZATION_MGT.PROJECT, 'routes/dashboard/organization-mgt/project/index.tsx')
     ])
   ])
 ] satisfies RouteConfig

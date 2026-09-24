@@ -16,3 +16,13 @@ export enum EEmployeeProfileTableKey {
   JoinDate = 'joinDate',
   Status = 'status'
 }
+
+export enum EProjectTableKey {
+  Name = 'name',
+  Code = 'code',
+  Department = 'department',
+  ProjectManager = 'projectManager',
+  MemberCount = 'memberCount',
+  Period = 'period',
+  Status = 'status'
+}

@@ -31,6 +31,20 @@ export enum ENationality {
   Ko = 'KO'
 }
 
+export enum EProjectStatus {
+  InProgress = 'IN_PROGRESS',
+  Kickoff = 'KICKOFF',
+  EndingSoon = 'ENDING_SOON',
+  Completed = 'COMPLETED'
+}
+
+export enum EDepartment {
+  Technology = 'TECHNOLOGY',
+  Sales = 'SALES',
+  Operations = 'OPERATIONS',
+  Marketing = 'MARKETING'
+}
+
 export enum EAspectType {
   Employee = 'EMPLOYEE'
 }

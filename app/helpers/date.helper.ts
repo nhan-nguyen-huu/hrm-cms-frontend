@@ -9,6 +9,7 @@ import { enUS } from 'react-day-picker/locale/en-US'
 import { ko } from 'react-day-picker/locale/ko'
 import { vi } from 'react-day-picker/locale/vi'
 import { ELanguage } from '~/shared/enums/common.enum'
+import type { IOption } from '~/shared/models/common.model'
 
 dayjs.extend(updateLocale)
 dayjs.extend(relativeTime)
@@ -53,5 +54,28 @@ export const dateHelper = {
     if (!date) return textFallback
     const target = dayjs(date)
     return target.locale(i18n.language).fromNow()
+  },
+
+  // Year of a month string "MM/YYYY" — NaN when missing or malformed
+  getYearFromMonth: (month?: string) => Number(month?.split('/')[1]),
+
+  // Whether a year falls inside a "MM/YYYY" – "MM/YYYY" range; false when the range is incomplete
+  isYearInMonthRange: (year: number, startMonth?: string, endMonth?: string) => {
+    const start = dateHelper.getYearFromMonth(startMonth)
+    const end = dateHelper.getYearFromMonth(endMonth)
+    if (Number.isNaN(start) || Number.isNaN(end)) return false
+    return year >= start && year <= end
+  },
+
+  // Sorted year options covered by any of the "MM/YYYY" ranges; incomplete ranges are skipped
+  getYearOptionsFromMonthRanges: (ranges: { startMonth?: string; endMonth?: string }[]): IOption[] => {
+    const years = new Set<number>()
+    ranges.forEach(({ startMonth, endMonth }) => {
+      const start = dateHelper.getYearFromMonth(startMonth)
+      const end = dateHelper.getYearFromMonth(endMonth)
+      if (Number.isNaN(start) || Number.isNaN(end)) return
+      for (let year = start; year <= end; year++) years.add(year)
+    })
+    return [...years].sort((a, b) => a - b).map((year) => ({ label: String(year), value: String(year) }))
   }
 }

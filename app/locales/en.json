@@ -8,12 +8,20 @@
     "humanResourcesSystem": "Human resources system",
     "stepByStepEmployee": "Step {{activeStep}} / 4 · The system automatically saves a draft after each step",
     "orgPositionDepartment": "{{departmentName}} Department",
-    "orgPositionProject": "{{projectName}} Project · {{memberCount}} members"
+    "orgPositionProject": "{{projectName}} Project · {{memberCount}} members",
+    "all": "All",
+    "showingCount": "Showing {{shown}} / {{total}}",
+    "projectSummary": "{{total}} projects · In progress {{inProgress}} · Ending soon {{endingSoon}} · Kick-off {{kickoff}} · Completed {{completed}}"
   },
   "sidebarMenu": {
     "employeeMgt": {
       "base": "Employee management",
       "employeeProfile": "Employee profile"
+    },
+    "organizationMgt": {
+      "base": "Organization",
+      "department": "Departments",
+      "project": "Projects"
     }
   },
   "enums": {
@@ -39,6 +47,18 @@
       "vi": "Vietnam",
       "en": "England",
       "ko": "South Korea"
+    },
+    "projectStatus": {
+      "inProgress": "In progress",
+      "kickoff": "Kick-off",
+      "endingSoon": "Ending soon",
+      "completed": "Completed"
+    },
+    "department": {
+      "technology": "Technology",
+      "sales": "Sales",
+      "operations": "Operations",
+      "marketing": "Marketing"
     }
   },
   "tables": {
@@ -55,6 +75,15 @@
       "jobTitle": "Job Title",
       "contractType": "Contract Type",
       "joinDate": "Join Date",
+      "status": "Status"
+    },
+    "projectTableKey": {
+      "name": "Project",
+      "code": "Code",
+      "department": "Department",
+      "projectManager": "Project PM",
+      "memberCount": "Members",
+      "period": "Period",
       "status": "Status"
     }
   },
@@ -74,13 +103,17 @@
     "currentResidence": "Current residence",
     "maritalStatus": "Marital status",
     "nationality": "Nationality",
-    "numberOfDependents": "Number of dependents"
+    "numberOfDependents": "Number of dependents",
+    "status": "Status",
+    "period": "Period"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "Log in with email or admin ID",
     "pleaseEnterInformation": "Please enter information",
     "pleaseSelectDate": "Please select a date",
-    "enterIfDifferentFromPermanentAddress": "Enter if different from permanent address"
+    "enterIfDifferentFromPermanentAddress": "Enter if different from permanent address",
+    "departmentAll": "Department: All",
+    "searchProject": "Project name, code, PM…"
   },
   "inputValidate": {
     "thisInformationIsRequired": "This information is required",
@@ -132,7 +165,8 @@
     "reset": "Reset",
     "save": "Save",
     "uploadPhoto": "Upload photo",
-    "updateImage": "Update image"
+    "updateImage": "Update image",
+    "addProject": "Add project"
   },
   "stepper": {
     "upsertEmployee": {

@@ -6,6 +6,12 @@ export enum EFilterPanelEmployeeProfileFormKey {
   EmployeeAccountStatus = 'employeeAccountStatus'
 }
 
+export enum EFilterPanelProjectFormKey {
+  Department = 'department',
+  Status = 'status',
+  Year = 'year'
+}
+
 export enum ELoginFormKey {
   Username = 'username',
   Password = 'password'

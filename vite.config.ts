@@ -6,7 +6,10 @@ import svgr from 'vite-plugin-svgr'
 export default defineConfig({
   resolve: { tsconfigPaths: true },
   server: {
-    host: true
+    host: true,
+    watch: {
+      ignored: ['**/CLAUDE.md', '**/.claude/**', '**/docs/**']
+    }
   },
   build: {
     sourcemap: false
