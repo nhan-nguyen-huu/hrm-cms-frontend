@@ -57,6 +57,14 @@ export interface ISidebarMenu {
   }[]
 }
 
+export interface ITabItem {
+  key: string
+  label: string
+  // Absolute route path — the active tab follows the current URL
+  to: string
+  disabled?: boolean
+}
+
 export interface IStep {
   title?: string
   description?: string

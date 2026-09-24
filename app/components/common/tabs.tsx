@@ -1,14 +1,7 @@
 import clsx from 'clsx'
 import { matchPath, useLocation, useNavigate } from 'react-router'
 import { TabsList, Tabs as TabsRoot, TabsTrigger } from '~/components/ui/tabs'
-
-export interface ITabItem {
-  key: string
-  label: string
-  // Absolute route path — the active tab follows the current URL
-  to: string
-  disabled?: boolean
-}
+import type { ITabItem } from '~/shared/models/common.model'
 
 interface ITabsProps {
   items: ITabItem[]
