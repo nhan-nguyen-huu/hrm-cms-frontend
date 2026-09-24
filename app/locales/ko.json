@@ -8,12 +8,20 @@
     "humanResourcesSystem": "인사 관리 시스템",
     "stepByStepEmployee": "Step {{activeStep}} / 4 · The system automatically saves a draft after each step",
     "orgPositionDepartment": "{{departmentName}} Department",
-    "orgPositionProject": "{{projectName}} Project · {{memberCount}} members"
+    "orgPositionProject": "{{projectName}} Project · {{memberCount}} members",
+    "all": "전체",
+    "showingCount": "{{shown}} / {{total}} 표시",
+    "projectSummary": "프로젝트 {{total}}건 · 진행 {{inProgress}} · 종료 임박 {{endingSoon}} · 신규 착수 {{kickoff}} · 완료 {{completed}}"
   },
   "sidebarMenu": {
     "employeeMgt": {
       "base": "직원 관리",
       "employeeProfile": "직원 프로필"
+    },
+    "organizationMgt": {
+      "base": "조직 구조",
+      "department": "부서",
+      "project": "프로젝트"
     }
   },
   "enums": {
@@ -39,6 +47,18 @@
       "vi": "베트남",
       "en": "영국",
       "ko": "한국"
+    },
+    "projectStatus": {
+      "inProgress": "진행 중",
+      "kickoff": "착수 단계",
+      "endingSoon": "종료 임박",
+      "completed": "완료"
+    },
+    "department": {
+      "technology": "기술",
+      "sales": "영업",
+      "operations": "운영",
+      "marketing": "마케팅"
     }
   },
   "tables": {
@@ -55,6 +75,15 @@
       "jobTitle": "직책",
       "contractType": "계약 유형",
       "joinDate": "입사일",
+      "status": "상태"
+    },
+    "projectTableKey": {
+      "name": "프로젝트",
+      "code": "코드",
+      "department": "부서",
+      "projectManager": "프로젝트 PM",
+      "memberCount": "구성원",
+      "period": "시간",
       "status": "상태"
     }
   },
@@ -74,13 +103,17 @@
     "currentResidence": "현재 거주지",
     "maritalStatus": "결혼 여부",
     "nationality": "국적",
-    "numberOfDependents": "부양가족 수"
+    "numberOfDependents": "부양가족 수",
+    "status": "상태",
+    "period": "시간"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "이메일 또는 관리자 ID로 로그인",
     "pleaseEnterInformation": "정보를 입력해 주세요",
     "pleaseSelectDate": "날짜를 선택해 주세요",
-    "enterIfDifferentFromPermanentAddress": "상주 주소와 다를 경우 입력하세요"
+    "enterIfDifferentFromPermanentAddress": "상주 주소와 다를 경우 입력하세요",
+    "departmentAll": "부서: 전체",
+    "searchProject": "프로젝트명, 코드, PM…"
   },
   "inputValidate": {
     "thisInformationIsRequired": "이 정보는 필수입니다",
@@ -132,7 +165,8 @@
     "reset": "초기화",
     "save": "저장",
     "uploadPhoto": "사진 업로드",
-    "updateImage": "이미지 업데이트"
+    "updateImage": "이미지 업데이트",
+    "addProject": "프로젝트 추가"
   },
   "stepper": {
     "upsertEmployee": {

@@ -8,12 +8,20 @@
     "humanResourcesSystem": "Hệ thống quản lý nhân sự",
     "stepByStepEmployee": "Bước {{activeStep}} / 4 · hệ thống tự lưu nháp sau mỗi bước",
     "orgPositionDepartment": "Phòng {{departmentName}}",
-    "orgPositionProject": "Dự án {{projectName}} · {{memberCount}} thành viên"
+    "orgPositionProject": "Dự án {{projectName}} · {{memberCount}} thành viên",
+    "all": "Tất cả",
+    "showingCount": "Hiển thị {{shown}} / {{total}}",
+    "projectSummary": "{{total}} dự án · Đang chạy {{inProgress}} · Sắp kết thúc {{endingSoon}} · Mới khởi động {{kickoff}} · Hoàn thành {{completed}}"
   },
   "sidebarMenu": {
     "employeeMgt": {
       "base": "Quản lý nhân viên",
       "employeeProfile": "Hồ sơ nhân viên"
+    },
+    "organizationMgt": {
+      "base": "Tổ chức",
+      "department": "Phòng ban",
+      "project": "Dự án"
     }
   },
   "enums": {
@@ -39,6 +47,18 @@
       "vi": "Việt Nam",
       "en": "Anh",
       "ko": "Hàn Quốc"
+    },
+    "projectStatus": {
+      "inProgress": "Đang chạy",
+      "kickoff": "Khởi động",
+      "endingSoon": "Sắp kết thúc",
+      "completed": "Hoàn thành"
+    },
+    "department": {
+      "technology": "Kỹ thuật",
+      "sales": "Kinh doanh",
+      "operations": "Vận hành",
+      "marketing": "Marketing"
     }
   },
   "tables": {
@@ -55,6 +75,15 @@
       "jobTitle": "Chức danh",
       "contractType": "Loại hợp đồng",
       "joinDate": "Ngày gia nhập",
+      "status": "Trạng thái"
+    },
+    "projectTableKey": {
+      "name": "Dự án",
+      "code": "Mã",
+      "department": "Phòng ban",
+      "projectManager": "PM dự án",
+      "memberCount": "Thành viên",
+      "period": "Thời gian",
       "status": "Trạng thái"
     }
   },
@@ -74,13 +103,17 @@
     "currentResidence": "Chỗ ở hiện tại",
     "maritalStatus": "Tình trạng hôn nhân",
     "nationality": "Quốc tịch",
-    "numberOfDependents": "Số người phụ thuộc"
+    "numberOfDependents": "Số người phụ thuộc",
+    "status": "Trạng thái",
+    "period": "Thời gian"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "Đăng nhập bằng email hoặc ID quản trị viên",
     "pleaseEnterInformation": "Vui lòng nhập thông tin",
     "pleaseSelectDate": "Vui lòng chọn ngày",
-    "enterIfDifferentFromPermanentAddress": "Nhập nếu khác địa chỉ thường trú"
+    "enterIfDifferentFromPermanentAddress": "Nhập nếu khác địa chỉ thường trú",
+    "departmentAll": "Phòng ban: Tất cả",
+    "searchProject": "Tên dự án, mã, PM…"
   },
   "inputValidate": {
     "thisInformationIsRequired": "Thông tin này là bắt buộc",
@@ -131,7 +164,8 @@
     "reset": "Đặt lại",
     "save": "Lưu",
     "uploadPhoto": "Tải ảnh lên",
-    "updateImage": "Cập nhật hình ảnh"
+    "updateImage": "Cập nhật hình ảnh",
+    "addProject": "Thêm dự án"
   },
   "stepper": {
     "upsertEmployee": {

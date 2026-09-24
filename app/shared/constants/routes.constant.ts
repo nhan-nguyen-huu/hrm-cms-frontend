@@ -15,6 +15,11 @@ export const ROUTES = {
     EMPLOYEE_MGT: {
       BASE: 'employee-mgt',
       EMPLOYEE_PROFILE: 'employee-profile'
+    },
+    ORGANIZATION_MGT: {
+      BASE: 'organization-mgt',
+      DEPARTMENT: 'department',
+      PROJECT: 'project'
     }
   }
 }
