@@ -9,6 +9,11 @@ import { Provider } from '~/providers'
 import type { Route } from './+types/root'
 import './app.css'
 
+export const links: Route.LinksFunction = () => [
+  { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+  { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }
+]
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en' suppressHydrationWarning>
