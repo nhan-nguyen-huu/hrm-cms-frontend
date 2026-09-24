@@ -1,7 +1,7 @@
 import { EDepartment, EProjectStatus } from '~/shared/enums/common.enum'
-import type { IProject } from '~/shared/models/project.model'
+import type { IProject, IProjectDetail, IProjectMember } from '~/shared/models/project.model'
 
-// Sample data from docs/Specom_HRM_Design_45man.html (screen CmsDuAn) — replace with the project API once available
+// Sample data from design artifact "Specom HRM UI" (screen CmsDuAn) — replace with the project API once available
 export const MOCK_PROJECTS: IProject[] = [
   {
     id: 'DA-KT-01',
@@ -136,3 +136,161 @@ export const MOCK_PROJECTS: IProject[] = [
     status: EProjectStatus.Completed
   }
 ]
+
+// Members of SP Core Platform as shown in design artifact "Specom HRM UI" (screen CmsDuAnChiTiet) — first 12 of 32
+const MOCK_SP_CORE_MEMBERS: IProjectMember[] = [
+  {
+    id: 'NV0201',
+    code: 'NV0201',
+    name: 'Trần Quốc Hưng',
+    email: 'hung.tran@specom.vn',
+    jobTitle: 'Trưởng nhóm',
+    role: 'Project PM',
+    allocation: 50,
+    totalAllocation: 90,
+    joinedMonth: '01/2025'
+  },
+  {
+    id: 'NV0202',
+    code: 'NV0202',
+    name: 'Nguyễn Minh Thư',
+    email: 'thu.nguyen@specom.vn',
+    jobTitle: 'Kỹ sư phần mềm',
+    role: 'Backend',
+    allocation: 60,
+    totalAllocation: 100,
+    joinedMonth: '04/2025'
+  },
+  {
+    id: 'NV0203',
+    code: 'NV0203',
+    name: 'Phan Duy Khánh',
+    email: 'khanh.phan@specom.vn',
+    jobTitle: 'Kỹ sư phần mềm',
+    role: 'Backend',
+    allocation: 45,
+    totalAllocation: 85,
+    joinedMonth: '05/2026'
+  },
+  {
+    id: 'NV0204',
+    code: 'NV0204',
+    name: 'Lê Anh Dũng',
+    email: 'dung.le@specom.vn',
+    jobTitle: 'Kỹ sư kiểm thử',
+    role: 'QA',
+    allocation: 40,
+    totalAllocation: 110,
+    joinedMonth: '06/2025'
+  },
+  {
+    id: 'NV0205',
+    code: 'NV0205',
+    name: 'Trịnh Minh Đạt',
+    email: 'dat.trinh@specom.vn',
+    jobTitle: 'Kỹ sư kiểm thử',
+    role: 'QA',
+    allocation: 35,
+    totalAllocation: 95,
+    joinedMonth: '03/2026'
+  },
+  {
+    id: 'NV0206',
+    code: 'NV0206',
+    name: 'Vũ Đình Sơn',
+    email: 'son.vu@specom.vn',
+    jobTitle: 'Trưởng nhóm',
+    role: 'System architecture',
+    allocation: 30,
+    totalAllocation: 80,
+    joinedMonth: '01/2025'
+  },
+  {
+    id: 'NV0207',
+    code: 'NV0207',
+    name: 'Cao Việt Anh',
+    email: 'anh.cao@specom.vn',
+    jobTitle: 'Quản trị hệ thống',
+    role: 'DevOps',
+    allocation: 25,
+    totalAllocation: 105,
+    joinedMonth: '09/2025'
+  },
+  {
+    id: 'NV0208',
+    code: 'NV0208',
+    name: 'Lý Hoàng Ân',
+    email: 'an.ly@specom.vn',
+    jobTitle: 'Kỹ sư di động',
+    role: 'Integration',
+    allocation: 20,
+    totalAllocation: 70,
+    joinedMonth: '02/2026'
+  },
+  {
+    id: 'NV0209',
+    code: 'NV0209',
+    name: 'Đào Thị Tuyết',
+    email: 'tuyet.dao@specom.vn',
+    jobTitle: 'Kỹ sư phần mềm',
+    role: 'Frontend',
+    allocation: 50,
+    totalAllocation: 100,
+    joinedMonth: '07/2025'
+  },
+  {
+    id: 'NV0210',
+    code: 'NV0210',
+    name: 'Bùi Hải My',
+    email: 'my.bui@specom.vn',
+    jobTitle: 'Chuyên viên phân tích nghiệp vụ',
+    role: 'Business analysis',
+    allocation: 45,
+    totalAllocation: 90,
+    joinedMonth: '01/2026'
+  },
+  {
+    id: 'NV0211',
+    code: 'NV0211',
+    name: 'Ngô Văn Tú',
+    email: 'tu.ngo@specom.vn',
+    jobTitle: 'Kỹ sư dữ liệu',
+    role: 'Data & reporting',
+    allocation: 35,
+    totalAllocation: 75,
+    joinedMonth: '11/2025'
+  },
+  {
+    id: 'NV0212',
+    code: 'NV0212',
+    name: 'Hoàng Quốc Toản',
+    email: 'toan.hoang@specom.vn',
+    jobTitle: 'Kỹ sư phần mềm',
+    role: 'Backend',
+    allocation: 30,
+    totalAllocation: 80,
+    joinedMonth: '04/2026'
+  }
+]
+
+const MOCK_PROJECT_DETAIL_EXTRAS: Record<string, Omit<IProjectDetail, keyof IProject>> = {
+  'DA-KT-01': {
+    startDate: '2025-01-06',
+    endDate: '2026-12-31',
+    goal: 'Build a shared core platform for all Specom products.',
+    members: MOCK_SP_CORE_MEMBERS,
+    allocationSummary: {
+      memberCount: 32,
+      fte: 12.4,
+      averageAllocation: 39,
+      overAllocatedMemberNames: ['Lê Anh Dũng', 'Cao Việt Anh']
+    }
+  }
+}
+
+// Stand-in for GET /projects/:id — only DA-KT-01 has members; other projects return an empty member list
+export const getMockProjectDetail = (id?: string): IProjectDetail | undefined => {
+  const project = MOCK_PROJECTS.find((item) => item.id === id)
+  if (!project) return undefined
+  return { members: [], ...project, ...MOCK_PROJECT_DETAIL_EXTRAS[project.id ?? ''] }
+}

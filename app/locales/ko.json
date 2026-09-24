@@ -7,11 +7,14 @@
     "companyName": "Specom",
     "humanResourcesSystem": "인사 관리 시스템",
     "stepByStepEmployee": "Step {{activeStep}} / 4 · The system automatically saves a draft after each step",
-    "orgPositionDepartment": "{{departmentName}} Department",
+    "orgPositionDepartment": "{{departmentName}} 부서",
     "orgPositionProject": "{{projectName}} Project · {{memberCount}} members",
     "all": "전체",
     "showingCount": "{{shown}} / {{total}} 표시",
-    "projectSummary": "프로젝트 {{total}}건 · 진행 {{inProgress}} · 종료 임박 {{endingSoon}} · 신규 착수 {{kickoff}} · 완료 {{completed}}"
+    "projectSummary": "프로젝트 {{total}}건 · 진행 {{inProgress}} · 종료 임박 {{endingSoon}} · 신규 착수 {{kickoff}} · 완료 {{completed}}",
+    "pmName": "PM {{name}}",
+    "personCount": "{{count}}명",
+    "fteValue": "{{value}} FTE"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -85,6 +88,12 @@
       "memberCount": "구성원",
       "period": "시간",
       "status": "상태"
+    },
+    "projectMemberTableKey": {
+      "employee": "직원",
+      "role": "프로젝트 역할",
+      "allocation": "배분",
+      "joinedMonth": "참여 시작일"
     }
   },
   "inputLabel": {
@@ -105,7 +114,17 @@
     "nationality": "국적",
     "numberOfDependents": "부양가족 수",
     "status": "상태",
-    "period": "시간"
+    "period": "시간",
+    "projectCode": "프로젝트 코드",
+    "ownerDepartment": "주관 부서",
+    "projectManager": "프로젝트 PM",
+    "startDate": "시작",
+    "plannedEndDate": "종료 예정",
+    "goal": "목표",
+    "memberCount": "구성원",
+    "fteEquivalent": "FTE 환산",
+    "averageAllocation": "평균 배분",
+    "overAllocated": "배분 합계 100% 초과"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "이메일 또는 관리자 ID로 로그인",
@@ -132,7 +151,10 @@
     "portraitPhoto": "증명사진",
     "note": "참고",
     "importProgress": "입력 진행률",
-    "orgPosition": "조직 내 위치"
+    "orgPosition": "조직 내 위치",
+    "projectMembers": "프로젝트 구성원",
+    "projectInfo": "프로젝트 정보",
+    "staffAllocation": "인력 배분"
   },
   "msg": {
     "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다",
@@ -142,7 +164,9 @@
     "uploadPhotoHint": "JPG, PNG · 비율 1:1 · 최대 2 MB",
     "cccdDuplicateWarning": "신분증 번호는 중복 등록을 방지하는 키입니다. 시스템에 이미 존재하는 경우, 새로 생성하는 대신 기존 정보를 열람하도록 경고가 표시됩니다.",
     "optional": "선택사항",
-    "maxFileSizeExceeded": "최대 2MB 이하의 이미지를 선택해주세요"
+    "maxFileSizeExceeded": "최대 2MB 이하의 이미지를 선택해주세요",
+    "overAllocationWarning": "{{names}}은 타 프로젝트 포함 시 배분이 100%를 초과합니다. 다음 근태 마감 전 조정이 필요합니다.",
+    "memberOverAllocated": "전체 프로젝트 배분 합계 {{total}}% — 100% 초과"
   },
   "confirm": {
     "confirmLogoutTitle": "로그아웃하시겠습니까?",
@@ -166,7 +190,11 @@
     "save": "저장",
     "uploadPhoto": "사진 업로드",
     "updateImage": "이미지 업데이트",
-    "addProject": "프로젝트 추가"
+    "addProject": "프로젝트 추가",
+    "editProject": "프로젝트 수정",
+    "addMember": "구성원 추가",
+    "edit": "수정",
+    "viewAll": "전체 보기"
   },
   "stepper": {
     "upsertEmployee": {

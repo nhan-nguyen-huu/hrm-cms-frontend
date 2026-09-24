@@ -39,7 +39,6 @@ const ProjectTable = ({
       onPageChange={onPageChange}
       pageSize={pageSize}
       onPageSizeChange={onPageSizeChange}
-      disableNavigationAll
     />
   )
 }

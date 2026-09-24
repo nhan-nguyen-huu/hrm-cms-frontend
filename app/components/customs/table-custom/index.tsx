@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { type ReactNode, useState } from 'react'
 
 import {
   type ColumnDef,
@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router'
 import { EmptyIcon } from '~/assets/svgs'
 import RenderIf from '~/components/common/render-if'
 import PaginationCustom from '~/components/customs/pagination-custom'
+import TableCustomHeader from '~/components/customs/table-custom/components/table-custom-header'
 import { Skeleton } from '~/components/ui/skeleton'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 
@@ -28,7 +29,12 @@ interface DataTableProps<TData, TValue> {
   maxHeightClass?: string
   emptyText?: string
   classNameWrapperTable?: string
+  // Optional header row above the table: title + description (left), "Showing x / y" + actions (right)
+  headerTitle?: string
   headerDescription?: string
+  headerAction?: ReactNode
+  // Total rows of the whole list (e.g. API totalElements) for "Showing x / y"; defaults to data.length
+  totalItems?: number
   footerDescription?: string
   disableNavigationAll?: boolean
   onRowFunction?: (id: number) => void
@@ -54,6 +60,10 @@ const TableCustom = <TData, TValue>({
   skeletonLength = 9,
   emptyText = 'No data',
   classNameWrapperTable,
+  headerTitle,
+  headerDescription,
+  headerAction,
+  totalItems,
   getSubRows,
   getRowId,
   rowSelection = {},
@@ -92,7 +102,17 @@ const TableCustom = <TData, TValue>({
   const visibleColumnsCount = table.getVisibleLeafColumns().length
   const totalRow = Object.keys(rowSelection).length
   return (
-    <section className='flex flex-col gap-4'>
+    <section className='flex flex-col gap-3'>
+      {(headerTitle || headerDescription || headerAction) && (
+        <TableCustomHeader
+          title={headerTitle}
+          description={headerDescription}
+          shown={data.length}
+          total={totalItems ?? data.length}
+        >
+          {headerAction}
+        </TableCustomHeader>
+      )}
       <section
         className={clsx('rounded-[14px] overflow-hidden w-full relative border border-border', classNameWrapperTable)}
       >

@@ -23,7 +23,10 @@ export default [
     ]),
     route(ROUTES.DASHBOARD.ORGANIZATION_MGT.BASE, 'layouts/organization-mgt.layout.tsx', [
       index('routes/dashboard/organization-mgt/index.tsx'),
-      route(ROUTES.DASHBOARD.ORGANIZATION_MGT.PROJECT, 'routes/dashboard/organization-mgt/project/index.tsx')
+      route(ROUTES.DASHBOARD.ORGANIZATION_MGT.PROJECT, 'layouts/project.layout.tsx', [
+        index('routes/dashboard/organization-mgt/project/index.tsx'),
+        route(BASE_ROUTES.DETAIL, 'routes/dashboard/organization-mgt/project/project-detail/index.tsx')
+      ])
     ])
   ])
 ] satisfies RouteConfig

@@ -26,3 +26,10 @@ export enum EProjectTableKey {
   Period = 'period',
   Status = 'status'
 }
+
+export enum EProjectMemberTableKey {
+  Employee = 'name',
+  Role = 'role',
+  Allocation = 'allocation',
+  JoinedMonth = 'joinedMonth'
+}

@@ -57,12 +57,21 @@ export interface ISidebarMenu {
   }[]
 }
 
+export interface IBreadcrumbItem {
+  key: string
+  label?: string
+  // Absolute route path; omit for the current page (last item)
+  to?: string
+}
+
 export interface ITabItem {
   key: string
   label: string
   // Absolute route path — the active tab follows the current URL
   to: string
   disabled?: boolean
+  // Small counter badge next to the label (e.g. documents pending)
+  count?: number
 }
 
 export interface IStep {
