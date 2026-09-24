@@ -3,6 +3,7 @@ import type { TFunction } from 'i18next'
 import { Ellipsis } from 'lucide-react'
 import ContentBody from '~/components/customs/table-custom/components/content-body'
 import TitleHead from '~/components/customs/table-custom/components/title-head'
+import EmployeeInfo from '~/components/tags/employee-info'
 import ProjectStatus from '~/components/tags/project-status'
 import { commonHelper } from '~/helpers/common.helper'
 import { EDepartment } from '~/shared/enums/common.enum'
@@ -16,7 +17,7 @@ export const projectColumn = {
         accessorKey: EProjectTableKey.Name,
         header: () => <TitleHead title={t('tables.projectTableKey.name')} className='text-left' />,
         cell: ({ row }) => <ContentBody content={row.original.name} className='text-left font-semibold' />,
-        size: 240
+        size: 210
       },
       {
         accessorKey: EProjectTableKey.Code,
@@ -41,8 +42,10 @@ export const projectColumn = {
       {
         accessorKey: EProjectTableKey.ProjectManager,
         header: () => <TitleHead title={t('tables.projectTableKey.projectManager')} className='text-left' />,
-        cell: ({ row }) => <ContentBody content={row.original.projectManager} className='text-left' />,
-        size: 170
+        cell: ({ row }) => (
+          <EmployeeInfo name={row.original.projectManager.name} email={row.original.projectManager.email} />
+        ),
+        size: 200
       },
       {
         accessorKey: EProjectTableKey.MemberCount,
