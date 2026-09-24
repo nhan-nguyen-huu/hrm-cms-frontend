@@ -29,67 +29,6 @@ jobs:
           cache: 'npm'
 
       # ========================================
-      # OpenVPN
-      # ========================================
-
-      - name: Install OpenVPN
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openvpn netcat-openbsd
-
-      - name: Create VPN config
-        run: |
-          cat > vpn.ovpn <<'EOF'
-          ${{ secrets.VPN_CONFIG }}
-          EOF
-
-          cat > vpn-auth.txt <<'EOF'
-          ${{ secrets.VPN_USERNAME }}
-          ${{ secrets.VPN_PASSWORD }}
-          EOF
-
-          chmod 600 vpn.ovpn
-          chmod 600 vpn-auth.txt
-
-          if grep -q '^auth-user-pass' vpn.ovpn; then
-            sed -i 's/^auth-user-pass.*/auth-user-pass vpn-auth.txt/' vpn.ovpn
-          else
-            echo "auth-user-pass vpn-auth.txt" >> vpn.ovpn
-          fi
-
-      - name: Connect VPN
-        run: |
-          sudo openvpn \
-            --config vpn.ovpn \
-            --daemon \
-            --log /tmp/openvpn.log
-
-          echo "Waiting for VPN connection..."
-
-          VPN_CONNECTED=false
-
-          for i in {1..30}; do
-            if ip addr show | grep -q "tun0"; then
-              VPN_CONNECTED=true
-              echo "VPN connected successfully."
-              break
-            fi
-
-            echo "Waiting... ($i/30)"
-            sleep 2
-          done
-
-          echo ""
-          echo "========== VPN LOG =========="
-          sudo cat /tmp/openvpn.log
-          echo "============================="
-
-          if [ "$VPN_CONNECTED" != "true" ]; then
-            echo "VPN connection failed."
-            exit 1
-          fi
-
-      # ========================================
       # Test SSH Port
       # ========================================
 
@@ -121,7 +60,7 @@ jobs:
           VITE_MODE: ${{ secrets.VITE_MODE }}
 
       # ========================================
-      # Upload build/client
+      # Upload build/client to EC2
       # ========================================
 
       - name: Upload build/client to EC2
