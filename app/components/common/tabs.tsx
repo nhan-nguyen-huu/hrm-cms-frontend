@@ -1,5 +1,6 @@
 import clsx from 'clsx'
-import { NavLink } from 'react-router'
+import { matchPath, useLocation, useNavigate } from 'react-router'
+import { TabsList, Tabs as TabsRoot, TabsTrigger } from '~/components/ui/tabs'
 
 export interface ITabItem {
   key: string
@@ -14,35 +15,38 @@ interface ITabsProps {
   className?: string
 }
 
+// Route-driven tabs on top of shadcn Tabs (line variant): the URL decides the active tab, clicking navigates
 const Tabs = ({ items, className }: ITabsProps) => {
-  const baseClassName = 'flex items-center h-9 -mb-px border-b-2 text-[13px] transition-colors'
+  const location = useLocation()
+  const navi = useNavigate()
+  const activeKey = items.find((item) => matchPath({ path: item.to, end: false }, location.pathname))?.key ?? null
+
   return (
-    <nav className={clsx('flex items-center gap-6 border-b border-[#E4E9F0]', className)}>
-      {items.map((item) =>
-        item.disabled ? (
-          <span
+    <TabsRoot
+      value={activeKey}
+      onValueChange={(value) => {
+        const item = items.find((tab) => tab.key === value)
+        if (item && !item.disabled) navi(item.to)
+      }}
+      className={className}
+    >
+      <TabsList variant='line' className='h-9! w-full justify-start gap-6 rounded-none border-b border-[#E4E9F0] p-0'>
+        {items.map((item) => (
+          <TabsTrigger
             key={item.key}
-            aria-disabled
-            className={clsx(baseClassName, 'border-transparent text-[#6E7F96] cursor-not-allowed opacity-60')}
+            value={item.key}
+            disabled={item.disabled}
+            className={clsx(
+              'h-full flex-none rounded-none px-0 text-[13px] font-normal text-[#6E7F96] hover:text-primary',
+              'data-active:font-semibold data-active:text-primary',
+              'after:bg-primary group-data-horizontal/tabs:after:-bottom-px'
+            )}
           >
             {item.label}
-          </span>
-        ) : (
-          <NavLink
-            key={item.key}
-            to={item.to}
-            className={({ isActive }) =>
-              clsx(
-                baseClassName,
-                isActive ? 'border-primary font-semibold text-primary' : 'border-transparent text-[#6E7F96]'
-              )
-            }
-          >
-            {item.label}
-          </NavLink>
-        )
-      )}
-    </nav>
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </TabsRoot>
   )
 }
 
