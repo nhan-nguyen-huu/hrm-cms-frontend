@@ -11,7 +11,10 @@
     "orgPositionProject": "{{projectName}} Project · {{memberCount}} members",
     "all": "All",
     "showingCount": "Showing {{shown}} / {{total}}",
-    "projectSummary": "{{total}} projects · In progress {{inProgress}} · Ending soon {{endingSoon}} · Kick-off {{kickoff}} · Completed {{completed}}"
+    "projectSummary": "{{total}} projects · In progress {{inProgress}} · Ending soon {{endingSoon}} · Kick-off {{kickoff}} · Completed {{completed}}",
+    "pmName": "PM {{name}}",
+    "personCount": "{{count}} people",
+    "fteValue": "{{value}} FTE"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -85,6 +88,12 @@
       "memberCount": "Members",
       "period": "Period",
       "status": "Status"
+    },
+    "projectMemberTableKey": {
+      "employee": "Employee",
+      "role": "Project role",
+      "allocation": "Allocation",
+      "joinedMonth": "Joined from"
     }
   },
   "inputLabel": {
@@ -105,7 +114,17 @@
     "nationality": "Nationality",
     "numberOfDependents": "Number of dependents",
     "status": "Status",
-    "period": "Period"
+    "period": "Period",
+    "projectCode": "Project code",
+    "ownerDepartment": "Owning department",
+    "projectManager": "Project PM",
+    "startDate": "Start",
+    "plannedEndDate": "Planned end",
+    "goal": "Goal",
+    "memberCount": "Members",
+    "fteEquivalent": "FTE equivalent",
+    "averageAllocation": "Average allocation",
+    "overAllocated": "Total allocation over 100%"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "Log in with email or admin ID",
@@ -132,7 +151,10 @@
     "portraitPhoto": "Portrait photo",
     "note": "Note",
     "importProgress": "Import progress",
-    "orgPosition": "Organization position"
+    "orgPosition": "Organization position",
+    "projectMembers": "Project members",
+    "projectInfo": "Project information",
+    "staffAllocation": "Staff allocation"
   },
   "msg": {
     "changeLanguageSuccess": "Change language successfully",
@@ -142,7 +164,9 @@
     "uploadPhotoHint": "JPG, PNG · ratio 1:1 · max 2 MB",
     "cccdDuplicateWarning": "The ID card number is used to prevent duplicate records. If it already exists in the system, the system will warn you and open the existing record instead of creating a new one.",
     "optional": "Optional",
-    "maxFileSizeExceeded": "Please select an image up to 2 MB"
+    "maxFileSizeExceeded": "Please select an image up to 2 MB",
+    "overAllocationWarning": "{{names}} are allocated over 100% across all projects. Please adjust before the next attendance closing.",
+    "memberOverAllocated": "Allocated {{total}}% across all projects — over 100%"
   },
   "confirm": {
     "confirmLogoutTitle": "Do you want to log out?",
@@ -166,7 +190,11 @@
     "save": "Save",
     "uploadPhoto": "Upload photo",
     "updateImage": "Update image",
-    "addProject": "Add project"
+    "addProject": "Add project",
+    "editProject": "Edit project",
+    "addMember": "Add member",
+    "edit": "Edit",
+    "viewAll": "View all"
   },
   "stepper": {
     "upsertEmployee": {

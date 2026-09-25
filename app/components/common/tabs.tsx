@@ -6,10 +6,12 @@ import type { ITabItem } from '~/shared/models/common.model'
 interface ITabsProps {
   items: ITabItem[]
   className?: string
+  // e.g. 'border-b-0' when the tabs sit inside a card that already draws a divider
+  listClassName?: string
 }
 
 // Route-driven tabs on top of shadcn Tabs (line variant): the URL decides the active tab, clicking navigates
-const Tabs = ({ items, className }: ITabsProps) => {
+const Tabs = ({ items, className, listClassName }: ITabsProps) => {
   const location = useLocation()
   const navi = useNavigate()
   const activeKey = items.find((item) => matchPath({ path: item.to, end: false }, location.pathname))?.key ?? null
@@ -23,7 +25,10 @@ const Tabs = ({ items, className }: ITabsProps) => {
       }}
       className={className}
     >
-      <TabsList variant='line' className='h-9! w-full justify-start gap-6 rounded-none border-b border-[#E4E9F0] p-0'>
+      <TabsList
+        variant='line'
+        className={clsx('h-9! w-full justify-start gap-6 rounded-none border-b border-[#E4E9F0] p-0', listClassName)}
+      >
         {items.map((item) => (
           <TabsTrigger
             key={item.key}
@@ -36,6 +41,11 @@ const Tabs = ({ items, className }: ITabsProps) => {
             )}
           >
             {item.label}
+            {item.count != null && (
+              <span className='rounded-full bg-[#FBF0E2] px-1.5 text-[10px] font-bold text-[#B2650F]'>
+                {item.count}
+              </span>
+            )}
           </TabsTrigger>
         ))}
       </TabsList>

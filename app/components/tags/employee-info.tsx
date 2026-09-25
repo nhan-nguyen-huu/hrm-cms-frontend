@@ -5,10 +5,12 @@ import { commonHelper } from '~/helpers'
 interface IEmployeeInfoProps {
   name?: string
   email?: string
+  // Second line instead of the email (e.g. job title); falls back to email when not given
+  description?: string
   avatarUrl?: string
 }
 
-const EmployeeInfo = ({ name, email, avatarUrl }: IEmployeeInfoProps) => {
+const EmployeeInfo = ({ name, email, description, avatarUrl }: IEmployeeInfoProps) => {
   return (
     <section className='flex items-center gap-2 text-left'>
       <Avatar>
@@ -19,7 +21,7 @@ const EmployeeInfo = ({ name, email, avatarUrl }: IEmployeeInfoProps) => {
       </Avatar>
       <section className='flex flex-col min-w-0'>
         <p className='text-xs font-semibold truncate'>{name || '-'}</p>
-        <p className='text-xs text-muted-foreground truncate'>{email || '-'}</p>
+        <p className='text-xs text-muted-foreground truncate'>{(description ?? email) || '-'}</p>
       </section>
     </section>
   )

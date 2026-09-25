@@ -1,4 +1,4 @@
-import { type TFunction, t } from 'i18next'
+import i18n, { type TFunction, t } from 'i18next'
 import { toast } from 'sonner'
 import type { TEnumLike } from '~/shared/types/common.type'
 
@@ -97,6 +97,9 @@ export const commonHelper = {
       .join('')
       .toUpperCase()
   },
+  // Locale-aware number (current UI language), "-" when missing — e.g. 12.4 → "12,4" in vi
+  formatNumber: (value?: number | null, maximumFractionDigits = 1) =>
+    value == null ? '-' : new Intl.NumberFormat(i18n.language, { maximumFractionDigits }).format(value),
   getEnumOptions:
     <T extends TEnumLike>(enumType: T, enumPath: string) =>
     (t: TFunction) =>

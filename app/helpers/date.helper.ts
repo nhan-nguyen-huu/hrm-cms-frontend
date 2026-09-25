@@ -27,6 +27,7 @@ export const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm'
 export const TIME_FORMAT = 'HH:mm'
 export const DATE_TIME_FORMAT_FULL = 'YYYY-MM-DD HH:mm:ss'
 export const DATE_FORMAT_DOT = 'YYYY.MM.DD'
+export const DATE_FORMAT_SLASH = 'DD/MM/YYYY'
 export const DATE_TIME_FORMAT_DOT = 'YYYY.MM.DD HH:mm'
 export const DATE_FORMAT_DOT_FULL = 'YYYY.MM.DD HH:mm'
 

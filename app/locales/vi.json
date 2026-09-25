@@ -11,7 +11,10 @@
     "orgPositionProject": "Dự án {{projectName}} · {{memberCount}} thành viên",
     "all": "Tất cả",
     "showingCount": "Hiển thị {{shown}} / {{total}}",
-    "projectSummary": "{{total}} dự án · Đang chạy {{inProgress}} · Sắp kết thúc {{endingSoon}} · Mới khởi động {{kickoff}} · Hoàn thành {{completed}}"
+    "projectSummary": "{{total}} dự án · Đang chạy {{inProgress}} · Sắp kết thúc {{endingSoon}} · Mới khởi động {{kickoff}} · Hoàn thành {{completed}}",
+    "pmName": "PM {{name}}",
+    "personCount": "{{count}} người",
+    "fteValue": "{{value}} FTE"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -85,6 +88,12 @@
       "memberCount": "Thành viên",
       "period": "Thời gian",
       "status": "Trạng thái"
+    },
+    "projectMemberTableKey": {
+      "employee": "Nhân viên",
+      "role": "Vai trò dự án",
+      "allocation": "Phân bổ",
+      "joinedMonth": "Tham gia từ"
     }
   },
   "inputLabel": {
@@ -105,7 +114,17 @@
     "nationality": "Quốc tịch",
     "numberOfDependents": "Số người phụ thuộc",
     "status": "Trạng thái",
-    "period": "Thời gian"
+    "period": "Thời gian",
+    "projectCode": "Mã dự án",
+    "ownerDepartment": "Phòng ban phụ trách",
+    "projectManager": "PM dự án",
+    "startDate": "Bắt đầu",
+    "plannedEndDate": "Dự kiến kết thúc",
+    "goal": "Mục tiêu",
+    "memberCount": "Thành viên",
+    "fteEquivalent": "Quy đổi FTE",
+    "averageAllocation": "Phân bổ trung bình",
+    "overAllocated": "Tổng phân bổ vượt 100%"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "Đăng nhập bằng email hoặc ID quản trị viên",
@@ -132,7 +151,10 @@
     "portraitPhoto": "Ảnh chân dung",
     "note": "Lưu ý",
     "importProgress": "Tiến độ nhập",
-    "orgPosition": "Vị trí trong tổ chức"
+    "orgPosition": "Vị trí trong tổ chức",
+    "projectMembers": "Thành viên dự án",
+    "projectInfo": "Thông tin dự án",
+    "staffAllocation": "Phân bổ nhân sự"
   },
   "msg": {
     "changeLanguageSuccess": "Đổi ngôn ngữ thành công",
@@ -142,7 +164,9 @@
     "uploadPhotoHint": "JPG, PNG · tỷ lệ 1:1 · tối đa 2 MB",
     "cccdDuplicateWarning": "Số CCCD là khoá chống trùng hồ sơ. Nếu đã tồn tại trong hệ thống, hệ thống sẽ cảnh báo và mở hồ sơ cũ thay vì tạo mới.",
     "optional": "Tùy chọn",
-    "maxFileSizeExceeded": "Vui lòng chọn ảnh có dung lượng tối đa 2mb"
+    "maxFileSizeExceeded": "Vui lòng chọn ảnh có dung lượng tối đa 2mb",
+    "overAllocationWarning": "{{names}} có tổng phân bổ vượt 100% khi tính cả dự án khác. Cần điều chỉnh trước kỳ chốt công tiếp theo.",
+    "memberOverAllocated": "Tổng phân bổ mọi dự án {{total}}% — vượt 100%"
   },
   "confirm": {
     "confirmLogoutTitle": "Bạn có muốn đăng xuất không?",
@@ -165,7 +189,11 @@
     "save": "Lưu",
     "uploadPhoto": "Tải ảnh lên",
     "updateImage": "Cập nhật hình ảnh",
-    "addProject": "Thêm dự án"
+    "addProject": "Thêm dự án",
+    "editProject": "Sửa dự án",
+    "addMember": "Thêm thành viên",
+    "edit": "Sửa",
+    "viewAll": "Xem tất cả"
   },
   "stepper": {
     "upsertEmployee": {

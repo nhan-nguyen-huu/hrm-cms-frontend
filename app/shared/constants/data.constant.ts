@@ -1,7 +1,8 @@
 import type { TFunction } from 'i18next'
 import { commonHelper } from '~/helpers'
 import { ROUTES } from '~/shared/constants/routes.constant'
-import type { IStep, ITabItem } from '~/shared/models/common.model'
+import type { IBreadcrumbItem, IInfoRow, IStep, ITabItem } from '~/shared/models/common.model'
+import type { IProjectAllocationSummary } from '~/shared/models/project.model'
 
 import { EnIcon, KoIcon, ViIcon } from '../../assets/svgs'
 import {
@@ -13,6 +14,31 @@ import {
   ENationality,
   EProjectStatus
 } from '../enums/common.enum'
+
+const ORGANIZATION_PATH = `/${ROUTES.DASHBOARD.BASE}/${ROUTES.DASHBOARD.ORGANIZATION_MGT.BASE}`
+
+// Breadcrumbs, declared in one place: single segments (ORGANIZATION, PROJECT, CURRENT) and
+// per-page breadcrumbs composed from them (PROJECT_DETAIL…) — pass a page entry to <BreadcrumbCustom items />
+export const BREADCRUMB_SEGMENT = {
+  ORGANIZATION: (t: TFunction): Required<IBreadcrumbItem> => ({
+    key: 'organization',
+    label: t('sidebarMenu.organizationMgt.base'),
+    to: ORGANIZATION_PATH
+  }),
+  PROJECT: (t: TFunction): Required<IBreadcrumbItem> => ({
+    key: 'project',
+    label: t('sidebarMenu.organizationMgt.project'),
+    to: `${ORGANIZATION_PATH}/${ROUTES.DASHBOARD.ORGANIZATION_MGT.PROJECT}`
+  }),
+  // Current page — last item, not a link
+  CURRENT: (label?: string): IBreadcrumbItem => ({ key: 'current', label }),
+
+  PROJECT_DETAIL: (t: TFunction, projectName?: string): IBreadcrumbItem[] => [
+    BREADCRUMB_SEGMENT.ORGANIZATION(t),
+    BREADCRUMB_SEGMENT.PROJECT(t),
+    BREADCRUMB_SEGMENT.CURRENT(projectName)
+  ]
+}
 
 export const DATA = {
   GET_LANGUAGE: (t: TFunction) => {
@@ -62,22 +88,35 @@ export const DATA = {
   GET_OPTIONS_PROJECT_STATUS: commonHelper.getEnumOptions(EProjectStatus, 'projectStatus'),
   GET_OPTIONS_DEPARTMENT: commonHelper.getEnumOptions(EDepartment, 'department'),
   GET_ORGANIZATION_TABS: (t: TFunction) => {
-    const BASE_PATH = `/${ROUTES.DASHBOARD.BASE}/${ROUTES.DASHBOARD.ORGANIZATION_MGT.BASE}`
-    const { DEPARTMENT, PROJECT } = ROUTES.DASHBOARD.ORGANIZATION_MGT
+    const { DEPARTMENT } = ROUTES.DASHBOARD.ORGANIZATION_MGT
     const TABS: ITabItem[] = [
       {
         key: DEPARTMENT,
         label: t('sidebarMenu.organizationMgt.department'),
-        to: `${BASE_PATH}/${DEPARTMENT}`,
+        to: `${ORGANIZATION_PATH}/${DEPARTMENT}`,
         // TODO: enable once the Department screen is implemented
         disabled: true
       },
-      {
-        key: PROJECT,
-        label: t('sidebarMenu.organizationMgt.project'),
-        to: `${BASE_PATH}/${PROJECT}`
-      }
+      BREADCRUMB_SEGMENT.PROJECT(t)
     ]
     return TABS
+  },
+  // Rows of the "Staff allocation" card on the project detail page
+  GET_PROJECT_ALLOCATION_ROWS: (t: TFunction, summary?: IProjectAllocationSummary) => {
+    const ROWS: IInfoRow[] = [
+      {
+        label: t('inputLabel.memberCount'),
+        value: summary?.memberCount == null ? '-' : t('common.personCount', { count: summary.memberCount })
+      },
+      {
+        label: t('inputLabel.fteEquivalent'),
+        value: summary?.fte == null ? '-' : t('common.fteValue', { value: commonHelper.formatNumber(summary.fte) })
+      },
+      {
+        label: t('inputLabel.averageAllocation'),
+        value: summary?.averageAllocation == null ? '-' : `${commonHelper.formatNumber(summary.averageAllocation)}%`
+      }
+    ]
+    return ROWS
   }
 }
