@@ -1,10 +1,10 @@
 import type { UseFormReturn } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { InfoCircleIcon } from '~/assets/svgs'
+import CardCustom from '~/components/customs/card-custom'
 import FormDateTimePickerField from '~/components/forms/form-date-time-picker-field'
 import FormField from '~/components/forms/form-field'
 import FormSelectField from '~/components/forms/form-select-field'
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Field } from '~/components/ui/field'
 import { Input } from '~/components/ui/input'
 import EmployeeUpload from '~/components/uploads/employee-upload'
@@ -27,11 +27,8 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
     <form className='grid grid-cols-12 gap-4'>
       <section className='flex flex-col gap-4 col-span-12 sm:col-span-8 md:col-span-9'>
         {/* Basic information */}
-        <Card>
-          <CardHeader>
-            <CardTitle className='text-app-primay uppercase text-xs'>{t('title.basicInfo')}</CardTitle>
-          </CardHeader>
-          <CardContent className='grid grid-cols-12 gap-4'>
+        <CardCustom title={t('title.basicInfo')}>
+          <section className='grid grid-cols-12 gap-4'>
             {/* Full name */}
             <Field className='col-span-12 sm:col-span-4'>
               <FormField
@@ -139,15 +136,12 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
                 )}
               />
             </Field>
-          </CardContent>
-        </Card>
+          </section>
+        </CardCustom>
 
         {/* Contact */}
-        <Card>
-          <CardHeader>
-            <CardTitle className='text-app-primay uppercase text-xs'>{t('title.contact')}</CardTitle>
-          </CardHeader>
-          <CardContent className='grid grid-cols-12 gap-4'>
+        <CardCustom title={t('title.contact')}>
+          <section className='grid grid-cols-12 gap-4'>
             {/* Phone number */}
             <Field className='col-span-12 sm:col-span-4'>
               <FormField
@@ -244,15 +238,12 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
                 )}
               />
             </Field>
-          </CardContent>
-        </Card>
+          </section>
+        </CardCustom>
 
         {/* Additional */}
-        <Card>
-          <CardHeader>
-            <CardTitle className='text-app-primay uppercase text-xs'>{t('title.additionalInfo')}</CardTitle>
-          </CardHeader>
-          <CardContent className='grid grid-cols-12 gap-4'>
+        <CardCustom title={t('title.contact')}>
+          <section className='grid grid-cols-12 gap-4'>
             {/* Marital status*/}
             <Field className='col-span-12 md:col-span-4'>
               <FormField
@@ -296,49 +287,39 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
                 )}
               />
             </Field>
-          </CardContent>
-        </Card>
+          </section>
+        </CardCustom>
       </section>
       <section className='flex flex-col gap-4 col-span-12 sm:col-span-4 md:col-span-3'>
         {/* Avatar */}
-        <Card>
-          <CardHeader>
-            <CardTitle className='text-app-primay uppercase text-xs'>{t('title.portraitPhoto')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Field>
-              <FormField
-                control={form.control}
-                name={ePersonalEmployeeFormKey.Avatar}
-                isRequired
-                render={(f, fs) => (
-                  <EmployeeUpload
-                    file={f.value}
-                    onChange={f.onChange}
-                    classNameWrapper='items-start'
-                    isInValid={fs.invalid}
-                  />
-                )}
-              />
-            </Field>
-          </CardContent>
-        </Card>
+        <CardCustom title={t('title.portraitPhoto')}>
+          <Field>
+            <FormField
+              control={form.control}
+              name={ePersonalEmployeeFormKey.Avatar}
+              isRequired
+              render={(f, fs) => (
+                <EmployeeUpload
+                  file={f.value}
+                  onChange={f.onChange}
+                  classNameWrapper='items-start'
+                  isInValid={fs.invalid}
+                />
+              )}
+            />
+          </Field>
+        </CardCustom>
 
         {/* Import progress  */}
         <ImportProgressEmployee form={form} />
 
         {/* Note */}
-        <Card>
-          <CardHeader>
-            <CardTitle className='text-app-primay uppercase text-xs'>{t('title.note')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <section className='flex items-start gap-3 justify-start'>
-              <InfoCircleIcon className='size-5 shrink-0 text-app-primay' />
-              <p className='text-app-primay'>{t('msg.cccdDuplicateWarning')}</p>
-            </section>
-          </CardContent>
-        </Card>
+        <CardCustom title={t('title.note')}>
+          <section className='flex items-start gap-3 justify-start'>
+            <InfoCircleIcon className='size-5 shrink-0 text-app-primay' />
+            <p className='text-app-primay'>{t('msg.cccdDuplicateWarning')}</p>
+          </section>
+        </CardCustom>
       </section>
     </form>
   )
