@@ -1,0 +1,54 @@
+.wrapper :global(.ck-editor__editable_inline) {
+  height: 400px;
+}
+
+.wrapper :global(.ck-sticky-panel__content) {
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+}
+
+.wrapper :global(.ck-toolbar) {
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+}
+
+.wrapper :global(.ck-content) {
+  border-bottom-left-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+}
+
+.wrapper :global(.ck.ck-editor__editable.ck-focused) {
+  border-color: var(--primary) !important;
+}
+
+.wrapper :global(.ck) {
+  --ck-color-focus-border: var(--primary);
+  --ck-color-base-active: var(--primary);
+  --ck-color-button-on-color: var(--primary);
+  --ck-color-panel-border: var(--primary);
+  --ck-color-toolbar-border: var(--primary);
+}
+
+.wrapper :global(.ck-content ul),
+.wrapper :global(.ck-content ol) {
+  padding-left: 32px !important;
+}
+
+:global(.ck-powered-by) {
+  display: none !important;
+}
+
+/* Invalid */
+.invalid :global(.ck-sticky-panel__content) {
+  border-top: 1px solid var(--destructive) !important;
+  border-left: 1px solid var(--destructive) !important;
+  border-right: 1px solid var(--destructive) !important;
+}
+
+.invalid :global(.ck-editor__editable_inline) {
+  border-color: var(--destructive) !important;
+}
+
+.invalid :global(.ck.ck-editor__editable.ck-focused) {
+  border-color: var(--destructive) !important;
+}
