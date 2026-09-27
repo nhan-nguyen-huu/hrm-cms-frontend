@@ -2,18 +2,18 @@ import type { ComponentProps } from 'react'
 
 import type { Row, Table } from '@tanstack/react-table'
 import { Checkbox } from '~/components/ui/checkbox'
-import type { CheckboxTableType } from '~/shared/types/common.type'
+import type { TCheckboxTableType } from '~/shared/types/common.type'
 
 type CheckboxProps = ComponentProps<typeof Checkbox>
 
 interface ICheckboxTableFieldProps<T> extends CheckboxProps {
   table?: Table<T>
   row?: Row<T>
-  tableType: CheckboxTableType
+  tableType: TCheckboxTableType
 }
 
 const CheckboxTableField = <T,>({ table, row, tableType, ...props }: ICheckboxTableFieldProps<T>) => {
-  const checkboxMapping: Record<CheckboxTableType, any> = {
+  const checkboxMapping: Record<TCheckboxTableType, any> = {
     HEADER: {
       checked: table?.getIsAllPageRowsSelected(),
       indeterminate: !table?.getIsAllPageRowsSelected() && table?.getIsSomePageRowsSelected(),
