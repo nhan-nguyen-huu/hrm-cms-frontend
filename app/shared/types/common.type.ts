@@ -15,3 +15,4 @@ export type TGetTranslateEnum<T extends TEnumLike> = {
   value?: string | number
 }
 export type TFilterPanelForm = TFilterPanelFormSchema | TFilterPanelEmployeeProfileFormSchema
+export type TFieldFilterPanel = 'INPUT_GROUP' | 'SELECT' | 'DATE' | 'DATE_RANGE' | 'RADIO'

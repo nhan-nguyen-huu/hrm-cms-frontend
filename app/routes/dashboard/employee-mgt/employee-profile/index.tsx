@@ -13,6 +13,7 @@ import {
 } from '~/helpers/schema.helper'
 import { usePagination } from '~/hooks/use-pagination'
 import useRowSelection from '~/hooks/use-row-selection'
+import { DATA } from '~/shared/constants/data.constant'
 import { generateMockEmployees } from '~/shared/constants/mock-employee.constant'
 import { BASE_ROUTES } from '~/shared/constants/routes.constant'
 import { EFilterPanelEmployeeProfileFormKey, EFilterPanelFormKey } from '~/shared/enums/form.enum'
@@ -60,7 +61,33 @@ const EmployeeProfilePage = () => {
           />
         </section>
       </HeaderPage>
-      <FilterPanel form={filterPanelForm} placeholderKeyword='Tên, mã nhân viên, email...' />
+      <FilterPanel
+        form={filterPanelForm}
+        fields={[
+          {
+            type: 'INPUT_GROUP',
+            name: EFilterPanelFormKey.Keyword,
+            placeholder: 'Tên, mã nhân viên, email...',
+            className: 'max-w-100'
+          },
+          {
+            type: 'SELECT',
+            name: EFilterPanelEmployeeProfileFormKey.EmployeeAccountStatus,
+            options: DATA.GET_OPTIONS_EMPLOYEE_ACCOUNT_STATUS(t),
+            placeholder: 'Chọn account status',
+            className: 'w-auto',
+            hasAllOption: true
+          },
+          {
+            type: 'SELECT',
+            name: EFilterPanelEmployeeProfileFormKey.EmployeeAccountStatus,
+            options: DATA.GET_OPTIONS_EMPLOYEE_ACCOUNT_STATUS(t),
+            placeholder: 'Chọn hợp đồng',
+            className: 'w-auto',
+            hasAllOption: true
+          }
+        ]}
+      />
       <TableCustom
         // loading={isLoading || isRefetching}
         columns={columns}
