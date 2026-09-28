@@ -29,6 +29,9 @@ export const DATE_TIME_FORMAT_FULL = 'YYYY-MM-DD HH:mm:ss'
 export const DATE_FORMAT_DOT = 'YYYY.MM.DD'
 export const DATE_FORMAT_SLASH = 'DD/MM/YYYY'
 export const DATE_FORMAT_MONTH_YEAR = 'MM/YYYY'
+export const DATE_FORMAT_DAY_MONTH = 'DD/MM'
+export const DATE_TIME_FORMAT_SLASH = 'DD/MM/YYYY, HH:mm'
+export const DATE_TIME_FORMAT_DAY_MONTH = 'DD/MM, HH:mm'
 export const DATE_TIME_FORMAT_DOT = 'YYYY.MM.DD HH:mm'
 export const DATE_FORMAT_DOT_FULL = 'YYYY.MM.DD HH:mm'
 
@@ -50,6 +53,16 @@ export const dateHelper = {
   ) => {
     if (!fromDate || !toDate) return ''
     return `${dayjs(fromDate).format(formatString)} ~ ${dayjs(toDate).format(formatString)}`
+  },
+
+  // Compact day range without the year: "21/09", "21–22/09" (same month), "30/09–02/10"; '' when fromDate is missing
+  formatShortDateRange: (fromDate?: Date | string | dayjs.Dayjs, toDate?: Date | string | dayjs.Dayjs) => {
+    if (!fromDate) return ''
+    const from = dayjs(fromDate)
+    const to = toDate ? dayjs(toDate) : undefined
+    if (!to || to.isSame(from, 'day')) return from.format(DATE_FORMAT_DAY_MONTH)
+    if (to.isSame(from, 'month')) return `${from.format('DD')}–${to.format(DATE_FORMAT_DAY_MONTH)}`
+    return `${from.format(DATE_FORMAT_DAY_MONTH)}–${to.format(DATE_FORMAT_DAY_MONTH)}`
   },
 
   formatDateNotification: (date?: Date | string | dayjs.Dayjs, textFallback = '') => {

@@ -14,7 +14,16 @@
     "projectSummary": "{{total}} projects · In progress {{inProgress}} · Ending soon {{endingSoon}} · Kick-off {{kickoff}} · Completed {{completed}}",
     "pmName": "PM {{name}}",
     "personCount": "{{count}} people",
-    "fteValue": "{{value}} FTE"
+    "fteValue": "{{value}} FTE",
+    "requestSummary": "{{pending}} pending requests · {{overdue}} past the {{slaDays}}-day SLA",
+    "dayCount": "{{value}} days",
+    "leaveBalanceChange": "{{from}} → {{to}} days",
+    "overdueDays": "Overdue {{count}} days",
+    "approvedAt": "Approved · {{time}}",
+    "rejectedAt": "Rejected · {{time}}",
+    "waitingYourApproval": "Waiting for your approval",
+    "waitingManagerApproval": "Waiting for manager approval",
+    "submittedAt": "Submitted {{time}}"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -25,6 +34,9 @@
       "base": "Organization",
       "department": "Departments",
       "project": "Projects"
+    },
+    "requestMgt": {
+      "base": "Requests & approvals"
     }
   },
   "enums": {
@@ -62,6 +74,30 @@
       "sales": "Sales",
       "operations": "Operations",
       "marketing": "Marketing"
+    },
+    "requestType": {
+      "annualLeave": "Annual leave",
+      "sickLeave": "Sick leave",
+      "unpaidLeave": "Unpaid leave",
+      "attendanceExplanation": "Attendance explanation"
+    },
+    "requestTypeTitle": {
+      "annualLeave": "Annual leave request",
+      "sickLeave": "Sick leave request",
+      "unpaidLeave": "Unpaid leave request",
+      "attendanceExplanation": "Attendance explanation request"
+    },
+    "requestStatus": {
+      "pendingManager": "Pending manager",
+      "pendingHr": "Pending HR",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "requestStatusFilter": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "all": "All"
     }
   },
   "tables": {
@@ -129,7 +165,14 @@
     "projectRole": "Project role",
     "allocationRate": "Allocation",
     "joinedFrom": "Joined from",
-    "confirmOverAllocation": "Confirm allocation over 100% and record the reason in the log"
+    "confirmOverAllocation": "Confirm allocation over 100% and record the reason in the log",
+    "fromDate": "From",
+    "toDate": "To",
+    "requestDate": "Date",
+    "leaveDays": "Leave days",
+    "remainingLeave": "Remaining leave",
+    "leaveReason": "Reason for leave",
+    "explanationContent": "Explanation"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "Log in with email or admin ID",
@@ -139,7 +182,8 @@
     "departmentAll": "Department: All",
     "searchProject": "Project name, code, PM…",
     "selectEmployee": "Select an employee",
-    "select": "Select"
+    "select": "Select",
+    "noteForEmployee": "Note to the employee (optional)…"
   },
   "inputValidate": {
     "thisInformationIsRequired": "This information is required",
@@ -166,7 +210,11 @@
     "staffAllocation": "Staff allocation",
     "addProjectMember": "Add member to project",
     "totalAllocation": "Total allocation",
-    "totalAllocationOver": "Total allocation over 100%"
+    "totalAllocationOver": "Total allocation over 100%",
+    "approvalProgress": "Approval progress",
+    "lineManager": "Line manager",
+    "hrDepartment": "HR department",
+    "updateTimesheet": "Timesheet update"
   },
   "msg": {
     "changeLanguageSuccess": "Change language successfully",
@@ -182,14 +230,18 @@
     "thisProject": "{{name}} (this project)",
     "overAllocationHint": "Lower the allocation on other projects or confirm the exception below. Allocation over 100% is flagged on the department staffing report.",
     "newMemberNotified": "The new member is notified in the app",
-    "addMemberSuccess": "{{name}} was added to the project"
+    "addMemberSuccess": "{{name}} was added to the project",
+    "approveRequestSuccess": "Approved {{name}}'s request",
+    "rejectRequestSuccess": "Rejected {{name}}'s request",
+    "approveRequestsSuccess": "Approved {{count}} requests"
   },
   "confirm": {
     "confirmLogoutTitle": "Do you want to log out?",
     "confirmLogoutDescription": "Are you sure you want to log out of the system?"
   },
   "empty": {
-    "noData": "No data."
+    "noData": "No data.",
+    "noRequest": "No requests."
   },
   "action": {
     "importExcel": "Import from Excel",
@@ -211,7 +263,10 @@
     "addMember": "Add member",
     "edit": "Edit",
     "viewAll": "View all",
-    "addToProject": "Add to project"
+    "addToProject": "Add to project",
+    "approveSelected": "Approve {{count}} selected",
+    "approveRequest": "Approve",
+    "reject": "Reject"
   },
   "stepper": {
     "upsertEmployee": {

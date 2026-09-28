@@ -28,6 +28,7 @@ export default [
         index('routes/dashboard/organization-mgt/project/index.tsx'),
         route(BASE_ROUTES.DETAIL, 'routes/dashboard/organization-mgt/project/project-detail/index.tsx')
       ])
-    ])
+    ]),
+    route(ROUTES.DASHBOARD.REQUEST_MGT.BASE, 'routes/dashboard/request-mgt/index.tsx')
   ])
 ] satisfies RouteConfig

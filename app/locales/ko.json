@@ -14,7 +14,16 @@
     "projectSummary": "프로젝트 {{total}}건 · 진행 {{inProgress}} · 종료 임박 {{endingSoon}} · 신규 착수 {{kickoff}} · 완료 {{completed}}",
     "pmName": "PM {{name}}",
     "personCount": "{{count}}명",
-    "fteValue": "{{value}} FTE"
+    "fteValue": "{{value}} FTE",
+    "requestSummary": "처리 대기 {{pending}}건 · SLA {{slaDays}}일 초과 {{overdue}}건",
+    "dayCount": "{{value}}일",
+    "leaveBalanceChange": "{{from}} → {{to}}일",
+    "overdueDays": "{{count}}일 초과",
+    "approvedAt": "승인됨 · {{time}}",
+    "rejectedAt": "반려됨 · {{time}}",
+    "waitingYourApproval": "승인 대기 중",
+    "waitingManagerApproval": "관리자 승인 대기 중",
+    "submittedAt": "제출 {{time}}"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -25,6 +34,9 @@
       "base": "조직 구조",
       "department": "부서",
       "project": "프로젝트"
+    },
+    "requestMgt": {
+      "base": "신청 및 승인"
     }
   },
   "enums": {
@@ -62,6 +74,30 @@
       "sales": "영업",
       "operations": "운영",
       "marketing": "마케팅"
+    },
+    "requestType": {
+      "annualLeave": "연차",
+      "sickLeave": "병가",
+      "unpaidLeave": "무급 휴가",
+      "attendanceExplanation": "근태 소명"
+    },
+    "requestTypeTitle": {
+      "annualLeave": "연차 신청",
+      "sickLeave": "병가 신청",
+      "unpaidLeave": "무급 휴가 신청",
+      "attendanceExplanation": "근태 소명 신청"
+    },
+    "requestStatus": {
+      "pendingManager": "관리자 대기",
+      "pendingHr": "HR 대기",
+      "approved": "승인",
+      "rejected": "반려"
+    },
+    "requestStatusFilter": {
+      "pending": "승인 대기",
+      "approved": "승인",
+      "rejected": "반려",
+      "all": "전체"
     }
   },
   "tables": {
@@ -129,7 +165,14 @@
     "projectRole": "프로젝트 역할",
     "allocationRate": "배분율",
     "joinedFrom": "참여 시작일",
-    "confirmOverAllocation": "100% 초과 배분을 확인하고 사유를 기록합니다"
+    "confirmOverAllocation": "100% 초과 배분을 확인하고 사유를 기록합니다",
+    "fromDate": "시작일",
+    "toDate": "종료일",
+    "requestDate": "날짜",
+    "leaveDays": "휴가 일수",
+    "remainingLeave": "잔여 연차",
+    "leaveReason": "휴가 사유",
+    "explanationContent": "소명 내용"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "이메일 또는 관리자 ID로 로그인",
@@ -139,7 +182,8 @@
     "departmentAll": "부서: 전체",
     "searchProject": "프로젝트명, 코드, PM…",
     "selectEmployee": "직원 선택",
-    "select": "선택"
+    "select": "선택",
+    "noteForEmployee": "직원에게 남길 메모 (선택)…"
   },
   "inputValidate": {
     "thisInformationIsRequired": "이 정보는 필수입니다",
@@ -166,7 +210,11 @@
     "staffAllocation": "인력 배분",
     "addProjectMember": "프로젝트 구성원 추가",
     "totalAllocation": "총 배분",
-    "totalAllocationOver": "총 배분 100% 초과"
+    "totalAllocationOver": "총 배분 100% 초과",
+    "approvalProgress": "승인 진행",
+    "lineManager": "직속 관리자",
+    "hrDepartment": "인사팀",
+    "updateTimesheet": "근태표 반영"
   },
   "msg": {
     "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다",
@@ -182,14 +230,18 @@
     "thisProject": "{{name}} (이 프로젝트)",
     "overAllocationHint": "다른 프로젝트의 배분을 줄이거나 아래에서 예외를 확인하세요. 100% 초과 배분은 부서 인력 리포트에 경고로 표시됩니다.",
     "newMemberNotified": "새 구성원에게 앱 알림이 전송됩니다",
-    "addMemberSuccess": "{{name}}님이 프로젝트에 추가되었습니다"
+    "addMemberSuccess": "{{name}}님이 프로젝트에 추가되었습니다",
+    "approveRequestSuccess": "{{name}}님의 신청을 승인했습니다",
+    "rejectRequestSuccess": "{{name}}님의 신청을 반려했습니다",
+    "approveRequestsSuccess": "{{count}}건을 승인했습니다"
   },
   "confirm": {
     "confirmLogoutTitle": "로그아웃하시겠습니까?",
     "confirmLogoutDescription": "정말 로그아웃하시겠습니까?"
   },
   "empty": {
-    "noData": "데이터가 없습니다."
+    "noData": "데이터가 없습니다.",
+    "noRequest": "신청이 없습니다."
   },
   "action": {
     "importExcel": "엑셀 가져오기",
@@ -211,7 +263,10 @@
     "addMember": "구성원 추가",
     "edit": "수정",
     "viewAll": "전체 보기",
-    "addToProject": "프로젝트에 추가"
+    "addToProject": "프로젝트에 추가",
+    "approveSelected": "선택한 {{count}}건 승인",
+    "approveRequest": "승인",
+    "reject": "반려"
   },
   "stepper": {
     "upsertEmployee": {

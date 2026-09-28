@@ -1,3 +1,5 @@
+import { commonHelper } from '~/helpers/common.helper'
+
 export const fortmatHelper = {
   onlyNumber: (value: string, maxLength?: number) => {
     const digits = value.replace(/\D/g, '')
@@ -30,16 +32,16 @@ export const fortmatHelper = {
     const formatted = raw
     return { raw, formatted }
   },
-  formatFileSize: (bytes: number) => {
-    if (bytes < 1024) {
-      return `${bytes} B`
+  // Locale-aware, one decimal at most: 245760 → "240 KB", 2516582 → "2,4 MB" (vi); "-" when missing
+  formatFileSize: (bytes?: number | null) => {
+    if (bytes == null) return '-'
+    const UNITS = ['B', 'KB', 'MB', 'GB']
+    let value = bytes
+    let unitIndex = 0
+    while (value >= 1024 && unitIndex < UNITS.length - 1) {
+      value /= 1024
+      unitIndex++
     }
-    if (bytes < 1024 * 1024) {
-      return `${(bytes / 1024).toFixed(2)} KB`
-    }
-    if (bytes < 1024 * 1024 * 1024) {
-      return `${(bytes / (1024 * 1024)).toFixed(2)} MB`
-    }
-    return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`
+    return `${commonHelper.formatNumber(value)} ${UNITS[unitIndex]}`
   }
 }

@@ -99,9 +99,12 @@ export const commonHelper = {
       .join('')
       .toUpperCase()
   },
-  // Locale-aware number (current UI language), "-" when missing — e.g. 12.4 → "12,4" in vi
-  formatNumber: (value?: number | null, maximumFractionDigits = 1) =>
-    value == null ? '-' : new Intl.NumberFormat(i18n.language, { maximumFractionDigits }).format(value),
+  // Locale-aware number (current UI language), "-" when missing — e.g. 12.4 → "12,4" in vi;
+  // minimumFractionDigits = 1 keeps "2,0" for values that are shown with one decimal (leave days)
+  formatNumber: (value?: number | null, maximumFractionDigits = 1, minimumFractionDigits = 0) =>
+    value == null
+      ? '-'
+      : new Intl.NumberFormat(i18n.language, { maximumFractionDigits, minimumFractionDigits }).format(value),
   getEnumOptions:
     <T extends TEnumLike>(enumType: T, enumPath: string) =>
     (t: TFunction) =>
