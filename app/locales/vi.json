@@ -124,7 +124,12 @@
     "memberCount": "Thành viên",
     "fteEquivalent": "Quy đổi FTE",
     "averageAllocation": "Phân bổ trung bình",
-    "overAllocated": "Tổng phân bổ vượt 100%"
+    "overAllocated": "Tổng phân bổ vượt 100%",
+    "employee": "Nhân sự",
+    "projectRole": "Vai trò trong dự án",
+    "allocationRate": "Tỷ lệ phân bổ",
+    "joinedFrom": "Tham gia từ",
+    "confirmOverAllocation": "Xác nhận phân bổ vượt 100% và ghi nhận lý do vào nhật ký"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "Đăng nhập bằng email hoặc ID quản trị viên",
@@ -132,13 +137,17 @@
     "pleaseSelectDate": "Vui lòng chọn ngày",
     "enterIfDifferentFromPermanentAddress": "Nhập nếu khác địa chỉ thường trú",
     "departmentAll": "Phòng ban: Tất cả",
-    "searchProject": "Tên dự án, mã, PM…"
+    "searchProject": "Tên dự án, mã, PM…",
+    "selectEmployee": "Chọn nhân sự",
+    "select": "Chọn"
   },
   "inputValidate": {
     "thisInformationIsRequired": "Thông tin này là bắt buộc",
     "invalidEmailFormat": "Định dạng email không hợp lệ",
     "invalidPhoneFormat": "Số điện thoại phải có đủ 10 số",
-    "invalidCccdFormat": "Số CCCD phải có đủ 12 số"
+    "invalidCccdFormat": "Số CCCD phải có đủ 12 số",
+    "invalidAllocation": "Tỷ lệ phân bổ là số nguyên từ 1 đến 100",
+    "confirmOverAllocation": "Cần xác nhận khi tổng phân bổ vượt 100%"
   },
   "title": {
     "addNewEmployee": "Thêm nhân viên mới",
@@ -154,7 +163,10 @@
     "orgPosition": "Vị trí trong tổ chức",
     "projectMembers": "Thành viên dự án",
     "projectInfo": "Thông tin dự án",
-    "staffAllocation": "Phân bổ nhân sự"
+    "staffAllocation": "Phân bổ nhân sự",
+    "addProjectMember": "Thêm thành viên vào dự án",
+    "totalAllocation": "Tổng phân bổ",
+    "totalAllocationOver": "Tổng phân bổ vượt 100%"
   },
   "msg": {
     "changeLanguageSuccess": "Đổi ngôn ngữ thành công",
@@ -166,7 +178,11 @@
     "optional": "Tùy chọn",
     "maxFileSizeExceeded": "Vui lòng chọn ảnh có dung lượng tối đa 2mb",
     "overAllocationWarning": "{{names}} có tổng phân bổ vượt 100% khi tính cả dự án khác. Cần điều chỉnh trước kỳ chốt công tiếp theo.",
-    "memberOverAllocated": "Tổng phân bổ mọi dự án {{total}}% — vượt 100%"
+    "memberOverAllocated": "Tổng phân bổ mọi dự án {{total}}% — vượt 100%",
+    "thisProject": "{{name}} (dự án này)",
+    "overAllocationHint": "Giảm tỷ lệ ở dự án khác hoặc xác nhận ngoại lệ bên dưới. Phân bổ vượt 100% sẽ hiện cảnh báo trên báo cáo nhân lực của phòng ban.",
+    "newMemberNotified": "Thành viên mới nhận thông báo trên app",
+    "addMemberSuccess": "Đã thêm {{name}} vào dự án"
   },
   "confirm": {
     "confirmLogoutTitle": "Bạn có muốn đăng xuất không?",
@@ -193,7 +209,8 @@
     "editProject": "Sửa dự án",
     "addMember": "Thêm thành viên",
     "edit": "Sửa",
-    "viewAll": "Xem tất cả"
+    "viewAll": "Xem tất cả",
+    "addToProject": "Thêm vào dự án"
   },
   "stepper": {
     "upsertEmployee": {

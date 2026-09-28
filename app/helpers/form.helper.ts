@@ -1,7 +1,16 @@
 import { EGender, EMaritalStatus, ENationality } from '~/shared/enums/common.enum'
-import { ELoginFormKey, ePersonalEmployeeFormKey } from '~/shared/enums/form.enum'
+import { EAddProjectMemberFormKey, ELoginFormKey, ePersonalEmployeeFormKey } from '~/shared/enums/form.enum'
 
 export const formHelper = {
+  getDefaultValuesAddProjectMember: () => {
+    return {
+      [EAddProjectMemberFormKey.Employee]: '',
+      [EAddProjectMemberFormKey.Role]: '',
+      [EAddProjectMemberFormKey.Allocation]: '',
+      [EAddProjectMemberFormKey.JoinedDate]: undefined,
+      [EAddProjectMemberFormKey.ConfirmOverAllocation]: false
+    }
+  },
   getDefaultValuesLogin: () => {
     return {
       [ELoginFormKey.Username]: '',

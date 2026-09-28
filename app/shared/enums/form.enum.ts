@@ -12,6 +12,14 @@ export enum EFilterPanelProjectFormKey {
   Year = 'year'
 }
 
+export enum EAddProjectMemberFormKey {
+  Employee = 'employeeId',
+  Role = 'role',
+  Allocation = 'allocation',
+  JoinedDate = 'joinedDate',
+  ConfirmOverAllocation = 'confirmOverAllocation'
+}
+
 export enum ELoginFormKey {
   Username = 'username',
   Password = 'password'

@@ -1,6 +1,10 @@
 import type { VariantProps } from 'class-variance-authority'
 import type { buttonVariants } from '~/components/ui/button'
-import type { TFilterPanelEmployeeProfileFormSchema, TFilterPanelFormSchema } from '~/helpers/schema.helper'
+import type {
+  TFilterPanelEmployeeProfileFormSchema,
+  TFilterPanelFormSchema,
+  TFilterPanelProjectFormSchema
+} from '~/helpers/schema.helper'
 
 export type TCheckboxTableType = 'HEADER' | 'BODY'
 export type TTimePart = 'hour' | 'minute' | 'second'
@@ -14,5 +18,6 @@ export type TGetTranslateEnum<T extends TEnumLike> = {
   enumType: T
   value?: string | number
 }
-export type TFilterPanelForm = TFilterPanelFormSchema | TFilterPanelEmployeeProfileFormSchema
+export type TFilterPanelForm =
+  TFilterPanelFormSchema | TFilterPanelEmployeeProfileFormSchema | TFilterPanelProjectFormSchema
 export type TFieldFilterPanel = 'INPUT_GROUP' | 'SELECT' | 'DATE' | 'DATE_RANGE' | 'RADIO'
