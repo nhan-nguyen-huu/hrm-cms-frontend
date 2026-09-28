@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, useWatch } from 'react-hook-form'
@@ -56,6 +56,11 @@ const AddProjectMemberDialog = ({
   const candidate = getCandidate(employeeId)
   const allocationValue = Number(allocation) || 0
   const isOverAllocated = !!candidate && getOtherAllocation(employeeId) + allocationValue > MAX_TOTAL_ALLOCATION
+
+  // fix not reset isOverAllocated when change member
+  useEffect(() => {
+    form.setValue(EAddProjectMemberFormKey.ConfirmOverAllocation, false, { shouldValidate: form.formState.isSubmitted })
+  }, [form, employeeId, isOverAllocated])
 
   const candidateOptions = useMemo(
     () => DATA.GET_OPTIONS_PROJECT_MEMBER_CANDIDATE(candidates, getTranslateEnum),
