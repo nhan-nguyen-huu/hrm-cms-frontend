@@ -80,6 +80,13 @@ export interface ITabItem {
   count?: number
 }
 
+// Tab that filters the data in place (no route change), e.g. request status "Chờ duyệt · 14"
+export interface IFilterTabItem {
+  key: string
+  label: string
+  count?: number
+}
+
 export interface IStep {
   title?: string
   description?: string

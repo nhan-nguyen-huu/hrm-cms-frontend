@@ -1,14 +1,15 @@
 import type { TFunction } from 'i18next'
-import { commonHelper } from '~/helpers'
+import { DATE_FORMAT_SLASH, DATE_TIME_FORMAT_DAY_MONTH, commonHelper, dateHelper } from '~/helpers'
 import type { TGetTranslateEnumFn } from '~/hooks/user-transfer-enum'
 import { ROUTES } from '~/shared/constants/routes.constant'
-import type { IBreadcrumbItem, IInfoRow, IOption, IStep, ITabItem } from '~/shared/models/common.model'
+import type { IBreadcrumbItem, IFilterTabItem, IInfoRow, IOption, IStep, ITabItem } from '~/shared/models/common.model'
 import type {
   IAllocationCheckRow,
   IProject,
   IProjectAllocationSummary,
   IProjectMemberCandidate
 } from '~/shared/models/project.model'
+import type { IRequest } from '~/shared/models/request.model'
 
 import { EnIcon, KoIcon, ViIcon } from '../../assets/svgs'
 import {
@@ -18,7 +19,9 @@ import {
   ELanguage,
   EMaritalStatus,
   ENationality,
-  EProjectStatus
+  EProjectStatus,
+  ERequestStatus,
+  ERequestStatusFilter
 } from '../enums/common.enum'
 
 const ORGANIZATION_PATH = `/${ROUTES.DASHBOARD.BASE}/${ROUTES.DASHBOARD.ORGANIZATION_MGT.BASE}`
@@ -162,5 +165,71 @@ export const DATA = {
       }
     ]
     return ROWS
+  },
+  // Status tabs of the request list: "Chờ duyệt · 14", "Đã duyệt · 86", "Từ chối · 4", "Tất cả"
+  GET_REQUEST_STATUS_TABS: (t: TFunction, counts: Partial<Record<ERequestStatusFilter, number>>) => {
+    const TABS: IFilterTabItem[] = commonHelper
+      .getEnumOptions(
+        ERequestStatusFilter,
+        'requestStatusFilter'
+      )(t)
+      .map(({ label, value }) => ({
+        key: value,
+        label,
+        // "Tất cả" has no counter in the design
+        count: value === ERequestStatusFilter.All ? undefined : counts[value]
+      }))
+    return TABS
+  },
+  // Tiles of the request detail: dates · leave days · leave balance; tiles without data are skipped
+  GET_REQUEST_DETAIL_ROWS: (t: TFunction, request?: IRequest) => {
+    const formatDays = (days?: number) => commonHelper.formatNumber(days, 1, 1)
+    const isRange = !!request?.toDate && request.toDate !== request.fromDate
+    const ROWS: (IInfoRow | false)[] = [
+      {
+        label: t(isRange ? 'inputLabel.fromDate' : 'inputLabel.requestDate'),
+        value: dateHelper.formatDate(request?.fromDate, DATE_FORMAT_SLASH, '-')
+      },
+      isRange && { label: t('inputLabel.toDate'), value: dateHelper.formatDate(request?.toDate, DATE_FORMAT_SLASH) },
+      request?.days != null && {
+        label: t('inputLabel.leaveDays'),
+        value: t('common.dayCount', { value: formatDays(request.days) })
+      },
+      request?.leaveBalanceBefore != null &&
+        request?.leaveBalanceAfter != null && {
+          label: t('inputLabel.remainingLeave'),
+          value: t('common.leaveBalanceChange', {
+            from: formatDays(request.leaveBalanceBefore),
+            to: formatDays(request.leaveBalanceAfter)
+          })
+        }
+    ]
+    return ROWS.filter((row): row is IInfoRow => !!row)
+  },
+  // Approval progress: line manager → HR → timesheet update
+  GET_REQUEST_APPROVAL_STEPS: (t: TFunction, request?: IRequest) => {
+    const formatTime = (date?: string) => dateHelper.formatDate(date, DATE_TIME_FORMAT_DAY_MONTH, '-')
+    const status = request?.status
+    // Rejected before reaching HR (no HR review) = rejected by the line manager
+    const isRejectedByManager = status === ERequestStatus.Rejected && !request?.hrReviewedAt
+    const getManagerDescription = () => {
+      if (!status) return ''
+      if (status === ERequestStatus.PendingManager) return t('common.waitingManagerApproval')
+      const time = formatTime(request?.managerReviewedAt)
+      return isRejectedByManager ? t('common.rejectedAt', { time }) : t('common.approvedAt', { time })
+    }
+    const getHrDescription = () => {
+      if (status === ERequestStatus.PendingHr) return t('common.waitingYourApproval')
+      if (status === ERequestStatus.Approved) return t('common.approvedAt', { time: formatTime(request?.hrReviewedAt) })
+      if (status === ERequestStatus.Rejected && !isRejectedByManager)
+        return t('common.rejectedAt', { time: formatTime(request?.hrReviewedAt) })
+      return ''
+    }
+    const STEPS: IStep[] = [
+      { title: request?.manager?.name || t('title.lineManager'), description: getManagerDescription() },
+      { title: t('title.hrDepartment'), description: getHrDescription() },
+      { title: t('title.updateTimesheet') }
+    ]
+    return STEPS
   }
 }
