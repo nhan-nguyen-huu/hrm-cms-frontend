@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 
 import clsx from 'clsx'
-import { useTranslation } from 'react-i18next'
 import { Button } from '~/components/ui/button'
 import {
   Dialog,
@@ -10,63 +9,104 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
+  DialogTrigger
 } from '~/components/ui/dialog'
 
 interface IDialogCustomProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
+  open?: boolean
+  onOpenChange?: (isOpen: boolean) => void
+
   title?: string
-  description?: ReactNode
-  children?: ReactNode
-  // Small text on the left of the footer, e.g. "The new member is notified in the app"
-  footerNote?: ReactNode
-  // OK button — shown when okText is given. Pass formId to submit a <form id={formId}> in the body, or onOk for a plain action
-  okText?: string
-  okIcon?: ReactNode
-  okDisabled?: boolean
-  formId?: string
-  onOk?: () => void
+  description?: string
+  footerDescription?: string
   cancelText?: string
-  // Width etc. of the dialog, e.g. 'sm:max-w-155'
-  className?: string
+  okText?: string
+
+  isDisabledOkBtn?: boolean
+
+  isHiddenCancelAction?: boolean
+  isHiddenOkAction?: boolean
+
+  showCloseButton?: boolean
+
+  classNameContent?: string
+  classNameMainContent?: string
+
+  onOkAction?: () => void
+
+  triggerBtn?: React.ReactElement
+  children?: ReactNode
+  modal?: boolean | 'trap-focus'
+  noOutside?: boolean
 }
 
-// shadcn Dialog with the app layout: title + description, body, footer (note left · Cancel + OK right)
 const DialogCustom = ({
   open,
   onOpenChange,
+  triggerBtn,
   title,
   description,
-  children,
-  footerNote,
-  okText,
-  okIcon,
-  okDisabled,
-  formId,
-  onOk,
+  footerDescription,
   cancelText,
-  className
+  okText,
+  isDisabledOkBtn = false,
+  isHiddenCancelAction = false,
+  isHiddenOkAction = false,
+  showCloseButton = true,
+  onOkAction,
+  classNameContent,
+  classNameMainContent,
+  children,
+  modal = true,
+  noOutside = false
 }: IDialogCustomProps) => {
-  const { t } = useTranslation()
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={clsx('gap-4 p-5', className)}>
-        <DialogHeader className='gap-1'>
-          <DialogTitle className='text-[17px] font-bold'>{title}</DialogTitle>
-          {description && <DialogDescription className='text-[12.5px]'>{description}</DialogDescription>}
+    <Dialog open={open} onOpenChange={onOpenChange} modal={modal} disablePointerDismissal={noOutside}>
+      {/* Trigger */}
+      {triggerBtn && <DialogTrigger render={triggerBtn} />}
+
+      {/* Content */}
+      <DialogContent
+        showCloseButton={showCloseButton}
+        className={clsx('sm:max-w-150 gap-0 p-0 border border-border! shadow-none! ring-0', classNameContent)}
+        initialFocus={false}
+        finalFocus={false}
+      >
+        {/* Header */}
+        <DialogHeader className='border-b border-border p-4'>
+          <DialogTitle className='text-base font-semibold!'>{title}</DialogTitle>
+          <DialogDescription className={clsx(!description && 'sr-only')}>{description}</DialogDescription>
         </DialogHeader>
-        {children}
-        <DialogFooter className='-mx-5 -mb-5 items-center px-5 sm:justify-between'>
-          <p className='text-[12.5px] text-[#93A2B6]'>{footerNote}</p>
-          <section className='flex items-center gap-2.5'>
-            <DialogClose render={<Button variant='outline' />}>{cancelText || t('action.cancel')}</DialogClose>
-            {okText && (
-              <Button type={formId ? 'submit' : 'button'} form={formId} disabled={okDisabled} onClick={onOk}>
-                {okIcon}
-                <span>{okText}</span>
-              </Button>
-            )}
+
+        {/* Content */}
+        <section className={clsx('max-h-[60vh] overflow-y-auto p-4', classNameMainContent)}>{children}</section>
+
+        {/* Footer */}
+        <DialogFooter className='border-t! border-t-border! p-4 mx-0 mb-0 bg-white'>
+          <section className='flex items-center justify-between gap-3 flex-wrap w-full'>
+            <DialogDescription className={clsx('text-[#93A2B6] text-xs', !footerDescription && 'sr-only')}>
+              {footerDescription}
+            </DialogDescription>
+            <section className='flex items-center flex-wrap gap-2'>
+              {/* Cancel */}
+              {!isHiddenCancelAction && (
+                <DialogClose render={<Button variant='outline' className='min-w-25 cursor-pointer' />}>
+                  {cancelText}
+                </DialogClose>
+              )}
+              {/* Ok */}
+              {!isHiddenOkAction && (
+                <Button
+                  type='button'
+                  onClick={onOkAction}
+                  disabled={isDisabledOkBtn}
+                  className='min-w-25 cursor-pointer'
+                >
+                  {okText}
+                </Button>
+              )}
+            </section>
           </section>
         </DialogFooter>
       </DialogContent>

@@ -43,19 +43,7 @@ jobs:
           ${{ secrets.VPN_CONFIG }}
           EOF
 
-          cat > vpn-auth.txt <<'EOF'
-          ${{ secrets.VPN_USERNAME }}
-          ${{ secrets.VPN_PASSWORD }}
-          EOF
-
           chmod 600 vpn.ovpn
-          chmod 600 vpn-auth.txt
-
-          if grep -q '^auth-user-pass' vpn.ovpn; then
-            sed -i 's/^auth-user-pass.*/auth-user-pass vpn-auth.txt/' vpn.ovpn
-          else
-            echo "auth-user-pass vpn-auth.txt" >> vpn.ovpn
-          fi
 
       - name: Connect VPN
         run: |
@@ -121,7 +109,7 @@ jobs:
           VITE_MODE: ${{ secrets.VITE_MODE }}
 
       # ========================================
-      # Upload build/client
+      # Upload build/client to EC2
       # ========================================
 
       - name: Upload build/client to EC2
@@ -164,3 +152,124 @@ jobs:
             sudo systemctl reload nginx
 
             echo "Deployment completed successfully!"
+      - name: Notify Slack Success
+        if: success()
+        run: |
+          curl -X POST "${{ secrets.SLACK_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            --data '{
+              "attachments": [
+                {
+                  "color": "#2EB67D",
+                  "blocks": [
+                    {
+                      "type": "header",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "🚀 HRM CMS FE Deploy Success"
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "Frontend deployment completed successfully. 🎉"
+                      }
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "*🌿 Branch*\n`${{ github.ref_name }}`\n\n*👤 Author*\n`${{ github.actor }}`\n\n*📂 Repository*\n`${{ github.repository }}`\n\n*⚙️ Workflow*\n`${{ github.workflow }}`\n\n*🏃 Run*\n`#${{ github.run_number }}`\n\n*🌍 Environment*\n`dev`"
+                      }
+                    },
+                    {
+                      "type": "actions",
+                      "elements": [
+                        {
+                          "type": "button",
+                          "text": {
+                            "type": "plain_text",
+                            "text": "📄 View Commit"
+                          },
+                          "url": "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+                        },
+                        {
+                          "type": "button",
+                          "style": "primary",
+                          "text": {
+                            "type": "plain_text",
+                            "text": "🚀 Open Workflow"
+                          },
+                          "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }'
+
+      - name: Notify Slack Failure
+        if: failure()
+        run: |
+          curl -X POST "${{ secrets.SLACK_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            --data '{
+              "attachments": [
+                {
+                  "color": "#E01E5A",
+                  "blocks": [
+                    {
+                      "type": "header",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "🚨 HRM CMS FE Deploy Failed"
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "Frontend deployment failed. Please check the workflow logs."
+                      }
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "*🌿 Branch*\n`${{ github.ref_name }}`\n\n*👤 Author*\n`${{ github.actor }}`\n\n*📂 Repository*\n`${{ github.repository }}`\n\n*⚙️ Workflow*\n`${{ github.workflow }}`\n\n*🏃 Run*\n`#${{ github.run_number }}`\n\n*🌍 Environment*\n`dev`"
+                      }
+                    },
+                    {
+                      "type": "actions",
+                      "elements": [
+                        {
+                          "type": "button",
+                          "text": {
+                            "type": "plain_text",
+                            "text": "📄 View Commit"
+                          },
+                          "url": "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+                        },
+                        {
+                          "type": "button",
+                          "style": "danger",
+                          "text": {
+                            "type": "plain_text",
+                            "text": "🔍 Open Workflow"
+                          },
+                          "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }'

@@ -55,7 +55,6 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
     <>
       {/* Header */}
       <HeaderUpsertEmployee activeStep={activeStep} />
-
       {/* Form */}
       {activeStep === 0 && <PersonalEmployeeForm form={personalEmployeeForm} />}
 

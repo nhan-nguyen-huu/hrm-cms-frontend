@@ -1,5 +1,7 @@
 import i18n, { type TFunction, t } from 'i18next'
 import { toast } from 'sonner'
+import { COMMON_CONSTANT } from '~/shared/constants/common.constant'
+import type { IOption } from '~/shared/models/common.model'
 import type { TEnumLike } from '~/shared/types/common.type'
 
 export const commonHelper = {
@@ -106,5 +108,18 @@ export const commonHelper = {
       (Object.keys(enumType) as (keyof T)[]).map((key) => ({
         label: t(`enums.${enumPath}.${commonHelper.toCamelCase(String(key))}`),
         value: enumType[key]
-      }))
+      })),
+
+  handleOptionFilter: (hasAllOption?: boolean, options?: IOption[]) => {
+    const result = hasAllOption
+      ? [
+          {
+            label: t('common.all'),
+            value: COMMON_CONSTANT.FILTER_ALL
+          },
+          ...(options ?? [])
+        ]
+      : (options ?? [])
+    return result
+  }
 }

@@ -14,6 +14,7 @@ export default [
   // Dashboard
   route(ROUTES.DASHBOARD.BASE, 'layouts/dashboard.layout.tsx', [
     index('routes/dashboard/index.tsx'),
+    route(ROUTES.DASHBOARD.DEMO, 'routes/dashboard/demo/index.tsx'),
     route(ROUTES.DASHBOARD.EMPLOYEE_MGT.BASE, 'layouts/employee-mgt.layout.tsx', [
       index('routes/dashboard/employee-mgt/index.tsx'),
       route(ROUTES.DASHBOARD.EMPLOYEE_MGT.EMPLOYEE_PROFILE, 'layouts/employee-profile.layout.tsx', [

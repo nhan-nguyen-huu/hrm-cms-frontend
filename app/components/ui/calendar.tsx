@@ -61,7 +61,7 @@ function Calendar({
         dropdown_root: cn('relative rounded-(--cell-radius)', defaultClassNames.dropdown_root),
         dropdown: cn('absolute inset-0 bg-popover opacity-0', defaultClassNames.dropdown),
         caption_label: cn(
-          'font-medium select-none',
+          'font-medium select-none whitespace-nowrap',
           captionLayout === 'label'
             ? 'text-sm'
             : 'flex items-center gap-1 rounded-(--cell-radius) text-sm [&>svg]:size-3.5 [&>svg]:text-muted-foreground',

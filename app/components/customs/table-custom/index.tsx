@@ -100,7 +100,7 @@ const TableCustom = <TData, TValue>({
 
   const skeletonRows = Array.from({ length: skeletonLength })
   const visibleColumnsCount = table.getVisibleLeafColumns().length
-  const totalRow = Object.keys(rowSelection).length
+  // const totalRow = Object.keys(rowSelection).length
   return (
     <section className='flex flex-col gap-3'>
       {(headerTitle || headerDescription || headerAction) && (
@@ -180,9 +180,9 @@ const TableCustom = <TData, TValue>({
                         <TableRow className='hover:bg-transparent'>
                           <TableCell colSpan={visibleColumnsCount}>
                             <section className='flex items-center justify-between gap-2 w-full h-6'>
-                              {totalRow > 0 && (
+                              {/* {totalRow > 0 && (
                                 <p className='text-[#6E7F96] text-[12.5px]'>Đã chọn {totalRow} nhân viên</p>
-                              )}
+                              )} */}
                               <PaginationCustom
                                 page={page}
                                 totalPage={totalPage}

@@ -43,7 +43,7 @@ const FormSelectField = <T extends FieldValues>({
       }}
       {...rest}
     >
-      <SelectTrigger className={clsx('w-full', triggerClassName)} aria-invalid={fieldState?.invalid}>
+      <SelectTrigger className={clsx('bg-white w-full', triggerClassName)} aria-invalid={fieldState?.invalid}>
         <SelectValue placeholder={placeHolder} />
       </SelectTrigger>
       <SelectContent alignItemWithTrigger={false} className='max-h-100'>
