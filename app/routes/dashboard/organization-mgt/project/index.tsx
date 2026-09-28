@@ -4,14 +4,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, useWatch } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import ButtonAction from '~/components/actions/button-action'
+import FilterPanel from '~/components/common/filter-panel'
 import { isActiveFilterValue } from '~/components/customs/filter-panel-custom'
 import { dateHelper } from '~/helpers/date.helper'
 import { type TFilterPanelProjectFormSchema, getFilterPanelProjectSchema } from '~/helpers/schema.helper'
 import { usePagination } from '~/hooks/use-pagination'
 import OrganizationHeaderPage from '~/routes/dashboard/organization-mgt/components/organization-header-page'
 import OrganizationTabs from '~/routes/dashboard/organization-mgt/components/organization-tabs'
-import ProjectFilterPanel from '~/routes/dashboard/organization-mgt/components/project/project-filter-panel'
 import ProjectTable from '~/routes/dashboard/organization-mgt/components/project/project-table'
+import { DATA } from '~/shared/constants/data.constant'
 import { MOCK_PROJECTS } from '~/shared/constants/mock-project.constant'
 import { EProjectStatus } from '~/shared/enums/common.enum'
 import { EFilterPanelFormKey, EFilterPanelProjectFormKey } from '~/shared/enums/form.enum'
@@ -81,12 +82,43 @@ const ProjectPage = () => {
         <ButtonAction actionName={t('action.addProject')} actionType='CREATE' />
       </OrganizationHeaderPage>
       <OrganizationTabs />
-      <ProjectFilterPanel
-        form={filterPanelForm}
-        yearOptions={yearOptions}
-        shownCount={filteredProjects.length}
-        totalCount={projects.length}
-      />
+      <section className='flex flex-col gap-2'>
+        <FilterPanel
+          form={filterPanelForm}
+          fields={[
+            {
+              type: 'INPUT_GROUP',
+              name: EFilterPanelFormKey.Keyword,
+              placeholder: t('inputPlaceholder.searchProject'),
+              className: 'max-w-100'
+            },
+            {
+              type: 'SELECT',
+              name: EFilterPanelProjectFormKey.Department,
+              placeholder: t('inputPlaceholder.departmentAll'),
+              options: DATA.GET_OPTIONS_DEPARTMENT(t),
+              hasAllOption: true,
+              className: 'w-48'
+            },
+            {
+              type: 'SELECT',
+              name: EFilterPanelProjectFormKey.Status,
+              placeholder: t('inputLabel.status'),
+              options: DATA.GET_OPTIONS_PROJECT_STATUS(t),
+              hasAllOption: true,
+              className: 'w-auto'
+            },
+            {
+              type: 'SELECT',
+              name: EFilterPanelProjectFormKey.Year,
+              placeholder: t('inputLabel.period'),
+              options: yearOptions,
+              hasAllOption: true,
+              className: 'w-auto'
+            }
+          ]}
+        />
+      </section>
       <ProjectTable
         data={pagedProjects}
         page={page}

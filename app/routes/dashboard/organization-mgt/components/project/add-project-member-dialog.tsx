@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Plus } from 'lucide-react'
 import { useForm, useWatch } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import DialogCustom from '~/components/customs/dialog-custom'
@@ -93,7 +92,7 @@ const AddProjectMemberDialog = ({
     <DialogCustom
       open={open}
       onOpenChange={handleOpenChange}
-      className='sm:max-w-155'
+      classNameContent='sm:max-w-155'
       title={t('title.addProjectMember')}
       description={[
         project?.name,
@@ -102,11 +101,11 @@ const AddProjectMemberDialog = ({
       ]
         .filter(Boolean)
         .join(' · ')}
-      footerNote={t('msg.newMemberNotified')}
+      footerDescription={t('msg.newMemberNotified')}
+      cancelText={t('action.cancel')}
       okText={t('action.addToProject')}
-      okIcon={<Plus className='size-4' />}
-      okDisabled={!form.formState.isValid}
-      formId={FORM_ID}
+      isDisabledOkBtn={!form.formState.isValid}
+      onOkAction={form.handleSubmit(handleSubmit)}
     >
       <AddProjectMemberForm
         form={form}

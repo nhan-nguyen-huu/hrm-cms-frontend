@@ -141,11 +141,13 @@ const FormDateTimePickerField = <TFieldValues extends FieldValues, TName extends
           />
         }
       >
-        <section className='flex items-center gap-3'>
-          <CalendarIcon className='text-app-primay size-5' />
-          {displayValue ?? <span className='text-[#B4C0CE] text-sm'>{placeHolder}</span>}
+        <section className='flex min-w-0 items-center gap-3'>
+          <CalendarIcon className='text-app-primay size-5 shrink-0' />
+          <span className={clsx('truncate', !displayValue && 'text-[#B4C0CE] text-sm')}>
+            {displayValue ?? placeHolder}
+          </span>
         </section>
-        <ChevronDownIcon />
+        <ChevronDownIcon className='shrink-0' />
       </PopoverTrigger>
 
       <PopoverContent className={clsx('p-0', showTime ? 'w-auto' : 'w-fit')} align='start'>
