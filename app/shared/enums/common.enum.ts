@@ -48,6 +48,31 @@ export enum EDepartment {
   Marketing = 'MARKETING'
 }
 
+// TODO(assumption): request type codes — confirm with BE; the design only shows these four
+export enum ERequestType {
+  AnnualLeave = 'ANNUAL_LEAVE',
+  SickLeave = 'SICK_LEAVE',
+  UnpaidLeave = 'UNPAID_LEAVE',
+  AttendanceExplanation = 'ATTENDANCE_EXPLANATION'
+}
+
+// Approval flow (design): line manager → HR → timesheet update
+// TODO(assumption): status codes — confirm with BE
+export enum ERequestStatus {
+  PendingManager = 'PENDING_MANAGER',
+  PendingHr = 'PENDING_HR',
+  Approved = 'APPROVED',
+  Rejected = 'REJECTED'
+}
+
+// Status tabs of the request list; Pending = PendingManager + PendingHr
+export enum ERequestStatusFilter {
+  Pending = 'PENDING',
+  Approved = 'APPROVED',
+  Rejected = 'REJECTED',
+  All = 'ALL'
+}
+
 export enum EAspectType {
   Employee = 'EMPLOYEE'
 }

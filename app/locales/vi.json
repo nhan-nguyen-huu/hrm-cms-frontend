@@ -14,7 +14,16 @@
     "projectSummary": "{{total}} dự án · Đang chạy {{inProgress}} · Sắp kết thúc {{endingSoon}} · Mới khởi động {{kickoff}} · Hoàn thành {{completed}}",
     "pmName": "PM {{name}}",
     "personCount": "{{count}} người",
-    "fteValue": "{{value}} FTE"
+    "fteValue": "{{value}} FTE",
+    "requestSummary": "{{pending}} đơn chờ xử lý · {{overdue}} đơn đã quá hạn SLA {{slaDays}} ngày",
+    "dayCount": "{{value}} ngày",
+    "leaveBalanceChange": "{{from}} → {{to}} ngày",
+    "overdueDays": "Quá hạn {{count}} ngày",
+    "approvedAt": "Đã duyệt · {{time}}",
+    "rejectedAt": "Đã từ chối · {{time}}",
+    "waitingYourApproval": "Đang chờ bạn duyệt",
+    "waitingManagerApproval": "Đang chờ quản lý duyệt",
+    "submittedAt": "Gửi lúc {{time}}"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -25,6 +34,9 @@
       "base": "Tổ chức",
       "department": "Phòng ban",
       "project": "Dự án"
+    },
+    "requestMgt": {
+      "base": "Đơn từ & phê duyệt"
     }
   },
   "enums": {
@@ -71,6 +83,30 @@
       "sales": "Kinh doanh",
       "operations": "Vận hành",
       "support": "Hỗ trợ"
+    },
+    "requestType": {
+      "annualLeave": "Phép năm",
+      "sickLeave": "Phép ốm",
+      "unpaidLeave": "Không lương",
+      "attendanceExplanation": "Giải trình công"
+    },
+    "requestTypeTitle": {
+      "annualLeave": "Đơn nghỉ phép năm",
+      "sickLeave": "Đơn nghỉ ốm",
+      "unpaidLeave": "Đơn nghỉ không lương",
+      "attendanceExplanation": "Đơn giải trình công"
+    },
+    "requestStatus": {
+      "pendingManager": "Chờ quản lý",
+      "pendingHr": "Chờ HR",
+      "approved": "Đã duyệt",
+      "rejected": "Từ chối"
+    },
+    "requestStatusFilter": {
+      "pending": "Chờ duyệt",
+      "approved": "Đã duyệt",
+      "rejected": "Từ chối",
+      "all": "Tất cả"
     }
   },
   "tables": {
@@ -138,7 +174,14 @@
     "projectRole": "Vai trò trong dự án",
     "allocationRate": "Tỷ lệ phân bổ",
     "joinedFrom": "Tham gia từ",
-    "confirmOverAllocation": "Xác nhận phân bổ vượt 100% và ghi nhận lý do vào nhật ký"
+    "confirmOverAllocation": "Xác nhận phân bổ vượt 100% và ghi nhận lý do vào nhật ký",
+    "fromDate": "Từ ngày",
+    "toDate": "Đến ngày",
+    "requestDate": "Ngày",
+    "leaveDays": "Số ngày nghỉ",
+    "remainingLeave": "Quỹ phép còn lại",
+    "leaveReason": "Lý do nghỉ",
+    "explanationContent": "Nội dung giải trình"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "Đăng nhập bằng email hoặc ID quản trị viên",
@@ -148,7 +191,8 @@
     "departmentAll": "Phòng ban: Tất cả",
     "searchProject": "Tên dự án, mã, PM…",
     "selectEmployee": "Chọn nhân sự",
-    "select": "Chọn"
+    "select": "Chọn",
+    "noteForEmployee": "Ghi chú cho nhân viên (tuỳ chọn)…"
   },
   "inputValidate": {
     "thisInformationIsRequired": "Thông tin này là bắt buộc",
@@ -175,7 +219,11 @@
     "staffAllocation": "Phân bổ nhân sự",
     "addProjectMember": "Thêm thành viên vào dự án",
     "totalAllocation": "Tổng phân bổ",
-    "totalAllocationOver": "Tổng phân bổ vượt 100%"
+    "totalAllocationOver": "Tổng phân bổ vượt 100%",
+    "approvalProgress": "Tiến trình duyệt",
+    "lineManager": "Quản lý trực tiếp",
+    "hrDepartment": "Phòng Nhân sự",
+    "updateTimesheet": "Cập nhật bảng công"
   },
   "msg": {
     "changeLanguageSuccess": "Đổi ngôn ngữ thành công",
@@ -191,14 +239,18 @@
     "thisProject": "{{name}} (dự án này)",
     "overAllocationHint": "Giảm tỷ lệ ở dự án khác hoặc xác nhận ngoại lệ bên dưới. Phân bổ vượt 100% sẽ hiện cảnh báo trên báo cáo nhân lực của phòng ban.",
     "newMemberNotified": "Thành viên mới nhận thông báo trên app",
-    "addMemberSuccess": "Đã thêm {{name}} vào dự án"
+    "addMemberSuccess": "Đã thêm {{name}} vào dự án",
+    "approveRequestSuccess": "Đã duyệt đơn của {{name}}",
+    "rejectRequestSuccess": "Đã từ chối đơn của {{name}}",
+    "approveRequestsSuccess": "Đã duyệt {{count}} đơn"
   },
   "confirm": {
     "confirmLogoutTitle": "Bạn có muốn đăng xuất không?",
     "confirmLogoutDescription": "Bạn có chắc chắn muốn đăng xuất khỏi hệ thống không?"
   },
   "empty": {
-    "noData": "Không có dữ liệu."
+    "noData": "Không có dữ liệu.",
+    "noRequest": "Không có đơn nào."
   },
   "action": {
     "importExcel": "Nhập từ Excel",
@@ -220,7 +272,10 @@
     "edit": "Sửa",
     "viewAll": "Xem tất cả",
     "addToProject": "Thêm vào dự án",
-    "search": "Tìm kiếm"
+    "search": "Tìm kiếm",
+    "approveSelected": "Duyệt {{count}} đơn đã chọn",
+    "approveRequest": "Duyệt đơn",
+    "reject": "Từ chối"
   },
   "stepper": {
     "upsertEmployee": {

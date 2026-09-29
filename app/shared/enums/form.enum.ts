@@ -20,6 +20,10 @@ export enum EAddProjectMemberFormKey {
   ConfirmOverAllocation = 'confirmOverAllocation'
 }
 
+export enum EReviewRequestFormKey {
+  Note = 'note'
+}
+
 export enum ELoginFormKey {
   Username = 'username',
   Password = 'password'

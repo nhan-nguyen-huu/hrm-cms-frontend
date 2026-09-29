@@ -21,6 +21,9 @@ export const ROUTES = {
       BASE: 'organization-mgt',
       DEPARTMENT: 'department',
       PROJECT: 'project'
+    },
+    REQUEST_MGT: {
+      BASE: 'request-mgt'
     }
   }
 }
