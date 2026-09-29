@@ -3,7 +3,7 @@ export enum EFilterPanelFormKey {
 }
 
 export enum EFilterPanelEmployeeProfileFormKey {
-  EmployeeAccountStatus = 'employeeAccountStatus'
+  EmploymentStatus = 'employmentStatus'
 }
 
 export enum EFilterPanelProjectFormKey {

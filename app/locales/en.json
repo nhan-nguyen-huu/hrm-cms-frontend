@@ -45,10 +45,13 @@
       "en": "English",
       "ko": "Korean"
     },
-    "employeeAccountStatus": {
-      "working": "Working",
-      "maternityLeave": "Maternity Leave",
-      "terminated": "Terminated"
+    "employeeStatus": {
+      "all": "Department: All",
+      "pendingOnboard": "Pending onboard",
+      "active": "Active",
+      "suspended": "Suspended",
+      "terminated": "Terminated",
+      "probation": "Probation"
     },
     "gender": {
       "male": "Male",
@@ -74,6 +77,12 @@
       "sales": "Sales",
       "operations": "Operations",
       "marketing": "Marketing"
+    },
+    "departmentDivision": {
+      "engineering": "Engineering",
+      "sales": "Sales",
+      "operations": "Operations",
+      "support": "Support"
     },
     "requestType": {
       "annualLeave": "Annual leave",
@@ -264,6 +273,7 @@
     "edit": "Edit",
     "viewAll": "View all",
     "addToProject": "Add to project",
+    "search": "Search",
     "approveSelected": "Approve {{count}} selected",
     "approveRequest": "Approve",
     "reject": "Reject"

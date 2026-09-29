@@ -1,7 +1,19 @@
-import { EGender, EMaritalStatus, ENationality } from '~/shared/enums/common.enum'
-import { EAddProjectMemberFormKey, ELoginFormKey, ePersonalEmployeeFormKey } from '~/shared/enums/form.enum'
+import type { TFilterPanelEmployeeProfileFormSchema, TFilterPanelFormSchema } from '~/helpers/schema.helper'
+import { EEmployeeStatus, EGender, EMaritalStatus, ENationality } from '~/shared/enums/common.enum'
+import {
+  EAddProjectMemberFormKey,
+  EFilterPanelEmployeeProfileFormKey,
+  EFilterPanelFormKey,
+  ELoginFormKey,
+  ePersonalEmployeeFormKey
+} from '~/shared/enums/form.enum'
 
 export const formHelper = {
+  getDefaultValuesFilterPanel: (searchParams: URLSearchParams, DEFAULT_VALUES: TFilterPanelFormSchema) => {
+    return {
+      [EFilterPanelFormKey.Keyword]: searchParams.get('keyword') ?? DEFAULT_VALUES?.keyword
+    }
+  },
   getDefaultValuesAddProjectMember: () => {
     return {
       [EAddProjectMemberFormKey.Employee]: '',
@@ -37,6 +49,13 @@ export const formHelper = {
       [ePersonalEmployeeFormKey.NumberOfDependents]: '0',
 
       [ePersonalEmployeeFormKey.Avatar]: undefined
+    }
+  },
+  getDefaultValuesEmployee: (searchParams: URLSearchParams, DEFAULT_VALUES: TFilterPanelEmployeeProfileFormSchema) => {
+    return {
+      ...formHelper.getDefaultValuesFilterPanel(searchParams, DEFAULT_VALUES),
+      [EFilterPanelEmployeeProfileFormKey.EmploymentStatus]:
+        (searchParams.get('employmentStatus') as EEmployeeStatus) ?? DEFAULT_VALUES?.employmentStatus
     }
   }
 }

@@ -3,10 +3,13 @@ export enum ELanguage {
   Vi = 'vi',
   Ko = 'ko'
 }
-export enum EEmployeeAccountStatus {
-  Working = 'WORKING',
-  MaternityLeave = 'MATERNITY_LEAVE',
-  Terminated = 'TERMINATED'
+export enum EEmployeeStatus {
+  All = 'ALL',
+  PendingOnboard = 'PENDING_ONBOARD',
+  Active = 'ACTIVE',
+  Suspended = 'SUSPENDED',
+  Terminated = 'TERMINATED',
+  Probation = 'PROBATION'
 }
 
 export enum EErrorCode {
@@ -73,3 +76,5 @@ export enum ERequestStatusFilter {
 export enum EAspectType {
   Employee = 'EMPLOYEE'
 }
+
+export enum EContractType {}

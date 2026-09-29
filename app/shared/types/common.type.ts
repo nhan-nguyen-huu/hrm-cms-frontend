@@ -9,7 +9,7 @@ import type {
 export type TCheckboxTableType = 'HEADER' | 'BODY'
 export type TTimePart = 'hour' | 'minute' | 'second'
 export type TProtected = 'ROOT' | 'AUTH_ONLY' | 'PRIVATE'
-export type TButtonAction = 'DEFAULT' | 'UPLOAD' | 'DOWNLOAD' | 'CREATE'
+export type TButtonAction = 'DEFAULT' | 'UPLOAD' | 'DOWNLOAD' | 'CREATE' | 'RESET' | 'SEARCH'
 export type TButtonVariant = NonNullable<VariantProps<typeof buttonVariants>['variant']>
 export type TFilterPanel = 'DEFAULT' | 'EMPLOYEE_PROFILE'
 export type TEnumLike = Record<string, string>

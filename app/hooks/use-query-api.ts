@@ -32,8 +32,8 @@ export function createListApiHook<TParams, TData, TExtra extends readonly unknow
     })
     const totalPage = query?.data?.totalPages || 0
     const totalElement = query?.data?.totalElements
-    const list = query?.data?.content || []
-    return { ...query, list, totalPage, totalElement }
+    const dataList = query?.data?.content || []
+    return { ...query, dataList, totalPage, totalElement }
   }
 }
 

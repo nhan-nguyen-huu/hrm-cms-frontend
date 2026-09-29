@@ -3,3 +3,7 @@ export const API_AUTH = {
   REFRESH_TOKEN: '/refresh-token',
   LOGOUT_URL: '/logout'
 }
+
+export const API_EMPLOYEE = {
+  GET_LIST_URL: '/employee'
+}

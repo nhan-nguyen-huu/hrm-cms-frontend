@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { EEmployeeAccountStatus } from '~/shared/enums/common.enum'
+import { EEmployeeStatus } from '~/shared/enums/common.enum'
 import {
   EFilterPanelEmployeeProfileFormKey,
   EFilterPanelFormKey,
@@ -24,7 +24,7 @@ export type TFilterPanelFormSchema = z.infer<ReturnType<typeof getFilterPanelSch
 export const getFilterPanelEmployeeProfileSchema = () =>
   z.object({
     ...getFilterPanelSchema().shape,
-    [EFilterPanelEmployeeProfileFormKey.EmployeeAccountStatus]: z.enum(EEmployeeAccountStatus).nullish()
+    [EFilterPanelEmployeeProfileFormKey.EmploymentStatus]: z.enum(EEmployeeStatus).nullish()
   })
 
 export type TFilterPanelEmployeeProfileFormSchema = z.infer<ReturnType<typeof getFilterPanelEmployeeProfileSchema>>
