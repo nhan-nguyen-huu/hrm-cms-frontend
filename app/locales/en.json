@@ -33,10 +33,13 @@
       "en": "English",
       "ko": "Korean"
     },
-    "employeeAccountStatus": {
-      "working": "Working",
-      "maternityLeave": "Maternity Leave",
-      "terminated": "Terminated"
+    "employeeStatus": {
+      "all": "Department: All",
+      "pendingOnboard": "Pending onboard",
+      "active": "Active",
+      "suspended": "Suspended",
+      "terminated": "Terminated",
+      "probation": "Probation"
     },
     "gender": {
       "male": "Male",
@@ -62,6 +65,12 @@
       "sales": "Sales",
       "operations": "Operations",
       "marketing": "Marketing"
+    },
+    "departmentDivision": {
+      "engineering": "Engineering",
+      "sales": "Sales",
+      "operations": "Operations",
+      "support": "Support"
     }
   },
   "tables": {
@@ -211,7 +220,8 @@
     "addMember": "Add member",
     "edit": "Edit",
     "viewAll": "View all",
-    "addToProject": "Add to project"
+    "addToProject": "Add to project",
+    "search": "Search"
   },
   "stepper": {
     "upsertEmployee": {

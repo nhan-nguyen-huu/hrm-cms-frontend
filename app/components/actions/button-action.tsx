@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { RotateCcw, Search } from 'lucide-react'
 import { DownloadIcon, PlusIcon, UploadIcon } from '~/assets/svgs'
 import { Button } from '~/components/ui/button'
 import type { TButtonAction, TButtonVariant } from '~/shared/types/common.type'
@@ -14,19 +15,23 @@ const ButtonAction = ({ actionType = 'DEFAULT', actionName, ...props }: IButtonA
     DEFAULT: undefined,
     CREATE: PlusIcon,
     UPLOAD: UploadIcon,
-    DOWNLOAD: DownloadIcon
+    DOWNLOAD: DownloadIcon,
+    RESET: RotateCcw,
+    SEARCH: Search
   }
   const variantMapping: Record<TButtonAction, TButtonVariant> = {
     DEFAULT: 'default',
     CREATE: 'default',
     UPLOAD: 'outline',
-    DOWNLOAD: 'outline'
+    DOWNLOAD: 'outline',
+    RESET: 'outline',
+    SEARCH: 'default'
   }
   const Icon = iconMapping[actionType]
   const variant = variantMapping[actionType]
   return (
     <Button {...props} variant={variant}>
-      {Icon && <Icon className='size-6' />}
+      {Icon && <Icon className='size-5' />}
       <span>{actionName}</span>
     </Button>
   )

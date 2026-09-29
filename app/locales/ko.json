@@ -33,10 +33,13 @@
       "en": "영어",
       "ko": "한국어"
     },
-    "employeeAccountStatus": {
-      "working": "근무 중",
-      "maternityLeave": "출산 휴가",
-      "terminated": "퇴사"
+    "employeeStatus": {
+      "all": "부서: 전체",
+      "pendingOnboard": "온보딩 대기",
+      "active": "활성",
+      "suspended": "일시 정지",
+      "terminated": "퇴사",
+      "probation": "수습"
     },
     "gender": {
       "male": "남성",
@@ -62,6 +65,12 @@
       "sales": "영업",
       "operations": "운영",
       "marketing": "마케팅"
+    },
+    "departmentDivision": {
+      "engineering": "엔지니어링",
+      "sales": "영업",
+      "operations": "운영",
+      "support": "지원"
     }
   },
   "tables": {
@@ -211,7 +220,8 @@
     "addMember": "구성원 추가",
     "edit": "수정",
     "viewAll": "전체 보기",
-    "addToProject": "프로젝트에 추가"
+    "addToProject": "프로젝트에 추가",
+    "search": "찾다"
   },
   "stepper": {
     "upsertEmployee": {

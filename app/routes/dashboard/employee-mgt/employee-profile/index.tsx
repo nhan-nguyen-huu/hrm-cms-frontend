@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -6,53 +8,105 @@ import ButtonAction from '~/components/actions/button-action'
 import FilterPanel from '~/components/common/filter-panel'
 import HeaderPage from '~/components/common/header-page'
 import TableCustom from '~/components/customs/table-custom'
+import { paramsHelper } from '~/helpers'
 import { employeeMgtColumn } from '~/helpers/columns/employee-mgt-column'
+import { formHelper } from '~/helpers/form.helper'
 import {
   type TFilterPanelEmployeeProfileFormSchema,
   getFilterPanelEmployeeProfileSchema
 } from '~/helpers/schema.helper'
+import { useGetListEmployeeApi } from '~/hooks/apis/use-employee-api'
 import { usePagination } from '~/hooks/use-pagination'
+import useQueryParams from '~/hooks/use-query-params'
 import useRowSelection from '~/hooks/use-row-selection'
+import PageLayout from '~/layouts/page.layout'
+import { COMMON_CONSTANT } from '~/shared/constants/common.constant'
 import { DATA } from '~/shared/constants/data.constant'
-import { generateMockEmployees } from '~/shared/constants/mock-employee.constant'
 import { BASE_ROUTES } from '~/shared/constants/routes.constant'
+import { EEmployeeStatus } from '~/shared/enums/common.enum'
 import { EFilterPanelEmployeeProfileFormKey, EFilterPanelFormKey } from '~/shared/enums/form.enum'
 
 const DEFAULT_VALUES: TFilterPanelEmployeeProfileFormSchema = {
   [EFilterPanelFormKey.Keyword]: '',
-  [EFilterPanelEmployeeProfileFormKey.EmployeeAccountStatus]: null
+  [EFilterPanelEmployeeProfileFormKey.EmploymentStatus]: EEmployeeStatus.All
 }
 
-const MOCK_EMPLOYEES = generateMockEmployees(10)
-
 const EmployeeProfilePage = () => {
+  // Lib
   const navi = useNavigate()
   const { t } = useTranslation()
-  const columns = employeeMgtColumn.getMembership(t)
+
+  // Query
+  const { searchParams, updateQueries, setQuery } = useQueryParams()
+
+  // Table
+  const columns = employeeMgtColumn.getEmployee(t)
   const { rowSelection, setRowSelection } = useRowSelection()
-  const { paging, setPage, setSize } = usePagination({ isNoSyncParams: true })
+
+  // Pagination
+  const { paging, setPage, setSize, getResetPaging, getSearchPaging, resetPaging } = usePagination()
+
+  // Form
   const filterPanelSchema = getFilterPanelEmployeeProfileSchema()
   const filterPanelForm = useForm<TFilterPanelEmployeeProfileFormSchema>({
     resolver: zodResolver(filterPanelSchema),
-    defaultValues: DEFAULT_VALUES,
+    defaultValues: formHelper.getDefaultValuesEmployee(searchParams, DEFAULT_VALUES),
     mode: 'all'
   })
+  // Convert data
+  const handleConvertData = () => {
+    const formValues = filterPanelForm.getValues()
+    return {
+      ...paging,
+      ...formValues,
+      employmentStatus:
+        formValues?.employmentStatus !== COMMON_CONSTANT.FILTER_ALL ? formValues?.employmentStatus : undefined
+    }
+  }
+
+  const { dataList, isLoading, isRefetching, totalPage } = useGetListEmployeeApi({
+    params: handleConvertData()
+  })
+
+  // Search
+  const handleSearch = () => {
+    updateQueries({
+      ...getSearchPaging,
+      ...handleConvertData()
+    })
+  }
+
+  // Reset
+  const handleReset = () => {
+    filterPanelForm.reset(DEFAULT_VALUES)
+    resetPaging()
+    updateQueries({
+      ...getResetPaging(),
+      ...DEFAULT_VALUES
+    })
+  }
+
+  // Sync data and url
+  useEffect(() => {
+    setQuery(paramsHelper.employeeToSearchParams(searchParams, DEFAULT_VALUES))
+  }, [])
+
   return (
-    // .
-    <section className='flex flex-col gap-4'>
-      {/* <OrgPosition
-        departmentName='Kỹ thuật'
-        projectName='SP Core Platform'
-        memberCount={32}
-        managerName='Trần Quốc Hưng'
-        employeeName='Đặng Hoài Nam'
-      /> */}
+    <PageLayout>
+      {/* Header */}
       <HeaderPage
         title={t('sidebarMenu.employeeMgt.employeeProfile')}
         description='248 nhân viên đang làm việc · 6 hồ sơ chờ duyệt thay đổi'
       >
+        {/* Action */}
         <section className='flex items-center justify-end gap-3 flex-wrap'>
-          <ButtonAction actionName={t('action.importExcel')} actionType='UPLOAD' />
+          <ButtonAction
+            actionName={t('action.importExcel')}
+            actionType='UPLOAD'
+            onClick={() => {
+              console.log('data: ', filterPanelForm.getValues())
+            }}
+          />
           <ButtonAction actionName={t('action.exportList')} actionType='DOWNLOAD' />
           <ButtonAction
             actionName={t('action.addEmployee')}
@@ -61,49 +115,43 @@ const EmployeeProfilePage = () => {
           />
         </section>
       </HeaderPage>
+
+      {/* Filter */}
       <FilterPanel
+        onSearch={handleSearch}
+        onReset={handleReset}
         form={filterPanelForm}
         fields={[
           {
             type: 'INPUT_GROUP',
             name: EFilterPanelFormKey.Keyword,
-            placeholder: 'Tên, mã nhân viên, email...',
-            className: 'max-w-100'
+            placeholder: 'Tên, mã nhân viên, email...'
           },
           {
             type: 'SELECT',
-            name: EFilterPanelEmployeeProfileFormKey.EmployeeAccountStatus,
-            options: DATA.GET_OPTIONS_EMPLOYEE_ACCOUNT_STATUS(t),
-            placeholder: 'Chọn account status',
-            className: 'w-auto',
-            hasAllOption: true
-          },
-          {
-            type: 'SELECT',
-            name: EFilterPanelEmployeeProfileFormKey.EmployeeAccountStatus,
-            options: DATA.GET_OPTIONS_EMPLOYEE_ACCOUNT_STATUS(t),
-            placeholder: 'Chọn hợp đồng',
-            className: 'w-auto',
-            hasAllOption: true
+            name: EFilterPanelEmployeeProfileFormKey.EmploymentStatus,
+            options: DATA.GET_OPTIONS_EMPLOYEE_STATUS(t),
+            placeholder: 'Chọn account status'
           }
         ]}
       />
+
+      {/* Table */}
       <TableCustom
-        // loading={isLoading || isRefetching}
+        loading={isLoading || isRefetching}
         columns={columns}
-        data={MOCK_EMPLOYEES}
+        data={dataList}
         emptyText={t('empty.noData')}
         rowSelection={rowSelection}
         onRowSelectionChange={setRowSelection}
-        getRowId={(row) => row?.code}
         page={paging?.page}
-        totalPage={1000}
+        totalPage={totalPage}
         onPageChange={setPage}
         pageSize={paging?.size}
         onPageSizeChange={setSize}
         disableNavigationAll
       />
-    </section>
+    </PageLayout>
   )
 }
 

@@ -33,10 +33,13 @@
       "en": "Tiếng Anh",
       "ko": "Tiếng Hàn"
     },
-    "employeeAccountStatus": {
-      "working": "Đang làm việc",
-      "maternityLeave": "Nghỉ thai sản",
-      "terminated": "Ngừng làm việc"
+    "employeeStatus": {
+      "all": "Trạng thái: Tất cả",
+      "pendingOnboard": "Chờ tiếp nhận",
+      "active": "Đang hoạt động",
+      "suspended": "Tạm ngưng",
+      "terminated": "Đã nghỉ việc",
+      "probation": "Thử việc"
     },
     "gender": {
       "male": "Nam",
@@ -62,6 +65,12 @@
       "sales": "Kinh doanh",
       "operations": "Vận hành",
       "marketing": "Marketing"
+    },
+    "departmentDivision": {
+      "engineering": "Kỹ thuật",
+      "sales": "Kinh doanh",
+      "operations": "Vận hành",
+      "support": "Hỗ trợ"
     }
   },
   "tables": {
@@ -210,7 +219,8 @@
     "addMember": "Thêm thành viên",
     "edit": "Sửa",
     "viewAll": "Xem tất cả",
-    "addToProject": "Thêm vào dự án"
+    "addToProject": "Thêm vào dự án",
+    "search": "Tìm kiếm"
   },
   "stepper": {
     "upsertEmployee": {

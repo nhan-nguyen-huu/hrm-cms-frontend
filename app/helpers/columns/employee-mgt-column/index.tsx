@@ -3,13 +3,16 @@ import type { TFunction } from 'i18next'
 import CheckboxTableField from '~/components/customs/table-custom/components/checkbox-table-field'
 import ContentBody from '~/components/customs/table-custom/components/content-body'
 import TitleHead from '~/components/customs/table-custom/components/title-head'
-import EmployeeAccountStatus from '~/components/tags/employee-account-status'
 import EmployeeInfo from '~/components/tags/employee-info'
+import EmployeeStatus from '~/components/tags/employee-status'
+import { DATE_FORMAT_SLASH, dateHelper } from '~/helpers/date.helper'
+import type { EEmployeeStatus } from '~/shared/enums/common.enum'
 import { EBaseTableKey, EEmployeeProfileTableKey } from '~/shared/enums/table.enum'
+import type { IEmployee } from '~/shared/models/employee.model'
 
 export const employeeMgtColumn = {
-  getMembership: (t: TFunction) => {
-    const columns: ColumnDef<any>[] = [
+  getEmployee: (t: TFunction) => {
+    const columns: ColumnDef<IEmployee>[] = [
       {
         id: EBaseTableKey.Select,
         header: ({ table }) => <CheckboxTableField table={table} tableType='HEADER' />,
@@ -27,7 +30,7 @@ export const employeeMgtColumn = {
           return <TitleHead title={t('tables.employeeProfileTableKey.code')} className='text-left' />
         },
         cell: ({ row }) => {
-          return <ContentBody content={row.getValue(EEmployeeProfileTableKey.Code)} className='text-left' />
+          return <ContentBody content={row?.original?.employeeCode} className='text-left' />
         },
         size: 100
       },
@@ -37,7 +40,7 @@ export const employeeMgtColumn = {
           return <TitleHead title={t('tables.employeeProfileTableKey.name')} className='text-left' />
         },
         cell: ({ row }) => {
-          return <EmployeeInfo name={row.original.name} email={row.original.email} />
+          return <EmployeeInfo name={row.original?.fullName} email={row.original?.email} />
         },
         size: 200
       },
@@ -47,7 +50,7 @@ export const employeeMgtColumn = {
           return <TitleHead title={t('tables.employeeProfileTableKey.department')} />
         },
         cell: ({ row }) => {
-          return <ContentBody content={row.getValue(EEmployeeProfileTableKey.Department)} />
+          return <ContentBody content={row?.original?.primaryDepartmentName} />
         },
         size: 120
       },
@@ -57,9 +60,9 @@ export const employeeMgtColumn = {
           return <TitleHead title={t('tables.employeeProfileTableKey.jobTitle')} />
         },
         cell: ({ row }) => {
-          return <ContentBody content={row.getValue(EEmployeeProfileTableKey.JobTitle)} />
+          return <ContentBody content={row?.original?.primaryJobTitleName} />
         },
-        size: 120
+        size: 140
       },
       {
         accessorKey: EEmployeeProfileTableKey.ContractType,
@@ -77,7 +80,7 @@ export const employeeMgtColumn = {
           return <TitleHead title={t('tables.employeeProfileTableKey.joinDate')} />
         },
         cell: ({ row }) => {
-          return <ContentBody content={row.getValue(EEmployeeProfileTableKey.JoinDate)} />
+          return <ContentBody content={dateHelper.formatDate(row?.original?.createdDate, DATE_FORMAT_SLASH)} />
         },
         size: 120
       },
@@ -89,7 +92,7 @@ export const employeeMgtColumn = {
         cell: ({ row }) => {
           return (
             <section className='flex items-center justify-center'>
-              <EmployeeAccountStatus status={row.getValue(EEmployeeProfileTableKey.Status)} />
+              <EmployeeStatus status={row?.original?.employmentStatus as EEmployeeStatus} />
             </section>
           )
         },
