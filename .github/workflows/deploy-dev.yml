@@ -122,7 +122,7 @@ jobs:
           target: '/home/thangvo/deploy'
 
       # ========================================
-      # Deploy (serve on fixed port 1010)
+      # Deploy (serve static files on fixed port 6969, no nginx)
       # ========================================
 
       - name: Deploy
@@ -134,62 +134,120 @@ jobs:
           script: |
             set -e
 
-            APP_PORT=1010
+            APP_PORT=6969
             APP_DIR=/var/www/hrm-cms-frontend
-            NGINX_CONF=/etc/nginx/sites-available/hrm-cms-frontend
+            SERVER_DIR=/opt/hrm-cms-frontend
+            SERVICE=hrm-cms-frontend
+
+            if ! command -v python3 > /dev/null; then
+              echo "python3 is required on the server but was not found."
+              exit 1
+            fi
+            PYTHON_BIN=$(command -v python3)
+
+            # www-data (Debian/Ubuntu), otherwise nobody
+            if id -u www-data > /dev/null 2>&1; then WEB_USER=www-data; else WEB_USER=nobody; fi
 
             echo "Starting deployment..."
 
+            # ---------- 1. Copy static files ----------
             sudo mkdir -p $APP_DIR
             sudo rm -rf $APP_DIR/*
-
             sudo cp -r /home/thangvo/deploy/build/client/* $APP_DIR/
 
-            sudo chown -R www-data:www-data $APP_DIR
-
+            sudo chown -R $WEB_USER:$WEB_USER $APP_DIR
             sudo find $APP_DIR -type d -exec chmod 755 {} \;
             sudo find $APP_DIR -type f -exec chmod 644 {} \;
 
-            echo "Writing Nginx config (port $APP_PORT)..."
+            # ---------- 2. Tiny static server (SPA fallback to index.html) ----------
+            sudo mkdir -p $SERVER_DIR
+            sudo tee $SERVER_DIR/server.py > /dev/null <<'PY'
+            import os
+            import http.server
 
-            sudo tee $NGINX_CONF > /dev/null <<EOF
-            server {
-                listen ${APP_PORT};
-                listen [::]:${APP_PORT};
-                server_name _;
+            ROOT = os.environ.get("APP_DIR", "/var/www/hrm-cms-frontend")
+            PORT = int(os.environ.get("APP_PORT", "6969"))
 
-                root $APP_DIR;
-                index index.html;
 
-                location / {
-                    try_files \$uri \$uri/ /index.html;
-                }
+            class Handler(http.server.SimpleHTTPRequestHandler):
+                def __init__(self, *args, **kwargs):
+                    super().__init__(*args, directory=ROOT, **kwargs)
 
-                location /assets/ {
-                    expires 1y;
-                    add_header Cache-Control "public, immutable";
-                }
-            }
+                def send_head(self):
+                    fs_path = self.translate_path(self.path)
+                    # Client-side route (no file extension, not on disk) -> index.html
+                    if not os.path.exists(fs_path) and not os.path.splitext(fs_path)[1]:
+                        self.path = "/index.html"
+                    return super().send_head()
+
+                def end_headers(self):
+                    if self.path.startswith("/assets/"):
+                        self.send_header("Cache-Control", "public, max-age=31536000, immutable")
+                    else:
+                        self.send_header("Cache-Control", "no-cache")
+                    super().end_headers()
+
+
+            class Server(http.server.ThreadingHTTPServer):
+                allow_reuse_address = True
+
+
+            Server(("0.0.0.0", PORT), Handler).serve_forever()
+            PY
+
+            # ---------- 3. systemd service (auto start on boot, auto restart) ----------
+            sudo tee /etc/systemd/system/$SERVICE.service > /dev/null <<EOF
+            [Unit]
+            Description=HRM CMS Frontend (static, port $APP_PORT)
+            After=network.target
+
+            [Service]
+            Type=simple
+            User=$WEB_USER
+            Environment=APP_DIR=$APP_DIR
+            Environment=APP_PORT=$APP_PORT
+            ExecStart=$PYTHON_BIN $SERVER_DIR/server.py
+            Restart=always
+            RestartSec=3
+            NoNewPrivileges=true
+
+            [Install]
+            WantedBy=multi-user.target
             EOF
 
-            sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/hrm-cms-frontend
-
+            # ---------- 4. Open firewall port (if a host firewall is active) ----------
             if command -v ufw > /dev/null && sudo ufw status | grep -q "Status: active"; then
               echo "Opening port $APP_PORT on ufw..."
               sudo ufw allow ${APP_PORT}/tcp
             fi
 
-            echo "Testing Nginx configuration..."
+            if command -v firewall-cmd > /dev/null && sudo firewall-cmd --state 2>/dev/null | grep -q running; then
+              echo "Opening port $APP_PORT on firewalld..."
+              sudo firewall-cmd --permanent --add-port=${APP_PORT}/tcp
+              sudo firewall-cmd --reload
+            fi
 
-            sudo nginx -t
-
-            echo "Reloading Nginx..."
-
-            sudo systemctl reload nginx
+            # ---------- 5. Start / restart ----------
+            sudo systemctl daemon-reload
+            sudo systemctl enable $SERVICE
+            sudo systemctl restart $SERVICE
 
             echo "Checking http://localhost:$APP_PORT ..."
 
-            curl -fsS -o /dev/null http://localhost:$APP_PORT
+            OK=false
+            for i in 1 2 3 4 5 6 7 8 9 10; do
+              if curl -fsS -o /dev/null http://localhost:$APP_PORT; then
+                OK=true
+                break
+              fi
+              sleep 1
+            done
+
+            if [ "$OK" != "true" ]; then
+              echo "Service did not respond on port $APP_PORT. Recent logs:"
+              sudo journalctl -u $SERVICE -n 30 --no-pager || true
+              exit 1
+            fi
 
             echo "Deployment completed successfully on port $APP_PORT!"
 
@@ -224,7 +282,7 @@ jobs:
                       "type": "section",
                       "text": {
                         "type": "mrkdwn",
-                        "text": "*🌿 Branch*\n`${{ github.ref_name }}`\n\n*👤 Author*\n`${{ github.actor }}`\n\n*📂 Repository*\n`${{ github.repository }}`\n\n*⚙️ Workflow*\n`${{ github.workflow }}`\n\n*🏃 Run*\n`#${{ github.run_number }}`\n\n*🌍 Environment*\n`dev`\n\n*🔌 Port*\n`1010`"
+                        "text": "*🌿 Branch*\n`${{ github.ref_name }}`\n\n*👤 Author*\n`${{ github.actor }}`\n\n*📂 Repository*\n`${{ github.repository }}`\n\n*⚙️ Workflow*\n`${{ github.workflow }}`\n\n*🏃 Run*\n`#${{ github.run_number }}`\n\n*🌍 Environment*\n`dev`\n\n*🔌 Port*\n`6969`"
                       }
                     },
                     {
