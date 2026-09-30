@@ -17,7 +17,7 @@ import { EFilterPanelEmployeeProfileFormKey, EFilterPanelFormKey } from '~/share
 
 const DEFAULT_VALUES: TFilterPanelEmployeeProfileFormSchema = {
   [EFilterPanelFormKey.Keyword]: '',
-  [EFilterPanelEmployeeProfileFormKey.EmployeeAccountStatus]: null
+  [EFilterPanelEmployeeProfileFormKey.EmploymentStatus]: null
 }
 const Demo = () => {
   const filterPanelSchema = getFilterPanelEmployeeProfileSchema()
@@ -35,31 +35,33 @@ const Demo = () => {
       {/* Filter panel */}
       <FilterPanel
         form={filterPanelForm}
+        onSearch={() => {}}
+        onReset={() => {}}
         fields={[
           {
             type: 'INPUT_GROUP',
             name: EFilterPanelFormKey.Keyword,
-            placeholder: 'Tên, mã nhân viên, email...',
+            placeholder: t('inputPlaceholder.searchEmployee'),
             className: 'max-w-100'
           },
           {
             type: 'DATE_RANGE',
-            name: EFilterPanelEmployeeProfileFormKey.EmployeeAccountStatus,
+            name: EFilterPanelEmployeeProfileFormKey.EmploymentStatus,
             placeholder: 'Chọn ngày',
             className: 'max-w-75'
           },
           {
             type: 'SELECT',
-            name: EFilterPanelEmployeeProfileFormKey.EmployeeAccountStatus,
-            options: DATA.GET_OPTIONS_EMPLOYEE_ACCOUNT_STATUS(t),
+            name: EFilterPanelEmployeeProfileFormKey.EmploymentStatus,
+            options: DATA.GET_OPTIONS_EMPLOYEE_STATUS(t),
             placeholder: 'Chọn account status',
             className: 'w-auto',
             hasAllOption: true
           },
           {
             type: 'SELECT',
-            name: EFilterPanelEmployeeProfileFormKey.EmployeeAccountStatus,
-            options: DATA.GET_OPTIONS_EMPLOYEE_ACCOUNT_STATUS(t),
+            name: EFilterPanelEmployeeProfileFormKey.EmploymentStatus,
+            options: DATA.GET_OPTIONS_EMPLOYEE_STATUS(t),
             placeholder: 'Chọn hợp đồng',
             className: 'w-auto',
             hasAllOption: true

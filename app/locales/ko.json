@@ -53,6 +53,10 @@
       "terminated": "퇴사",
       "probation": "수습"
     },
+    "employeeProfileTab": {
+      "officialRecord": "공식 기록",
+      "draft": "임시 저장"
+    },
     "gender": {
       "male": "남성",
       "famale": "여성"
@@ -189,6 +193,7 @@
     "pleaseSelectDate": "날짜를 선택해 주세요",
     "enterIfDifferentFromPermanentAddress": "상주 주소와 다를 경우 입력하세요",
     "departmentAll": "부서: 전체",
+    "searchEmployee": "이름, 사원 코드, 이메일...",
     "searchProject": "프로젝트명, 코드, PM…",
     "selectEmployee": "직원 선택",
     "select": "선택",
