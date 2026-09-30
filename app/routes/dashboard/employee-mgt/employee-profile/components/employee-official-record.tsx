@@ -41,7 +41,7 @@ const EmployeeOfficialRecord = ({ tab }: IEmployeeOfficialRecordProps) => {
   const { t } = useTranslation()
 
   // Query
-  const { searchParams, updateQueries } = useQueryParams()
+  const { searchParams, setQuery, updateQueries } = useQueryParams()
 
   // Table
   const columns = employeeMgtColumn.getEmployee(t)
@@ -94,7 +94,7 @@ const EmployeeOfficialRecord = ({ tab }: IEmployeeOfficialRecordProps) => {
 
   // Sync data and url
   useEffect(() => {
-    updateQueries(paramsHelper.employeeToSearchParams(searchParams, DEFAULT_VALUES, tab))
+    setQuery(paramsHelper.employeeToSearchParams(searchParams, DEFAULT_VALUES, tab))
   }, [])
 
   return (
