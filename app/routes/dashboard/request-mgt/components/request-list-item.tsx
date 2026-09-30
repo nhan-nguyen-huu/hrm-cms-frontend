@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next'
 import EmployeeInfo from '~/components/tags/employee-info'
 import RequestStatus from '~/components/tags/request-status'
 import { Checkbox } from '~/components/ui/checkbox'
-import { commonHelper, dateHelper } from '~/helpers'
+import { commonHelper } from '~/helpers'
 import { useTransferEnum } from '~/hooks/user-transfer-enum'
-import { ERequestType } from '~/shared/enums/common.enum'
 import type { IRequest } from '~/shared/models/request.model'
 
 interface IRequestListItemProps {
@@ -22,13 +21,7 @@ interface IRequestListItemProps {
 const RequestListItem = ({ request, isActive, isChecked, onSelect, onCheckedChange }: IRequestListItemProps) => {
   const { t } = useTranslation()
   const { getTranslateEnum } = useTransferEnum()
-  const summary = [
-    request.type && getTranslateEnum({ enumPath: 'requestType', enumType: ERequestType, value: request.type }),
-    dateHelper.formatShortDateRange(request.fromDate, request.toDate),
-    request.days != null && t('common.dayCount', { value: commonHelper.formatNumber(request.days, 1, 1) })
-  ]
-    .filter(Boolean)
-    .join(' · ')
+  const summary = commonHelper.getRequestSummary(t, getTranslateEnum, request)
 
   return (
     <section

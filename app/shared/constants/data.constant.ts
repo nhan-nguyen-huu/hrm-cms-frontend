@@ -2,7 +2,16 @@ import type { TFunction } from 'i18next'
 import { DATE_FORMAT_SLASH, DATE_TIME_FORMAT_DAY_MONTH, commonHelper, dateHelper } from '~/helpers'
 import type { TGetTranslateEnumFn } from '~/hooks/user-transfer-enum'
 import { ROUTES } from '~/shared/constants/routes.constant'
-import type { IBreadcrumbItem, IFilterTabItem, IInfoRow, IOption, IStep, ITabItem } from '~/shared/models/common.model'
+import type {
+  IBreadcrumbItem,
+  IFilterTabItem,
+  IInfoRow,
+  IOption,
+  IStatCardItem,
+  IStep,
+  ITabItem
+} from '~/shared/models/common.model'
+import type { IOverviewSummary } from '~/shared/models/overview.model'
 import type {
   IAllocationCheckRow,
   IProject,
@@ -231,5 +240,52 @@ export const DATA = {
       { title: t('title.updateTimesheet') }
     ]
     return STEPS
+  },
+  // KPI cards of the HR overview (design screen CmsTongQuan)
+  GET_OVERVIEW_STATS: (t: TFunction, summary?: IOverviewSummary) => {
+    const active = summary?.activeEmployeeCount
+    const present = summary?.presentTodayCount
+    const presentRate = active && present != null ? (present / active) * 100 : undefined
+    const overdue = summary?.overdueRequestCount ?? 0
+    const STATS: IStatCardItem[] = [
+      {
+        key: 'activeEmployees',
+        label: t('title.activeEmployees'),
+        value: commonHelper.formatNumber(active, 0),
+        change: summary?.headcountChange,
+        note: t('msg.hiresAndResignationsThisMonth', {
+          hires: summary?.newHireCount ?? 0,
+          resignations: summary?.resignationCount ?? 0
+        })
+      },
+      {
+        key: 'presentToday',
+        label: t('title.presentToday'),
+        value: commonHelper.formatNumber(present, 0),
+        unit: t('common.outOfWithRate', {
+          total: commonHelper.formatNumber(active, 0),
+          rate: commonHelper.formatNumber(presentRate, 1)
+        }),
+        progress: presentRate
+      },
+      {
+        key: 'pendingRequests',
+        label: t('title.pendingRequests'),
+        value: commonHelper.formatNumber(summary?.pendingRequestCount, 0),
+        unit: t('common.requestUnit'),
+        note: overdue ? t('msg.overdueRequests', { count: overdue, days: summary?.overdueAfterDays ?? 0 }) : undefined,
+        tone: 'warning',
+        noteTone: 'warning'
+      },
+      {
+        key: 'expiringContracts',
+        label: t('title.expiringContracts'),
+        value: commonHelper.formatNumber(summary?.expiringContractCount, 0),
+        unit: t('common.recordUnit'),
+        note: t('msg.withinNextDays', { days: summary?.expiringWithinDays ?? 0 }),
+        tone: 'danger'
+      }
+    ]
+    return STATS
   }
 }

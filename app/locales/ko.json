@@ -23,7 +23,17 @@
     "rejectedAt": "반려됨 · {{time}}",
     "waitingYourApproval": "승인 대기 중",
     "waitingManagerApproval": "관리자 승인 대기 중",
-    "submittedAt": "제출 {{time}}"
+    "submittedAt": "제출 {{time}}",
+    "updatedAt": "{{date}} {{time}} 업데이트",
+    "outOfWithRate": "/ {{total}} · {{rate}}%",
+    "requestUnit": "건",
+    "recordUnit": "건",
+    "peopleAtDate": "{{count}}명 · {{date}}",
+    "headcount": "인원",
+    "newHires": "신규 입사",
+    "resignations": "퇴사",
+    "monthShort": "{{month}}월",
+    "remainingDays": "{{count}}일 남음"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -37,7 +47,8 @@
     },
     "requestMgt": {
       "base": "신청 및 승인"
-    }
+    },
+    "overview": "개요"
   },
   "enums": {
     "language": {
@@ -76,7 +87,9 @@
       "technology": "기술",
       "sales": "영업",
       "operations": "운영",
-      "marketing": "마케팅"
+      "marketing": "마케팅",
+      "accounting": "회계",
+      "humanResources": "인사"
     },
     "departmentDivision": {
       "engineering": "엔지니어링",
@@ -223,7 +236,14 @@
     "approvalProgress": "승인 진행",
     "lineManager": "직속 관리자",
     "hrDepartment": "인사팀",
-    "updateTimesheet": "근태표 반영"
+    "updateTimesheet": "근태표 반영",
+    "hrOverview": "인사 개요",
+    "activeEmployees": "재직 인원",
+    "presentToday": "오늘 출근",
+    "pendingRequests": "승인 대기 신청",
+    "expiringContracts": "만료 예정 계약",
+    "headcountByDepartment": "부서별 인원",
+    "headcountTrend": "최근 6개월 인원 변동"
   },
   "msg": {
     "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다",
@@ -242,7 +262,10 @@
     "addMemberSuccess": "{{name}}님이 프로젝트에 추가되었습니다",
     "approveRequestSuccess": "{{name}}님의 신청을 승인했습니다",
     "rejectRequestSuccess": "{{name}}님의 신청을 반려했습니다",
-    "approveRequestsSuccess": "{{count}}건을 승인했습니다"
+    "approveRequestsSuccess": "{{count}}건을 승인했습니다",
+    "hiresAndResignationsThisMonth": "이번 달 신규 입사 {{hires}}명 · 퇴사 {{resignations}}명",
+    "overdueRequests": "{{days}}일 기한 초과 {{count}}건",
+    "withinNextDays": "향후 {{days}}일 이내"
   },
   "confirm": {
     "confirmLogoutTitle": "로그아웃하시겠습니까?",
@@ -276,7 +299,8 @@
     "search": "찾다",
     "approveSelected": "선택한 {{count}}건 승인",
     "approveRequest": "승인",
-    "reject": "반려"
+    "reject": "반려",
+    "exportReport": "보고서 내보내기"
   },
   "stepper": {
     "upsertEmployee": {

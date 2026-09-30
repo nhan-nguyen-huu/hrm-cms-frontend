@@ -45,7 +45,9 @@ export enum EDepartment {
   Technology = 'TECHNOLOGY',
   Sales = 'SALES',
   Operations = 'OPERATIONS',
-  Marketing = 'MARKETING'
+  Marketing = 'MARKETING',
+  Accounting = 'ACCOUNTING',
+  HumanResources = 'HUMAN_RESOURCES'
 }
 
 // TODO(assumption): request type codes — confirm with BE; the design only shows these four

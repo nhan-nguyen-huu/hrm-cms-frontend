@@ -1,7 +1,11 @@
 import i18n, { type TFunction, t } from 'i18next'
 import { toast } from 'sonner'
+import { dateHelper } from '~/helpers/date.helper'
+import type { TGetTranslateEnumFn } from '~/hooks/user-transfer-enum'
 import { COMMON_CONSTANT } from '~/shared/constants/common.constant'
+import { ERequestType } from '~/shared/enums/common.enum'
 import type { IOption } from '~/shared/models/common.model'
+import type { IRequest } from '~/shared/models/request.model'
 import type { TEnumLike } from '~/shared/types/common.type'
 
 export const commonHelper = {
@@ -105,6 +109,15 @@ export const commonHelper = {
     value == null
       ? '-'
       : new Intl.NumberFormat(i18n.language, { maximumFractionDigits, minimumFractionDigits }).format(value),
+  // One-line summary of a request, e.g. "Phép năm · 21–22/09 · 2,0 ngày" (empty parts skipped)
+  getRequestSummary: (t: TFunction, getTranslateEnum: TGetTranslateEnumFn, request?: IRequest) =>
+    [
+      request?.type && getTranslateEnum({ enumPath: 'requestType', enumType: ERequestType, value: request.type }),
+      dateHelper.formatShortDateRange(request?.fromDate, request?.toDate),
+      request?.days != null && t('common.dayCount', { value: commonHelper.formatNumber(request.days, 1, 1) })
+    ]
+      .filter(Boolean)
+      .join(' · '),
   getEnumOptions:
     <T extends TEnumLike>(enumType: T, enumPath: string) =>
     (t: TFunction) =>

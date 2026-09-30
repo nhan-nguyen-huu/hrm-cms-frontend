@@ -13,6 +13,7 @@ export const ROUTES = {
   DASHBOARD: {
     BASE: 'dashboard',
     DEMO: 'demo',
+    OVERVIEW: 'overview',
     EMPLOYEE_MGT: {
       BASE: 'employee-mgt',
       EMPLOYEE_PROFILE: 'employee-profile'

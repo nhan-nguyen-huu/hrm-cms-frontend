@@ -91,3 +91,18 @@ export interface IStep {
   title?: string
   description?: string
 }
+
+export type TStatCardTone = 'default' | 'warning' | 'danger'
+
+// KPI card (StatCard): big value + unit, optional change (+6 ↑), progress bar (0–100) or note line
+export interface IStatCardItem {
+  key: string
+  label: string
+  value: string
+  unit?: string
+  change?: number
+  progress?: number
+  note?: string
+  tone?: TStatCardTone
+  noteTone?: TStatCardTone
+}
