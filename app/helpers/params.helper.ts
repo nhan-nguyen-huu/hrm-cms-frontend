@@ -16,12 +16,11 @@ export const paramsHelper = {
     defaultValues?: TFilterPanelEmployeeProfileFormSchema,
     tab?: EEmployeeProfileTab
   ) => {
-    console.log('check2: ', searchParams)
     return {
       ...paramsHelper.paginationToSearchParams(searchParams),
       employmentStatus:
         searchParams.get('employmentStatus') ?? (defaultValues?.employmentStatus as EEmployeeStatus) ?? '',
-      tab: tab
+      tab: tab as string
     }
   }
 }
