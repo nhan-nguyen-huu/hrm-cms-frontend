@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import PersonnelByDepartmentChart from '~/components/charts/personnel-by-department-chart'
+import PersonnelFluctuationsChart from '~/components/charts/personnel-fluctuations-chart'
 import FilterPanel from '~/components/common/filter-panel'
 import TextEditor from '~/components/common/text-editor'
 import CardCustom from '~/components/customs/card-custom'
@@ -35,6 +36,7 @@ const Demo = () => {
     <section className='flex flex-col gap-4'>
       {/* Chart */}
       <PersonnelByDepartmentChart />
+      <PersonnelFluctuationsChart />
       {/* Filter panel */}
       <FilterPanel
         form={filterPanelForm}
