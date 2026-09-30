@@ -122,7 +122,7 @@ jobs:
           target: '/home/thangvo/deploy'
 
       # ========================================
-      # Deploy
+      # Deploy (serve on fixed port 1010)
       # ========================================
 
       - name: Deploy
@@ -132,16 +132,52 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
+            set -e
+
+            APP_PORT=1010
+            APP_DIR=/var/www/hrm-cms-frontend
+            NGINX_CONF=/etc/nginx/sites-available/hrm-cms-frontend
+
             echo "Starting deployment..."
 
-            sudo rm -rf /var/www/hrm-cms-frontend/*
+            sudo mkdir -p $APP_DIR
+            sudo rm -rf $APP_DIR/*
 
-            sudo cp -r /home/thangvo/deploy/build/client/* /var/www/hrm-cms-frontend/
+            sudo cp -r /home/thangvo/deploy/build/client/* $APP_DIR/
 
-            sudo chown -R www-data:www-data /var/www/hrm-cms-frontend
+            sudo chown -R www-data:www-data $APP_DIR
 
-            sudo find /var/www/hrm-cms-frontend -type d -exec chmod 755 {} \;
-            sudo find /var/www/hrm-cms-frontend -type f -exec chmod 644 {} \;
+            sudo find $APP_DIR -type d -exec chmod 755 {} \;
+            sudo find $APP_DIR -type f -exec chmod 644 {} \;
+
+            echo "Writing Nginx config (port $APP_PORT)..."
+
+            sudo tee $NGINX_CONF > /dev/null <<EOF
+            server {
+                listen ${APP_PORT};
+                listen [::]:${APP_PORT};
+                server_name _;
+
+                root $APP_DIR;
+                index index.html;
+
+                location / {
+                    try_files \$uri \$uri/ /index.html;
+                }
+
+                location /assets/ {
+                    expires 1y;
+                    add_header Cache-Control "public, immutable";
+                }
+            }
+            EOF
+
+            sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/hrm-cms-frontend
+
+            if command -v ufw > /dev/null && sudo ufw status | grep -q "Status: active"; then
+              echo "Opening port $APP_PORT on ufw..."
+              sudo ufw allow ${APP_PORT}/tcp
+            fi
 
             echo "Testing Nginx configuration..."
 
@@ -151,7 +187,12 @@ jobs:
 
             sudo systemctl reload nginx
 
-            echo "Deployment completed successfully!"
+            echo "Checking http://localhost:$APP_PORT ..."
+
+            curl -fsS -o /dev/null http://localhost:$APP_PORT
+
+            echo "Deployment completed successfully on port $APP_PORT!"
+
       - name: Notify Slack Success
         if: success()
         run: |
@@ -183,7 +224,7 @@ jobs:
                       "type": "section",
                       "text": {
                         "type": "mrkdwn",
-                        "text": "*🌿 Branch*\n`${{ github.ref_name }}`\n\n*👤 Author*\n`${{ github.actor }}`\n\n*📂 Repository*\n`${{ github.repository }}`\n\n*⚙️ Workflow*\n`${{ github.workflow }}`\n\n*🏃 Run*\n`#${{ github.run_number }}`\n\n*🌍 Environment*\n`dev`"
+                        "text": "*🌿 Branch*\n`${{ github.ref_name }}`\n\n*👤 Author*\n`${{ github.actor }}`\n\n*📂 Repository*\n`${{ github.repository }}`\n\n*⚙️ Workflow*\n`${{ github.workflow }}`\n\n*🏃 Run*\n`#${{ github.run_number }}`\n\n*🌍 Environment*\n`dev`\n\n*🔌 Port*\n`1010`"
                       }
                     },
                     {
