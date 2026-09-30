@@ -30,6 +30,7 @@ export const DATE_FORMAT_DOT = 'YYYY.MM.DD'
 export const DATE_FORMAT_SLASH = 'DD/MM/YYYY'
 export const DATE_FORMAT_MONTH_YEAR = 'MM/YYYY'
 export const DATE_FORMAT_DAY_MONTH = 'DD/MM'
+export const DATE_FORMAT_TIME = 'HH:mm'
 export const DATE_TIME_FORMAT_SLASH = 'DD/MM/YYYY, HH:mm'
 export const DATE_TIME_FORMAT_DAY_MONTH = 'DD/MM, HH:mm'
 export const DATE_TIME_FORMAT_DOT = 'YYYY.MM.DD HH:mm'
@@ -72,6 +73,8 @@ export const dateHelper = {
   },
 
   // Year of a month string "MM/YYYY" — NaN when missing or malformed
+  // 'MM/YYYY' → month number (1–12), e.g. '09/2026' → 9
+  getMonthFromMonthYear: (month?: string) => Number(month?.split('/')[0]),
   getYearFromMonth: (month?: string) => Number(month?.split('/')[1]),
 
   // Whether a year falls inside a "MM/YYYY" – "MM/YYYY" range; false when the range is incomplete

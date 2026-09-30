@@ -24,6 +24,16 @@
     "waitingYourApproval": "Waiting for your approval",
     "waitingManagerApproval": "Waiting for manager approval",
     "submittedAt": "Submitted {{time}}",
+    "updatedAt": "Updated at {{time}} · {{date}}",
+    "outOfWithRate": "/ {{total}} · {{rate}}%",
+    "requestUnit": "requests",
+    "recordUnit": "records",
+    "peopleAtDate": "{{count}} people · {{date}}",
+    "headcount": "Headcount",
+    "newHires": "New hires",
+    "resignations": "Resignations",
+    "monthShort": "M{{month}}",
+    "remainingDays": "{{count}} days left",
     "descriptionJob": "{{employeeCode}} - {{jobTitleName}}, {{departmentName}} - Joined {{startDate}} ({{year}} years {{month}} months)"
   },
   "sidebarMenu": {
@@ -38,7 +48,8 @@
     },
     "requestMgt": {
       "base": "Requests & approvals"
-    }
+    },
+    "overview": "Overview"
   },
   "enums": {
     "language": {
@@ -89,7 +100,9 @@
       "technology": "Technology",
       "sales": "Sales",
       "operations": "Operations",
-      "marketing": "Marketing"
+      "marketing": "Marketing",
+      "accounting": "Accounting",
+      "humanResources": "Human Resources"
     },
     "departmentDivision": {
       "engineering": "Engineering",
@@ -237,7 +250,14 @@
     "approvalProgress": "Approval progress",
     "lineManager": "Line manager",
     "hrDepartment": "HR department",
-    "updateTimesheet": "Timesheet update"
+    "updateTimesheet": "Timesheet update",
+    "hrOverview": "HR overview",
+    "activeEmployees": "Active employees",
+    "presentToday": "At work today",
+    "pendingRequests": "Pending requests",
+    "expiringContracts": "Contracts expiring soon",
+    "headcountByDepartment": "Headcount by department",
+    "headcountTrend": "Headcount changes, last 6 months"
   },
   "msg": {
     "changeLanguageSuccess": "Change language successfully",
@@ -256,7 +276,10 @@
     "addMemberSuccess": "{{name}} was added to the project",
     "approveRequestSuccess": "Approved {{name}}'s request",
     "rejectRequestSuccess": "Rejected {{name}}'s request",
-    "approveRequestsSuccess": "Approved {{count}} requests"
+    "approveRequestsSuccess": "Approved {{count}} requests",
+    "hiresAndResignationsThisMonth": "{{hires}} new hires · {{resignations}} resignations this month",
+    "overdueRequests": "{{count}} requests overdue by {{days}} days",
+    "withinNextDays": "Within the next {{days}} days"
   },
   "confirm": {
     "confirmLogoutTitle": "Do you want to log out?",
@@ -292,7 +315,8 @@
     "search": "Search",
     "approveSelected": "Approve {{count}} selected",
     "approveRequest": "Approve",
-    "reject": "Reject"
+    "reject": "Reject",
+    "exportReport": "Export report"
   },
   "stepper": {
     "upsertEmployee": {

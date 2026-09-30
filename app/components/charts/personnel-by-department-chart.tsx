@@ -1,67 +1,68 @@
 'use client'
 
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
+import { useTranslation } from 'react-i18next'
+import { Bar, BarChart, LabelList, XAxis, YAxis } from 'recharts'
 import CardCustom from '~/components/customs/card-custom'
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '~/components/ui/chart'
+import { useTransferEnum } from '~/hooks/user-transfer-enum'
+import { EDepartment } from '~/shared/enums/common.enum'
+import type { IDepartmentHeadcount } from '~/shared/models/overview.model'
 
-export const description = 'A bar chart with a custom label'
+interface IPersonnelByDepartmentChartProps {
+  items?: IDepartmentHeadcount[]
+  // Right side of the card header, e.g. "248 người · 16/09/2026"
+  description?: string
+}
 
-const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 }
-]
+// Height per department row, so the card grows with the number of departments
+const ROW_HEIGHT = 34
 
-const chartConfig = {
-  desktop: {
-    label: 'Desktop',
-    color: 'var(--chart-2)'
-  },
-  mobile: {
-    label: 'Mobile',
-    color: 'var(--chart-2)'
-  },
-  label: {
-    color: 'var(--background)'
-  }
-} satisfies ChartConfig
+// "Nhân sự theo phòng ban" — horizontal bar per department, value at the end of the bar (design CmsTongQuan)
+const PersonnelByDepartmentChart = ({ items = [], description }: IPersonnelByDepartmentChartProps) => {
+  const { t } = useTranslation()
+  const { getTranslateEnum } = useTransferEnum()
+  const chartConfig = {
+    headcount: {
+      label: t('common.headcount'),
+      color: 'var(--primary)'
+    }
+  } satisfies ChartConfig
+  const chartData = items.map((item) => ({
+    department: getTranslateEnum({ enumPath: 'department', enumType: EDepartment, value: item.department }),
+    headcount: item.headcount ?? 0
+  }))
 
-const PersonnelByDepartmentChart = () => {
   return (
-    <CardCustom title='Nhân sự theo phòng ban' description='January - June 2024'>
-      <ChartContainer config={chartConfig}>
-        <BarChart
-          accessibilityLayer
-          data={chartData}
-          layout='vertical'
-          margin={{
-            right: 16
-          }}
-        >
-          <CartesianGrid horizontal={false} />
+    <CardCustom
+      title={t('title.headcountByDepartment')}
+      classNameCardTitle='text-[15px] font-bold normal-case text-app-secondary'
+      action={description ? <span className='text-[12.5px] text-[#93A2B6]'>{description}</span> : undefined}
+    >
+      <ChartContainer
+        config={chartConfig}
+        className='aspect-auto w-full'
+        style={{ height: Math.max(chartData.length * ROW_HEIGHT, 120) }}
+      >
+        <BarChart accessibilityLayer data={chartData} layout='vertical' margin={{ left: 8, right: 40 }}>
           <YAxis
-            dataKey='month'
+            dataKey='department'
             type='category'
             tickLine={false}
-            tickMargin={10}
             axisLine={false}
-            tickFormatter={(value) => value.slice(0, 3)}
-            hide
+            tickMargin={10}
+            width={110}
+            fontSize={13}
           />
-          <XAxis dataKey='desktop' type='number' hide />
+          <XAxis dataKey='headcount' type='number' hide />
           <ChartTooltip cursor={false} content={<ChartTooltipContent indicator='line' />} />
-          <Bar dataKey='desktop' fill='var(--color-desktop)' radius={4}>
+          <Bar dataKey='headcount' fill='var(--color-headcount)' radius={2} barSize={16}>
             <LabelList
-              dataKey='month'
-              position='insideLeft'
-              offset={8}
-              className='fill-(--color-label)'
-              fontSize={12}
+              dataKey='headcount'
+              position='right'
+              offset={10}
+              className='fill-foreground font-bold'
+              fontSize={13}
             />
-            <LabelList dataKey='desktop' position='right' offset={8} className='fill-foreground' fontSize={12} />
           </Bar>
         </BarChart>
       </ChartContainer>

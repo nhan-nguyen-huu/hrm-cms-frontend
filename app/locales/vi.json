@@ -24,6 +24,16 @@
     "waitingYourApproval": "Đang chờ bạn duyệt",
     "waitingManagerApproval": "Đang chờ quản lý duyệt",
     "submittedAt": "Gửi lúc {{time}}",
+    "updatedAt": "Cập nhật lúc {{time}} · {{date}}",
+    "outOfWithRate": "/ {{total}} · {{rate}}%",
+    "requestUnit": "đơn",
+    "recordUnit": "hồ sơ",
+    "peopleAtDate": "{{count}} người · {{date}}",
+    "headcount": "Nhân sự",
+    "newHires": "Tuyển mới",
+    "resignations": "Nghỉ việc",
+    "monthShort": "T{{month}}",
+    "remainingDays": "Còn {{count}} ngày",
     "descriptionJob": "{{employeeCode}} - {{jobTitleName}}, {{departmentName}} - Vào làm {{startDate}} ({{year}} năm {{month}} tháng)"
   },
   "sidebarMenu": {
@@ -38,7 +48,8 @@
     },
     "requestMgt": {
       "base": "Đơn từ & phê duyệt"
-    }
+    },
+    "overview": "Tổng quan"
   },
   "enums": {
     "language": {
@@ -89,7 +100,9 @@
       "technology": "Kỹ thuật",
       "sales": "Kinh doanh",
       "operations": "Vận hành",
-      "marketing": "Marketing"
+      "marketing": "Marketing",
+      "accounting": "Kế toán",
+      "humanResources": "Nhân sự"
     },
     "departmentDivision": {
       "engineering": "Kỹ thuật",
@@ -237,7 +250,14 @@
     "approvalProgress": "Tiến trình duyệt",
     "lineManager": "Quản lý trực tiếp",
     "hrDepartment": "Phòng Nhân sự",
-    "updateTimesheet": "Cập nhật bảng công"
+    "updateTimesheet": "Cập nhật bảng công",
+    "hrOverview": "Tổng quan nhân sự",
+    "activeEmployees": "Tổng nhân sự đang làm việc",
+    "presentToday": "Đi làm hôm nay",
+    "pendingRequests": "Đơn từ chờ duyệt",
+    "expiringContracts": "Hợp đồng sắp hết hạn",
+    "headcountByDepartment": "Nhân sự theo phòng ban",
+    "headcountTrend": "Biến động nhân sự 6 tháng gần nhất"
   },
   "msg": {
     "changeLanguageSuccess": "Đổi ngôn ngữ thành công",
@@ -256,7 +276,10 @@
     "addMemberSuccess": "Đã thêm {{name}} vào dự án",
     "approveRequestSuccess": "Đã duyệt đơn của {{name}}",
     "rejectRequestSuccess": "Đã từ chối đơn của {{name}}",
-    "approveRequestsSuccess": "Đã duyệt {{count}} đơn"
+    "approveRequestsSuccess": "Đã duyệt {{count}} đơn",
+    "hiresAndResignationsThisMonth": "{{hires}} tuyển mới · {{resignations}} nghỉ việc trong tháng",
+    "overdueRequests": "{{count}} đơn đã quá hạn xử lý {{days}} ngày",
+    "withinNextDays": "Trong vòng {{days}} ngày tới"
   },
   "confirm": {
     "confirmLogoutTitle": "Bạn có muốn đăng xuất không?",
@@ -291,7 +314,8 @@
     "search": "Tìm kiếm",
     "approveSelected": "Duyệt {{count}} đơn đã chọn",
     "approveRequest": "Duyệt đơn",
-    "reject": "Từ chối"
+    "reject": "Từ chối",
+    "exportReport": "Xuất báo cáo"
   },
   "stepper": {
     "upsertEmployee": {
