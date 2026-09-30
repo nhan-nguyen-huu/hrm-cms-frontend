@@ -19,12 +19,3 @@ export const COMMON_CONSTANT = {
   // TODO(assumption): confirm whether BE makes this configurable
   REQUEST_SLA_DAYS: 2
 }
-
-// Chart colours (ApexCharts needs literal colours, not CSS variables) — primary = --primary of app.css
-export const CHART_COLORS = {
-  PRIMARY: '#1F5BAD',
-  SECONDARY: '#C9751E',
-  GRID: '#EEF1F5',
-  LABEL: '#6E7F96',
-  TEXT: '#101C2E'
-}

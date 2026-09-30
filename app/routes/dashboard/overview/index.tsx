@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import ButtonAction from '~/components/actions/button-action'
+import PersonnelByDepartmentChart from '~/components/charts/personnel-by-department-chart'
 import HeaderPage from '~/components/common/header-page'
 import StatCard from '~/components/customs/stat-card'
 import { DATE_FORMAT_SLASH, DATE_FORMAT_TIME, dateHelper } from '~/helpers/date.helper'
-import DepartmentHeadcountChart from '~/routes/dashboard/overview/components/department-headcount-chart'
 import ExpiringContractCard from '~/routes/dashboard/overview/components/expiring-contract-card'
-import HeadcountTrendChart from '~/routes/dashboard/overview/components/headcount-trend-chart'
 import PendingRequestCard from '~/routes/dashboard/overview/components/pending-request-card'
 import { COMMON_CONSTANT } from '~/shared/constants/common.constant'
 import { DATA } from '~/shared/constants/data.constant'
@@ -47,8 +46,13 @@ const OverviewPage = () => {
 
       <section className='grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_370px]'>
         <section className='flex min-w-0 flex-col gap-4'>
-          <DepartmentHeadcountChart summary={summary} />
-          <HeadcountTrendChart summary={summary} />
+          <PersonnelByDepartmentChart
+            items={summary.departmentHeadcounts}
+            description={t('common.peopleAtDate', {
+              count: summary.activeEmployeeCount ?? 0,
+              date: dateHelper.formatDate(summary.updatedAt, DATE_FORMAT_SLASH, '-')
+            })}
+          />
         </section>
         <section className='flex flex-col gap-4'>
           <PendingRequestCard requests={pendingRequests} viewAllPath={`/${BASE}/${REQUEST_MGT.BASE}`} />
