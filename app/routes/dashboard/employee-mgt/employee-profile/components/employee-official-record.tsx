@@ -154,7 +154,6 @@ const EmployeeOfficialRecord = ({ tab }: IEmployeeOfficialRecordProps) => {
         onPageChange={setPage}
         pageSize={paging?.size}
         onPageSizeChange={setSize}
-        disableNavigationAll
       />
     </PageLayout>
   )

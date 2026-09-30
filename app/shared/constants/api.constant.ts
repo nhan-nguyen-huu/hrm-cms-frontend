@@ -5,5 +5,6 @@ export const API_AUTH = {
 }
 
 export const API_EMPLOYEE = {
-  GET_LIST_URL: '/employee'
+  GET_LIST_URL: '/employee',
+  GET_DETAIL_URL: (id?: number) => `/employee/${id}`
 }

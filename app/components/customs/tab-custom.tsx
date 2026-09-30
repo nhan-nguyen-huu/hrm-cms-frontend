@@ -45,7 +45,7 @@ const TabsCustom = <T extends string>({
   return (
     <Tabs defaultValue={value} value={value} onValueChange={handleChangeTab}>
       <TabsList
-        className={clsx('h-9.5! gap-4 w-full justify-start border-b border-[#E4E9F0]', classNameTabList)}
+        className={clsx('h-9.5! gap-6 w-full justify-start border-b border-[#E4E9F0]', classNameTabList)}
         variant='line'
       >
         {options.map((t) => (
