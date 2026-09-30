@@ -78,3 +78,8 @@ export enum EAspectType {
 }
 
 export enum EContractType {}
+
+export enum EEmployeeProfileTab {
+  OfficialRecord = 'OFFICIAL_RECORD',
+  Draft = 'DRAFT'
+}
