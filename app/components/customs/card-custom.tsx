@@ -8,23 +8,27 @@ interface ICardCustomProps {
   title?: string
   description?: string
   action?: React.ReactElement
+  classNameCard?: string
   classNameCardTitle?: string
   classNameDescription?: string
   classNameCardContent?: string
   children?: ReactNode
+  isHiddenHeader?: boolean
 }
 const CardCustom = ({
   title,
   description,
   action,
+  classNameCard,
   classNameCardTitle,
   classNameDescription,
   classNameCardContent,
-  children
+  children,
+  isHiddenHeader
 }: ICardCustomProps) => {
   return (
-    <Card>
-      <CardHeader>
+    <Card className={clsx(classNameCard)}>
+      <CardHeader className={clsx(isHiddenHeader && 'sr-only')}>
         {title && (
           <CardTitle className={clsx('text-[#6E7F96] uppercase text-xs', classNameCardTitle)}>{title}</CardTitle>
         )}

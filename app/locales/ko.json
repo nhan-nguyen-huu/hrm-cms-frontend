@@ -23,7 +23,8 @@
     "rejectedAt": "반려됨 · {{time}}",
     "waitingYourApproval": "승인 대기 중",
     "waitingManagerApproval": "관리자 승인 대기 중",
-    "submittedAt": "제출 {{time}}"
+    "submittedAt": "제출 {{time}}",
+    "descriptionJob": "{{employeeCode}} - {{jobTitleName}}, {{departmentName}} - 입사일 {{startDate}} ({{year}}년 {{month}}개월)"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -56,6 +57,14 @@
     "employeeProfileTab": {
       "officialRecord": "공식 기록",
       "draft": "임시 저장"
+    },
+    "employeeProfileDetailTab": {
+      "overView": "개요",
+      "personalInfo": "개인 정보",
+      "contractsAndSalary": "계약 및 급여",
+      "timeAndAttendance": "근태 및 휴가",
+      "documents": "문서",
+      "changeHistory": "변경 이력"
     },
     "gender": {
       "male": "남성",
@@ -260,6 +269,8 @@
   "action": {
     "importExcel": "엑셀 가져오기",
     "exportList": "목록 내보내기",
+    "exportEmployeeProfile": "직원 프로필 내보내기",
+    "editEmployeeProfile": "직원 프로필 수정",
     "addEmployee": "직원 추가",
     "cancel": "취소",
     "saveDraft": "임시 저장",

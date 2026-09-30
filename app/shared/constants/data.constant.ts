@@ -14,6 +14,7 @@ import type { IRequest } from '~/shared/models/request.model'
 import { EnIcon, KoIcon, ViIcon } from '../../assets/svgs'
 import {
   EDepartment,
+  EEmployeeProfileDetailTab,
   EEmployeeProfileTab,
   EEmployeeStatus,
   EGender,
@@ -72,6 +73,10 @@ export const DATA = {
   },
   GET_OPTIONS_EMPLOYEE_STATUS: commonHelper.getEnumOptions(EEmployeeStatus, 'employeeStatus'),
   GET_OPTIONS_EMPLOYEE_PROFILE_TAB: commonHelper.getEnumOptions(EEmployeeProfileTab, 'employeeProfileTab'),
+  GET_OPTIONS_EMPLOYEE_PROFILE_DETAIL_TAB: commonHelper.getEnumOptions(
+    EEmployeeProfileDetailTab,
+    'employeeProfileDetailTab'
+  ),
   GET_DATA_UPSERT_EMPLOYEE_STEP: (t: TFunction) => {
     const STEPS: IStep[] = [
       {
