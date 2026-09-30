@@ -64,6 +64,10 @@
       "terminated": "Đã nghỉ việc",
       "probation": "Thử việc"
     },
+    "employeeProfileTab": {
+      "officialRecord": "Hồ sơ chính thức",
+      "draft": "Bản nháp"
+    },
     "gender": {
       "male": "Nam",
       "famale": "Nữ"
@@ -202,6 +206,7 @@
     "pleaseSelectDate": "Vui lòng chọn ngày",
     "enterIfDifferentFromPermanentAddress": "Nhập nếu khác địa chỉ thường trú",
     "departmentAll": "Phòng ban: Tất cả",
+    "searchEmployee": "Tên, mã nhân viên, email...",
     "searchProject": "Tên dự án, mã, PM…",
     "selectEmployee": "Chọn nhân sự",
     "select": "Chọn",

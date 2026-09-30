@@ -64,6 +64,10 @@
       "terminated": "Terminated",
       "probation": "Probation"
     },
+    "employeeProfileTab": {
+      "officialRecord": "Official record",
+      "draft": "Draft"
+    },
     "gender": {
       "male": "Male",
       "famale": "Female"
@@ -202,6 +206,7 @@
     "pleaseSelectDate": "Please select a date",
     "enterIfDifferentFromPermanentAddress": "Enter if different from permanent address",
     "departmentAll": "Department: All",
+    "searchEmployee": "Name, employee ID, email...",
     "searchProject": "Project name, code, PM…",
     "selectEmployee": "Select an employee",
     "select": "Select",

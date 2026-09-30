@@ -1,6 +1,6 @@
 import type { TFilterPanelEmployeeProfileFormSchema } from '~/helpers/schema.helper'
 import { DEFAULT_PAGING } from '~/hooks/use-pagination'
-import type { EEmployeeStatus } from '~/shared/enums/common.enum'
+import type { EEmployeeProfileTab, EEmployeeStatus } from '~/shared/enums/common.enum'
 import { EFilterPanelFormKey } from '~/shared/enums/form.enum'
 
 export const paramsHelper = {
@@ -11,11 +11,16 @@ export const paramsHelper = {
       size: searchParams.get('size') ?? DEFAULT_PAGING.SIZE.toString()
     }
   },
-  employeeToSearchParams: (searchParams: URLSearchParams, defaultValues?: TFilterPanelEmployeeProfileFormSchema) => {
+  employeeToSearchParams: (
+    searchParams: URLSearchParams,
+    defaultValues?: TFilterPanelEmployeeProfileFormSchema,
+    tab?: EEmployeeProfileTab
+  ) => {
     return {
       ...paramsHelper.paginationToSearchParams(searchParams),
       employmentStatus:
-        searchParams.get('employmentStatus') ?? (defaultValues?.employmentStatus as EEmployeeStatus) ?? ''
+        searchParams.get('employmentStatus') ?? (defaultValues?.employmentStatus as EEmployeeStatus) ?? '',
+      tab: tab as string
     }
   }
 }
