@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import PersonnelByDepartmentChart from '~/components/charts/personnel-by-department-chart'
 import FilterPanel from '~/components/common/filter-panel'
 import TextEditor from '~/components/common/text-editor'
 import CardCustom from '~/components/customs/card-custom'
@@ -32,6 +33,8 @@ const Demo = () => {
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit tempore Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit tempore Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit tempore Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit tempore'
   return (
     <section className='flex flex-col gap-4'>
+      {/* Chart */}
+      <PersonnelByDepartmentChart />
       {/* Filter panel */}
       <FilterPanel
         form={filterPanelForm}

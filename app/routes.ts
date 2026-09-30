@@ -20,7 +20,8 @@ export default [
       index('routes/dashboard/employee-mgt/index.tsx'),
       route(ROUTES.DASHBOARD.EMPLOYEE_MGT.EMPLOYEE_PROFILE, 'layouts/employee-profile.layout.tsx', [
         index('routes/dashboard/employee-mgt/employee-profile/index.tsx'),
-        route(BASE_ROUTES.CREATE, 'routes/dashboard/employee-mgt/employee-profile/create-employee-profile/index.tsx')
+        route(BASE_ROUTES.CREATE, 'routes/dashboard/employee-mgt/employee-profile/create-employee-profile/index.tsx'),
+        route(BASE_ROUTES.DETAIL, 'routes/dashboard/employee-mgt/employee-profile/detail-employee-profile/index.tsx')
       ])
     ]),
     route(ROUTES.DASHBOARD.ORGANIZATION_MGT.BASE, 'layouts/organization-mgt.layout.tsx', [

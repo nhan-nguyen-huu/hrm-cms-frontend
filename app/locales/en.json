@@ -33,7 +33,8 @@
     "newHires": "New hires",
     "resignations": "Resignations",
     "monthShort": "M{{month}}",
-    "remainingDays": "{{count}} days left"
+    "remainingDays": "{{count}} days left",
+    "descriptionJob": "{{employeeCode}} - {{jobTitleName}}, {{departmentName}} - Joined {{startDate}} ({{year}} years {{month}} months)"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -67,6 +68,14 @@
     "employeeProfileTab": {
       "officialRecord": "Official record",
       "draft": "Draft"
+    },
+    "employeeProfileDetailTab": {
+      "overView": "Overview",
+      "personalInfo": "Personal information",
+      "contractsAndSalary": "Contracts & Salary",
+      "timeAndAttendance": "Time & Attendance",
+      "documents": "Documents",
+      "changeHistory": "Change history"
     },
     "gender": {
       "male": "Male",
@@ -283,6 +292,8 @@
   "action": {
     "importExcel": "Import from Excel",
     "exportList": "Export list",
+    "exportEmployeeProfile": "Export profile",
+    "editEmployeeProfile": "Edit profile",
     "addEmployee": "Add employee",
     "cancel": "Cancel",
     "saveDraft": "Save draft",

@@ -85,3 +85,12 @@ export enum EEmployeeProfileTab {
   OfficialRecord = 'OFFICIAL_RECORD',
   Draft = 'DRAFT'
 }
+
+export enum EEmployeeProfileDetailTab {
+  OverView = 'OVER_VIEW',
+  PersonalInfo = 'PERSONAL_INFO',
+  ContractsAndSalary = 'CONTRACTS_AND_SALARY',
+  TimeAndAttendance = 'TIME_AND_ATTENDANCE',
+  Documents = 'DOCUMENTS',
+  ChangeHistory = 'CHANGE_HISTORY'
+}

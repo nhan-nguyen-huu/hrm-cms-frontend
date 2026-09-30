@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { RotateCcw, Search } from 'lucide-react'
-import { DownloadIcon, PlusIcon, UploadIcon } from '~/assets/svgs'
+import { DownloadIcon, PencilIcon, PlusIcon, UploadIcon } from '~/assets/svgs'
 import { Button } from '~/components/ui/button'
 import type { TButtonAction, TButtonVariant } from '~/shared/types/common.type'
 
@@ -17,7 +17,8 @@ const ButtonAction = ({ actionType = 'DEFAULT', actionName, ...props }: IButtonA
     UPLOAD: UploadIcon,
     DOWNLOAD: DownloadIcon,
     RESET: RotateCcw,
-    SEARCH: Search
+    SEARCH: Search,
+    EDIT: PencilIcon
   }
   const variantMapping: Record<TButtonAction, TButtonVariant> = {
     DEFAULT: 'default',
@@ -25,7 +26,8 @@ const ButtonAction = ({ actionType = 'DEFAULT', actionName, ...props }: IButtonA
     UPLOAD: 'outline',
     DOWNLOAD: 'outline',
     RESET: 'outline',
-    SEARCH: 'default'
+    SEARCH: 'default',
+    EDIT: 'default'
   }
   const Icon = iconMapping[actionType]
   const variant = variantMapping[actionType]

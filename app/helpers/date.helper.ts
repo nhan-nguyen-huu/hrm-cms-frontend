@@ -95,5 +95,20 @@ export const dateHelper = {
       for (let year = start; year <= end; year++) years.add(year)
     })
     return [...years].sort((a, b) => a - b).map((year) => ({ label: String(year), value: String(year) }))
+  },
+  getWorkDuration: (startDate?: string | Date) => {
+    if (!startDate) {
+      return {
+        year: 0,
+        month: 0
+      }
+    }
+    const start = dayjs(startDate)
+    const now = dayjs()
+    const totalMonths = now.diff(start, 'month')
+    return {
+      year: Math.floor(totalMonths / 12),
+      month: totalMonths % 12
+    }
   }
 }

@@ -6,5 +6,8 @@ import type { IEmployee, IEmployeeParams } from '~/shared/models/employee.model'
 export const EmployeeService = {
   GetListEmployee: async (params?: IEmployeeParams): Promise<IApiResponse<IApiPagination<IEmployee>>> => {
     return await axiosClient.get(API_EMPLOYEE.GET_LIST_URL, { params })
+  },
+  GetDetailEmployee: async (id?: number): Promise<IApiResponse<IEmployee>> => {
+    return await axiosClient.get(API_EMPLOYEE.GET_DETAIL_URL(id))
   }
 }

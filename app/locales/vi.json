@@ -33,7 +33,8 @@
     "newHires": "Tuyển mới",
     "resignations": "Nghỉ việc",
     "monthShort": "T{{month}}",
-    "remainingDays": "Còn {{count}} ngày"
+    "remainingDays": "Còn {{count}} ngày",
+    "descriptionJob": "{{employeeCode}} - {{jobTitleName}}, {{departmentName}} - Vào làm {{startDate}} ({{year}} năm {{month}} tháng)"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -67,6 +68,14 @@
     "employeeProfileTab": {
       "officialRecord": "Hồ sơ chính thức",
       "draft": "Bản nháp"
+    },
+    "employeeProfileDetailTab": {
+      "overView": "Tổng quan",
+      "personalInfo": "Thông tin cá nhân",
+      "contractsAndSalary": "Hợp đồng & lương",
+      "timeAndAttendance": "Chấm công & nghỉ phép",
+      "documents": "Tài liệu",
+      "changeHistory": "Lịch sử thay đổi"
     },
     "gender": {
       "male": "Nam",
@@ -283,6 +292,8 @@
   "action": {
     "importExcel": "Nhập từ Excel",
     "exportList": "Xuất danh sách",
+    "exportEmployeeProfile": "Xuất hồ sơ",
+    "editEmployeeProfile": "Chỉnh sửa hồ sơ",
     "addEmployee": "Thêm nhân viên",
     "cancel": "Hủy",
     "saveDraft": "Lưu nháp",
