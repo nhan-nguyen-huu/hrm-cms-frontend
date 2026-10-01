@@ -1,6 +1,8 @@
 'use client'
 
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'
+import { useTranslation } from 'react-i18next'
+import { CartesianGrid, LabelList, Line, LineChart, XAxis, YAxis } from 'recharts'
+import type { LabelProps } from 'recharts'
 import CardCustom from '~/components/customs/card-custom'
 import {
   type ChartConfig,
@@ -10,54 +12,49 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '~/components/ui/chart'
+import { dateHelper } from '~/helpers/date.helper'
+import type { IHeadcountTrendItem } from '~/shared/models/overview.model'
 
-const chartData = [
-  {
-    month: 'T4',
-    recruitment: 18,
-    resignation: 7
-  },
-  {
-    month: 'T5',
-    recruitment: 25,
-    resignation: 11
-  },
-  {
-    month: 'T6',
-    recruitment: 21,
-    resignation: 8
-  },
-  {
-    month: 'T7',
-    recruitment: 32,
-    resignation: 14
-  },
-  {
-    month: 'T8',
-    recruitment: 27,
-    resignation: 10
-  },
-  {
-    month: 'T9',
-    recruitment: 38,
-    resignation: 17
-  }
-]
+interface IPersonnelFluctuationsChartProps {
+  // New hires / resignations per month, oldest first
+  items?: IHeadcountTrendItem[]
+}
 
-const chartConfig = {
-  recruitment: {
-    label: 'Tuyển mới',
-    color: '#3b82f6'
-  },
-  resignation: {
-    label: 'Nghỉ việc',
-    color: '#f97316'
-  }
-} satisfies ChartConfig
+// "Biến động nhân sự 6 tháng gần nhất" (design CmsTongQuan)
+const PersonnelFluctuationsChart = ({ items = [] }: IPersonnelFluctuationsChartProps) => {
+  const { t } = useTranslation()
+  const chartConfig = {
+    recruitment: {
+      label: t('common.newHires'),
+      color: 'var(--primary)'
+    },
+    resignation: {
+      label: t('common.resignations'),
+      color: 'var(--color-amber-600)'
+    }
+  } satisfies ChartConfig
+  const chartData = items.map((item) => ({
+    month: t('common.monthShort', { month: dateHelper.getMonthFromMonthYear(item.month) }),
+    recruitment: item.newHires ?? 0,
+    resignation: item.resignations ?? 0
+  }))
+  const lastIndex = chartData.length - 1
 
-const PersonnelFluctuationsChart = () => {
+  // Value label on the latest month only, like the design
+  const renderLastLabel =
+    (color: string) =>
+    ({ x, y, value, index }: LabelProps) =>
+      index === lastIndex ? (
+        <text x={Number(x)} y={Number(y) - 10} textAnchor='middle' fill={color} fontSize={13} fontWeight={700}>
+          {value}
+        </text>
+      ) : null
+
   return (
-    <CardCustom title='Biến động nhân sự 6 tháng gần nhất'>
+    <CardCustom
+      title={t('title.headcountTrend')}
+      classNameCardTitle='text-[15px] font-bold normal-case text-app-secondary'
+    >
       <ChartContainer config={chartConfig} className='h-75 w-full'>
         <LineChart
           accessibilityLayer
@@ -99,7 +96,9 @@ const PersonnelFluctuationsChart = () => {
             activeDot={{
               r: 6
             }}
-          />
+          >
+            <LabelList content={renderLastLabel('var(--color-recruitment)')} />
+          </Line>
 
           <Line
             dataKey='resignation'
@@ -113,7 +112,9 @@ const PersonnelFluctuationsChart = () => {
             activeDot={{
               r: 6
             }}
-          />
+          >
+            <LabelList content={renderLastLabel('var(--color-resignation)')} />
+          </Line>
         </LineChart>
       </ChartContainer>
     </CardCustom>
