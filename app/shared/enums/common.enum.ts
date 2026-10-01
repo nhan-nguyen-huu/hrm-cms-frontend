@@ -94,3 +94,10 @@ export enum EEmployeeProfileDetailTab {
   Documents = 'DOCUMENTS',
   ChangeHistory = 'CHANGE_HISTORY'
 }
+
+export enum EOnboardingStep {
+  Personal = 'PERSONAL',
+  Job = 'JOB',
+  Contract = 'CONTRACT',
+  Account = 'ACCOUNT'
+}

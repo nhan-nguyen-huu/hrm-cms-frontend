@@ -2,9 +2,11 @@ import { ArrowLeftIcon, Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { ArrowRightIcon } from '~/assets/svgs'
 import { Button } from '~/components/ui/button'
+import { commonHelper } from '~/helpers'
+import { EOnboardingStep } from '~/shared/enums/common.enum'
 
 interface IActionUpsertEmployeeProps {
-  activeStep?: number
+  activeStep?: EOnboardingStep
   disabledContinueAction?: boolean
   onCancel?: () => void
   onSaveDraft?: () => void
@@ -13,7 +15,7 @@ interface IActionUpsertEmployeeProps {
   onCreate?: () => void
 }
 const ActionUpsertEmployee = ({
-  activeStep = 0,
+  activeStep = EOnboardingStep.Personal,
   disabledContinueAction,
   onSaveDraft,
   onCancel,
@@ -23,6 +25,7 @@ const ActionUpsertEmployee = ({
 }: IActionUpsertEmployeeProps) => {
   const { t } = useTranslation()
   const [requiredFieldNoteBefore, requiredFieldNoteAfter] = t('msg.requiredFieldDraftNote').split('*')
+  const { activeStepNumber } = commonHelper.getOnboardingStep(activeStep)
   return (
     <section className='flex items-center justify-between flex-wrap gap-4 border border-border p-4 rounded-[14px] bg-white'>
       <p className='text-xs text-[#93A2B6]'>
@@ -37,19 +40,19 @@ const ActionUpsertEmployee = ({
         <Button variant={'outline'} onClick={() => onSaveDraft?.()}>
           {t('action.saveDraft')}
         </Button>
-        {activeStep > 0 && (
+        {activeStepNumber > 0 && (
           <Button variant={'outline'} onClick={() => onBack?.()}>
             <ArrowLeftIcon />
             <span>{t('action.back')}</span>
           </Button>
         )}
-        {activeStep < 3 && (
+        {activeStepNumber < 3 && (
           <Button onClick={() => onContinue?.()} disabled={disabledContinueAction}>
             <span>{t('action.continue')}</span>
             <ArrowRightIcon />
           </Button>
         )}
-        {activeStep === 3 && (
+        {activeStepNumber === 3 && (
           <Button onClick={() => onCreate?.()}>
             <Check />
             <span>{t('action.createEmployeeProfile')}</span>

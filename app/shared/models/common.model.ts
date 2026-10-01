@@ -1,3 +1,5 @@
+import type React from 'react'
+
 export enum eScreenMode {
   View = 'VIEW',
   Create = 'CREATE',
@@ -88,6 +90,7 @@ export interface IFilterTabItem {
 }
 
 export interface IStep {
+  key?: string
   title?: string
   description?: string
 }
@@ -105,4 +108,10 @@ export interface IStatCardItem {
   note?: string
   tone?: TStatCardTone
   noteTone?: TStatCardTone
+}
+
+export interface IDataTab {
+  description?: string
+  actions?: React.ReactNode
+  content?: React.ReactNode
 }
