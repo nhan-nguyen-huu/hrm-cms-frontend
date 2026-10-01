@@ -1,6 +1,13 @@
 import { z } from 'zod'
-import { EEmployeeStatus } from '~/shared/enums/common.enum'
 import {
+  EEmployeeDocumentStatus,
+  EEmployeeDocumentType,
+  EEmployeeStatus,
+  EOrgEventType
+} from '~/shared/enums/common.enum'
+import {
+  EFilterPanelEmployeeDocumentFormKey,
+  EFilterPanelEmployeeEventFormKey,
   EFilterPanelEmployeeProfileFormKey,
   EFilterPanelFormKey,
   EFilterPanelProjectFormKey,
@@ -28,6 +35,25 @@ export const getFilterPanelEmployeeProfileSchema = () =>
   })
 
 export type TFilterPanelEmployeeProfileFormSchema = z.infer<ReturnType<typeof getFilterPanelEmployeeProfileSchema>>
+
+export const getFilterPanelEmployeeDocumentSchema = () =>
+  z.object({
+    ...getFilterPanelSchema().shape,
+    [EFilterPanelEmployeeDocumentFormKey.DocumentType]: z.enum(EEmployeeDocumentType).nullish(),
+    [EFilterPanelEmployeeDocumentFormKey.Status]: z.enum(EEmployeeDocumentStatus).nullish()
+  })
+
+export type TFilterPanelEmployeeDocumentFormSchema = z.infer<ReturnType<typeof getFilterPanelEmployeeDocumentSchema>>
+
+export const getFilterPanelEmployeeEventSchema = () =>
+  z.object({
+    ...getFilterPanelSchema().shape,
+    [EFilterPanelEmployeeEventFormKey.EventType]: z.enum(EOrgEventType).nullish(),
+    // Actor full name, or ALL
+    [EFilterPanelEmployeeEventFormKey.Actor]: z.string().nullish()
+  })
+
+export type TFilterPanelEmployeeEventFormSchema = z.infer<ReturnType<typeof getFilterPanelEmployeeEventSchema>>
 
 export const getFilterPanelProjectSchema = () =>
   z.object({

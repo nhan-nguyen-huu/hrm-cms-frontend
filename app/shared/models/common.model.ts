@@ -106,3 +106,18 @@ export interface IStatCardItem {
   tone?: TStatCardTone
   noteTone?: TStatCardTone
 }
+
+// One label/value cell of an info grid card; an empty value is shown as "not updated"
+export interface IInfoField {
+  key: string
+  label: string
+  value?: string
+  // Columns taken in the 6-column grid (default 2 → 3 fields per row)
+  colSpan?: 2 | 3 | 6
+}
+
+export interface IInfoSection {
+  key: string
+  title: string
+  fields: IInfoField[]
+}

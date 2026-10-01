@@ -34,7 +34,22 @@
     "resignations": "Nghỉ việc",
     "monthShort": "T{{month}}",
     "remainingDays": "Còn {{count}} ngày",
-    "descriptionJob": "{{employeeCode}} - {{jobTitleName}}, {{departmentName}} - Vào làm {{startDate}} ({{year}} năm {{month}} tháng)"
+    "descriptionJob": "{{employeeCode}} - {{jobTitleName}}, {{departmentName}} - Vào làm {{startDate}} ({{year}} năm {{month}} tháng)",
+    "dateWithAge": "{{date}} ({{age}} tuổi)",
+    "notUpdated": "Chưa cập nhật",
+    "bornOn": "sinh {{date}}",
+    "registeredIn": "đăng ký {{month}}",
+    "vndPerMonth": "{{amount}} đ/tháng",
+    "requiredFieldsFilled": "{{filled}} / {{required}} trường bắt buộc",
+    "missingFields": "Thiếu: {{fields}}",
+    "allActors": "Người thực hiện: Tất cả",
+    "uploadedBy": "{{name}} tải lên",
+    "uploadedByEmployeeOn": "Nhân viên tải lên {{date}}",
+    "totalDocuments": "Tổng số tài liệu",
+    "totalSize": "Dung lượng",
+    "fileCount": "{{count}} tệp",
+    "idAndQualificationDocuments": "Giấy tờ tuỳ thân · bằng cấp",
+    "recruitmentAndOtherDocuments": "Hồ sơ tuyển dụng · khác"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -133,6 +148,70 @@
       "approved": "Đã duyệt",
       "rejected": "Từ chối",
       "all": "Tất cả"
+    },
+    "relationship": {
+      "father": "Bố",
+      "mother": "Mẹ",
+      "spouse": "Vợ/Chồng",
+      "child": "Con",
+      "sibling": "Anh/Chị/Em",
+      "other": "Khác",
+      "family": "Gia đình"
+    },
+    "dependentStatus": {
+      "pending": "Chờ duyệt",
+      "approved": "Đã duyệt",
+      "rejected": "Từ chối"
+    },
+    "educationLevel": {
+      "highSchool": "THPT",
+      "college": "Cao đẳng",
+      "university": "Đại học",
+      "master": "Thạc sĩ",
+      "doctor": "Tiến sĩ"
+    },
+    "employeeDocumentType": {
+      "all": "Nhóm tài liệu: Tất cả",
+      "cv": "Hồ sơ tuyển dụng",
+      "idCard": "Giấy tờ tuỳ thân",
+      "qualification": "Bằng cấp",
+      "signedContract": "Hợp đồng",
+      "decision": "Quyết định",
+      "other": "Khác"
+    },
+    "orgEventType": {
+      "all": "Loại thay đổi: Tất cả",
+      "departmentCreated": "Tạo phòng ban",
+      "departmentUpdated": "Cập nhật phòng ban",
+      "departmentHeadChanged": "Đổi trưởng phòng",
+      "departmentHeadCleared": "Bỏ trưởng phòng",
+      "departmentDeleted": "Xoá phòng ban",
+      "departmentClosedWithHandover": "Đóng phòng ban và bàn giao",
+      "departmentProjectsMoved": "Chuyển dự án của phòng ban",
+      "departmentReceivedHandover": "Phòng ban nhận bàn giao",
+      "departmentOverAllocationGranted": "Duyệt phân bổ vượt (phòng ban)",
+      "projectCreated": "Tạo dự án",
+      "projectUpdated": "Cập nhật dự án",
+      "projectDeleted": "Xoá dự án",
+      "projectMemberAdded": "Thêm vào dự án",
+      "projectMemberAllocationChanged": "Đổi tỷ lệ phân bổ dự án",
+      "projectMemberRemoved": "Rời dự án",
+      "projectOverAllocationGranted": "Duyệt phân bổ vượt (dự án)",
+      "employeeHired": "Tiếp nhận nhân viên",
+      "employeeRehired": "Tiếp nhận lại nhân viên",
+      "employeeAssigned": "Điều chuyển / bổ nhiệm",
+      "employeeContractSigned": "Ký hợp đồng",
+      "employeeContractExpired": "Hợp đồng hết hạn",
+      "employeeContractRemoved": "Xoá hợp đồng",
+      "employeeDocumentAdded": "Thêm tài liệu",
+      "employeeDocumentRemoved": "Xoá tài liệu"
+    },
+    "employeeDocumentStatus": {
+      "all": "Trạng thái: Tất cả",
+      "valid": "Hợp lệ",
+      "pending": "Chờ duyệt",
+      "superseded": "Hết hiệu lực",
+      "expired": "Hết hạn"
     }
   },
   "tables": {
@@ -165,6 +244,18 @@
       "role": "Vai trò dự án",
       "allocation": "Phân bổ",
       "joinedMonth": "Tham gia từ"
+    },
+    "employeeDocumentTableKey": {
+      "name": "Tên tài liệu",
+      "documentType": "Nhóm",
+      "fileSize": "Dung lượng",
+      "uploadedAt": "Ngày tải",
+      "status": "Trạng thái"
+    },
+    "employeeEventTableKey": {
+      "occurredAt": "Thời gian",
+      "actor": "Người thực hiện",
+      "content": "Nội dung thay đổi"
     }
   },
   "inputLabel": {
@@ -207,7 +298,25 @@
     "leaveDays": "Số ngày nghỉ",
     "remainingLeave": "Quỹ phép còn lại",
     "leaveReason": "Lý do nghỉ",
-    "explanationContent": "Nội dung giải trình"
+    "explanationContent": "Nội dung giải trình",
+    "placeOfBirth": "Nơi sinh",
+    "taxCode": "Mã số thuế cá nhân",
+    "socialInsuranceNumber": "Số sổ BHXH",
+    "healthInsuranceNumber": "Số thẻ BHYT",
+    "companyEmail": "Email công ty",
+    "relationship": "Quan hệ",
+    "emergencyPhoneNumber": "Điện thoại khẩn cấp",
+    "educationLevel": "Trình độ",
+    "major": "Chuyên ngành",
+    "school": "Trường",
+    "graduationYear": "Năm tốt nghiệp",
+    "foreignLanguage": "Ngoại ngữ",
+    "certificate": "Chứng chỉ",
+    "currentDeduction": "Mức giảm trừ hiện hành",
+    "avatar": "Ảnh chân dung",
+    "documentType": "Nhóm tài liệu",
+    "documentFile": "Tệp tài liệu",
+    "note": "Ghi chú"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "Đăng nhập bằng email hoặc ID quản trị viên",
@@ -219,7 +328,11 @@
     "searchProject": "Tên dự án, mã, PM…",
     "selectEmployee": "Chọn nhân sự",
     "select": "Chọn",
-    "noteForEmployee": "Ghi chú cho nhân viên (tuỳ chọn)…"
+    "noteForEmployee": "Ghi chú cho nhân viên (tuỳ chọn)…",
+    "selectDocumentType": "Chọn nhóm tài liệu",
+    "enterDocumentNote": "Nhập ghi chú (không bắt buộc)",
+    "searchDocument": "Tìm theo tên tài liệu…",
+    "searchChangeHistory": "Tìm theo nội dung, người thực hiện…"
   },
   "inputValidate": {
     "thisInformationIsRequired": "Thông tin này là bắt buộc",
@@ -227,7 +340,10 @@
     "invalidPhoneFormat": "Số điện thoại phải có đủ 10 số",
     "invalidCccdFormat": "Số CCCD phải có đủ 12 số",
     "invalidAllocation": "Tỷ lệ phân bổ là số nguyên từ 1 đến 100",
-    "confirmOverAllocation": "Cần xác nhận khi tổng phân bổ vượt 100%"
+    "confirmOverAllocation": "Cần xác nhận khi tổng phân bổ vượt 100%",
+    "invalidDocumentType": "Chỉ nhận tệp PDF, JPG, PNG",
+    "documentTooLarge": "Tệp vượt quá 10 MB",
+    "maxLength": "Tối đa {{max}} ký tự"
   },
   "title": {
     "addNewEmployee": "Thêm nhân viên mới",
@@ -257,7 +373,21 @@
     "pendingRequests": "Đơn từ chờ duyệt",
     "expiringContracts": "Hợp đồng sắp hết hạn",
     "headcountByDepartment": "Nhân sự theo phòng ban",
-    "headcountTrend": "Biến động nhân sự 6 tháng gần nhất"
+    "headcountTrend": "Biến động nhân sự 6 tháng gần nhất",
+    "identityDocuments": "Giấy tờ tuỳ thân & định danh",
+    "contactAndAddress": "Liên hệ & địa chỉ",
+    "education": "Học vấn",
+    "dependents": "Người phụ thuộc",
+    "profileCompleteness": "Độ hoàn thiện hồ sơ",
+    "internalNotes": "Ghi chú nội bộ",
+    "pendingItems": "Chờ xử lý",
+    "employeeDocuments": "Tài liệu hồ sơ",
+    "uploadDocument": "Tải lên tài liệu mới",
+    "deleteDocument": "Xoá tài liệu",
+    "changeHistory": "Nhật ký thay đổi hồ sơ",
+    "pendingApproval": "Chờ duyệt",
+    "documentWarnings": "Cảnh báo giấy tờ",
+    "statistics": "Thống kê"
   },
   "msg": {
     "changeLanguageSuccess": "Đổi ngôn ngữ thành công",
@@ -279,7 +409,14 @@
     "approveRequestsSuccess": "Đã duyệt {{count}} đơn",
     "hiresAndResignationsThisMonth": "{{hires}} tuyển mới · {{resignations}} nghỉ việc trong tháng",
     "overdueRequests": "{{count}} đơn đã quá hạn xử lý {{days}} ngày",
-    "withinNextDays": "Trong vòng {{days}} ngày tới"
+    "withinNextDays": "Trong vòng {{days}} ngày tới",
+    "uploadDocumentSuccess": "Đã tải lên tài liệu",
+    "deleteDocumentSuccess": "Đã xoá tài liệu",
+    "deleteDocumentConfirm": "Xoá tài liệu \"{{name}}\"? Thao tác này không thể hoàn tác.",
+    "documentUploadRule": "Tài liệu nhân viên tải lên cần HR duyệt",
+    "dropOrPickFile": "Kéo thả tệp vào đây hoặc bấm để chọn",
+    "documentFileRule": "PDF, JPG, PNG · tối đa 10 MB mỗi tệp",
+    "featureNotAvailable": "Chức năng này chưa có API, sẽ cập nhật sau"
   },
   "confirm": {
     "confirmLogoutTitle": "Bạn có muốn đăng xuất không?",
@@ -315,7 +452,14 @@
     "approveSelected": "Duyệt {{count}} đơn đã chọn",
     "approveRequest": "Duyệt đơn",
     "reject": "Từ chối",
-    "exportReport": "Xuất báo cáo"
+    "exportReport": "Xuất báo cáo",
+    "add": "Thêm",
+    "addNote": "Ghi chú",
+    "editSection": "Sửa mục này",
+    "upload": "Tải lên",
+    "openFile": "Mở tệp",
+    "delete": "Xoá",
+    "approve": "Duyệt"
   },
   "stepper": {
     "upsertEmployee": {

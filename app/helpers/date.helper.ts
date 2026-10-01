@@ -96,6 +96,8 @@ export const dateHelper = {
     })
     return [...years].sort((a, b) => a - b).map((year) => ({ label: String(year), value: String(year) }))
   },
+  // Full years since the date (e.g. age from a birth date); undefined when missing
+  getYearsSince: (date?: string | Date) => (date ? dayjs().diff(dayjs(date), 'year') : undefined),
   getWorkDuration: (startDate?: string | Date) => {
     if (!startDate) {
       return {

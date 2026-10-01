@@ -33,3 +33,17 @@ export enum EProjectMemberTableKey {
   Allocation = 'allocation',
   JoinedMonth = 'joinedMonth'
 }
+
+export enum EEmployeeDocumentTableKey {
+  Name = 'originalFileName',
+  DocumentType = 'documentType',
+  FileSize = 'fileSize',
+  UploadedAt = 'uploadedAt',
+  Status = 'status'
+}
+
+export enum EEmployeeEventTableKey {
+  OccurredAt = 'occurredAt',
+  Actor = 'actorFullName',
+  Content = 'message'
+}
