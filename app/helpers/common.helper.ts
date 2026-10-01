@@ -3,7 +3,7 @@ import { toast } from 'sonner'
 import { dateHelper } from '~/helpers/date.helper'
 import type { TGetTranslateEnumFn } from '~/hooks/user-transfer-enum'
 import { COMMON_CONSTANT } from '~/shared/constants/common.constant'
-import { ERequestType } from '~/shared/enums/common.enum'
+import { EOnboardingStep, ERequestType } from '~/shared/enums/common.enum'
 import type { IOption } from '~/shared/models/common.model'
 import type { IRequest } from '~/shared/models/request.model'
 import type { TEnumLike } from '~/shared/types/common.type'
@@ -137,5 +137,19 @@ export const commonHelper = {
         ]
       : (options ?? [])
     return result
+  },
+  getOnboardingStep: (activeStep: EOnboardingStep) => {
+    const steps = Object.values(EOnboardingStep)
+    const activeStepNumber = steps.indexOf(activeStep)
+    return {
+      activeStepKey: activeStep,
+      activeStepNumber,
+
+      nextStepKey: steps[activeStepNumber + 1],
+      nextStepNumber: activeStepNumber + 1,
+
+      prevStepKey: steps[activeStepNumber - 1],
+      prevStepNumber: activeStepNumber - 1
+    }
   }
 }
