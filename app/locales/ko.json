@@ -397,7 +397,7 @@
     "uploadPhotoHint": "JPG, PNG · 비율 1:1 · 최대 2 MB",
     "cccdDuplicateWarning": "신분증 번호는 중복 등록을 방지하는 키입니다. 시스템에 이미 존재하는 경우, 새로 생성하는 대신 기존 정보를 열람하도록 경고가 표시됩니다.",
     "optional": "선택사항",
-    "maxFileSizeExceeded": "최대 2MB 이하의 이미지를 선택해주세요",
+    "maxFileSizeExceeded2MB": "최대 2MB 이하의 이미지를 선택해주세요",
     "overAllocationWarning": "{{names}}은 타 프로젝트 포함 시 배분이 100%를 초과합니다. 다음 근태 마감 전 조정이 필요합니다.",
     "memberOverAllocated": "전체 프로젝트 배분 합계 {{total}}% — 100% 초과",
     "thisProject": "{{name}} (이 프로젝트)",
@@ -460,7 +460,8 @@
     "upload": "업로드",
     "openFile": "파일 열기",
     "delete": "삭제",
-    "approve": "승인"
+    "approve": "승인",
+    "selectFile": "파일을 선택하세요"
   },
   "stepper": {
     "upsertEmployee": {

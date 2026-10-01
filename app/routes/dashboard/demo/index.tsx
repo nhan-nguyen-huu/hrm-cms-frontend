@@ -34,6 +34,36 @@ const Demo = () => {
     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit tempore Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit tempore Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit tempore Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit temporeLorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi eligendi inventore, deserunt sit tempore'
   return (
     <section className='flex flex-col gap-4'>
+      {/* Upload */}
+      {/* <UploadImage
+        isCrop
+        value={f.value}
+        onChange={f.onChange}
+        isInValid={fs.invalid}
+        aspectType={'EMPLOYEE'}
+        aspectClassName='aspect-square'
+        description={t('msg.uploadPhotoHint')}
+        maxFileSizeBytes={2 * 1024 * 1024}
+        maxFileSizeExceeded={t('msg.maxFileSizeExceeded2MB')}
+        accept='image/png, image/jpeg'
+      /> */}
+      {/* <FormField
+        control={form.control}
+        name={ePersonalEmployeeFormKey.FileList}
+        isRequired
+        render={(f, fs) => (
+          <UploadFile
+            value={f.value}
+            onChange={f.onChange}
+            isInValid={fs.invalid}
+            title='Kéo thả CV, bản scan CCCD, bằng cấp vào đây'
+            description={'PDF, JPG, PNG · tối đa 10 MB mỗi tệp · có thể bổ sung sau khi tạo hồ sơ'}
+            maxFileSizeBytes={10 * 1024 * 1024}
+            maxFileSizeExceeded={t('msg.maxFileSizeExceeded2MB')}
+            accept='.pdf,.jpg,.jpeg,.png'
+          />
+        )}
+      /> */}
       {/* Chart */}
       <PersonnelByDepartmentChart />
       <PersonnelFluctuationsChart />

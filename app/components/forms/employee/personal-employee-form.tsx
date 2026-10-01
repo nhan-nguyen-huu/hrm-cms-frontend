@@ -7,7 +7,7 @@ import FormField from '~/components/forms/form-field'
 import FormSelectField from '~/components/forms/form-select-field'
 import { Field } from '~/components/ui/field'
 import { Input } from '~/components/ui/input'
-import EmployeeUpload from '~/components/uploads/employee-upload'
+import UploadImage from '~/components/uploads/upload-image'
 import { fortmatHelper } from '~/helpers/format.helper'
 import type { TPersonalEmployeeSchema } from '~/helpers/schemas/employee-schema.helper'
 import ImportProgressEmployee from '~/routes/dashboard/employee-mgt/employee-profile/components/import-progress-employee'
@@ -299,11 +299,17 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
               name={ePersonalEmployeeFormKey.Avatar}
               isRequired
               render={(f, fs) => (
-                <EmployeeUpload
-                  file={f.value}
+                <UploadImage
+                  isCrop
+                  value={f.value}
                   onChange={f.onChange}
-                  classNameWrapper='items-start'
                   isInValid={fs.invalid}
+                  aspectType={'EMPLOYEE'}
+                  aspectClassName='aspect-square'
+                  description={t('msg.uploadPhotoHint')}
+                  maxFileSizeBytes={2 * 1024 * 1024}
+                  maxFileSizeExceeded={t('msg.maxFileSizeExceeded2MB')}
+                  accept='image/png, image/jpeg'
                 />
               )}
             />

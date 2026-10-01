@@ -7,7 +7,7 @@ import { Button } from '~/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '~/components/ui/dialog'
 import { Slider } from '~/components/ui/slider'
 import { getCroppedImg } from '~/lib/utils'
-import { EAspectType } from '~/shared/enums/common.enum'
+import type { TAspect } from '~/shared/types/common.type'
 
 interface ICropImageProps {
   title?: string
@@ -15,16 +15,13 @@ interface ICropImageProps {
   onOpenCropChange: (isOpen: boolean) => void
   onChange?: (file: File) => void
   imageSrc?: string
-  aspectType: EAspectType
+  aspectType: TAspect
 }
 const CropImage = ({ title, openCrop, onOpenCropChange, imageSrc = '', aspectType, onChange }: ICropImageProps) => {
   const { t } = useTranslation()
 
-  const variableMapping: Record<EAspectType, { class: string; value: number }> = {
-    [EAspectType.Employee]: {
-      class: 'aspect-4/3',
-      value: 1
-    }
+  const variableMapping: Record<TAspect, number> = {
+    EMPLOYEE: 1
   }
 
   const [crop, setCrop] = useState({ x: 0, y: 0 })
@@ -65,12 +62,12 @@ const CropImage = ({ title, openCrop, onOpenCropChange, imageSrc = '', aspectTyp
           <DialogTitle className='font-semibold'>{title ?? t('title.editImage')}</DialogTitle>
         </DialogHeader>
 
-        <section className={clsx('relative w-full overflow-hidden rounded-[8px]', variableMapping[aspectType]?.class)}>
+        <section className={clsx('relative w-full overflow-hidden rounded-[8px] aspect-4/3')}>
           <Cropper
             image={imageSrc}
             crop={crop}
             zoom={zoom}
-            aspect={variableMapping[aspectType]?.value}
+            aspect={variableMapping[aspectType]}
             onCropChange={setCrop}
             onZoomChange={setZoom}
             onCropComplete={onCropComplete}

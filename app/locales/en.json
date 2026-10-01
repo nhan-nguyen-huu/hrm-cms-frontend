@@ -397,7 +397,7 @@
     "uploadPhotoHint": "JPG, PNG · ratio 1:1 · max 2 MB",
     "cccdDuplicateWarning": "The ID card number is used to prevent duplicate records. If it already exists in the system, the system will warn you and open the existing record instead of creating a new one.",
     "optional": "Optional",
-    "maxFileSizeExceeded": "Please select an image up to 2 MB",
+    "maxFileSizeExceeded2MB": "Please select an image up to 2 MB",
     "overAllocationWarning": "{{names}} are allocated over 100% across all projects. Please adjust before the next attendance closing.",
     "memberOverAllocated": "Allocated {{total}}% across all projects — over 100%",
     "thisProject": "{{name}} (this project)",
@@ -460,7 +460,8 @@
     "upload": "Upload",
     "openFile": "Open file",
     "delete": "Delete",
-    "approve": "Approve"
+    "approve": "Approve",
+    "selectFile": "Select file"
   },
   "stepper": {
     "upsertEmployee": {
