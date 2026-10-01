@@ -1,4 +1,7 @@
 export { ReactComponent as ArrowRightIcon } from './arrow-right.svg?react'
+export { ReactComponent as AttachmentsIcon } from './attachments/attachments.svg?react'
+export { ReactComponent as ExcelIcon } from './attachments/excel.svg?react'
+export { ReactComponent as PdfIcon } from './attachments/pdf.svg?react'
 export { ReactComponent as CalendarIcon } from './calendar.svg?react'
 export { ReactComponent as DangerIcon } from './danger.svg?react'
 export { ReactComponent as DownloadIcon } from './download.svg?react'

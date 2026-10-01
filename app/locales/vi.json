@@ -267,7 +267,7 @@
     "uploadPhotoHint": "JPG, PNG · tỷ lệ 1:1 · tối đa 2 MB",
     "cccdDuplicateWarning": "Số CCCD là khoá chống trùng hồ sơ. Nếu đã tồn tại trong hệ thống, hệ thống sẽ cảnh báo và mở hồ sơ cũ thay vì tạo mới.",
     "optional": "Tùy chọn",
-    "maxFileSizeExceeded": "Vui lòng chọn ảnh có dung lượng tối đa 2mb",
+    "maxFileSizeExceeded2MB": "Vui lòng chọn ảnh có dung lượng tối đa 2mb",
     "overAllocationWarning": "{{names}} có tổng phân bổ vượt 100% khi tính cả dự án khác. Cần điều chỉnh trước kỳ chốt công tiếp theo.",
     "memberOverAllocated": "Tổng phân bổ mọi dự án {{total}}% — vượt 100%",
     "thisProject": "{{name}} (dự án này)",
@@ -315,7 +315,8 @@
     "approveSelected": "Duyệt {{count}} đơn đã chọn",
     "approveRequest": "Duyệt đơn",
     "reject": "Từ chối",
-    "exportReport": "Xuất báo cáo"
+    "exportReport": "Xuất báo cáo",
+    "selectFile": "Chọn tệp"
   },
   "stepper": {
     "upsertEmployee": {

@@ -6,38 +6,55 @@ import { toast } from 'sonner'
 import { UploadIcon } from '~/assets/svgs'
 import CropImage from '~/components/common/crop-image'
 import ImageCustom from '~/components/customs/image-custom'
-import { EAspectType } from '~/shared/enums/common.enum'
+import type { TAspect } from '~/shared/types/common.type'
 
-const MAX_FILE_SIZE_BYTES = 2 * 1024 * 1024
-
-interface IEmployeeUploadloadProps {
-  file?: File
+interface IUploadImageloadProps {
+  value?: File
   onChange?: (file: File) => void
   isView?: boolean
   classNameWrapper?: string
   isInValid?: boolean
+  title?: string
+  description?: string
+  isCrop?: boolean
+  aspectType?: TAspect
+  aspectClassName?: string
+  maxFileSizeBytes?: number
+  maxFileSizeExceeded?: string
+  accept?: string
 }
 
-const EmployeeUpload = ({
-  file,
+const UploadImage = ({
+  value,
   onChange,
   isView = false,
   isInValid = false,
-  classNameWrapper
-}: IEmployeeUploadloadProps) => {
+  title,
+  description,
+  isCrop,
+  aspectType,
+  aspectClassName = 'aspect-square',
+  classNameWrapper,
+  maxFileSizeBytes,
+  maxFileSizeExceeded,
+  accept
+}: IUploadImageloadProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [imageSrc, setImageSrc] = useState('')
   const [openCrop, setOpenCrop] = useState(false)
   const { t } = useTranslation()
-
   const handleSelectedFile = (selectedFile: File) => {
-    if (selectedFile.size > MAX_FILE_SIZE_BYTES) {
-      toast.error(t('msg.maxFileSizeExceeded'))
+    if (maxFileSizeBytes && selectedFile.size > maxFileSizeBytes) {
+      toast.error(maxFileSizeExceeded)
       return
     }
-    const imageUrl = URL.createObjectURL(selectedFile)
-    setImageSrc(imageUrl)
-    setOpenCrop(true)
+    if (isCrop) {
+      const imageUrl = URL.createObjectURL(selectedFile)
+      setImageSrc(imageUrl)
+      setOpenCrop(true)
+      return
+    }
+    onChange?.(selectedFile)
   }
 
   return (
@@ -45,7 +62,7 @@ const EmployeeUpload = ({
       <input
         ref={fileInputRef}
         type='file'
-        accept='image/png, image/jpeg'
+        accept={accept}
         className='hidden'
         onChange={(e) => {
           const selectedFile = e.target.files?.[0]
@@ -64,9 +81,9 @@ const EmployeeUpload = ({
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
           e.preventDefault()
-          const droppedFile = e.dataTransfer.files?.[0]
-          if (!droppedFile) return
-          handleSelectedFile(droppedFile)
+          const selectedFile = e.dataTransfer.files?.[0]
+          if (!selectedFile) return
+          handleSelectedFile(selectedFile)
         }}
         onClick={() => {
           if (!isView) {
@@ -74,23 +91,22 @@ const EmployeeUpload = ({
           }
         }}
       >
-        <article className='group relative w-full aspect-square cursor-pointer overflow-hidden bg-[#FAFCFE]'>
-          {!file ? (
+        <article className={clsx('group relative w-full cursor-pointer overflow-hidden bg-[#FAFCFE]', aspectClassName)}>
+          {!value ? (
             <section className='absolute inset-0 flex flex-col items-center justify-center gap-1'>
               <section className='flex items-center justify-center rounded-full bg-[#EAF1FA] size-8.5'>
                 <UploadIcon className='size-4.25 text-primary' />
               </section>
-              <p className='text-sm font-medium text-app-primay'>{t('action.uploadPhoto')}</p>
-              <p className='text-xs text-[#93A2B6]'>{t('msg.uploadPhotoHint')}</p>
+              <p className='text-sm font-medium text-app-primay'>{title ?? t('action.uploadPhoto')}</p>
+              <p className='text-xs text-[#93A2B6]'>{description}</p>
             </section>
           ) : (
             <>
               <ImageCustom
-                src={URL.createObjectURL(file)}
-                alt={file.name}
-                className='h-full w-full object-cover aspect-square'
+                src={URL.createObjectURL(value)}
+                alt={value.name}
+                className={clsx('h-full w-full object-cover aspect-square', aspectClassName)}
               />
-
               {!isView && (
                 <section className='absolute inset-0 flex flex-col items-center justify-center bg-black/50 opacity-0 transition-opacity duration-200 group-hover:opacity-100'>
                   <section className='flex items-center justify-center rounded-full bg-[#EAF1FA] size-8.5'>
@@ -104,15 +120,18 @@ const EmployeeUpload = ({
         </article>
       </section>
 
-      <CropImage
-        openCrop={openCrop}
-        onOpenCropChange={setOpenCrop}
-        imageSrc={imageSrc}
-        onChange={onChange}
-        aspectType={EAspectType.Employee}
-      />
+      {/* Crop image */}
+      {isCrop && aspectType && (
+        <CropImage
+          openCrop={openCrop}
+          onOpenCropChange={setOpenCrop}
+          imageSrc={imageSrc}
+          onChange={onChange}
+          aspectType={aspectType}
+        />
+      )}
     </section>
   )
 }
 
-export default EmployeeUpload
+export default UploadImage
