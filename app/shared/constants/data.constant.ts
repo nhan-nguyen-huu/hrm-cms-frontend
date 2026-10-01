@@ -36,6 +36,7 @@ import {
   ELanguage,
   EMaritalStatus,
   ENationality,
+  EOnboardingStep,
   EOrgEventType,
   EProjectStatus,
   ERelationship,
@@ -107,19 +108,23 @@ export const DATA = {
     const STEPS: IStep[] = [
       {
         title: t('stepper.upsertEmployee.personalInfo.title'),
-        description: t('stepper.upsertEmployee.personalInfo.description')
+        description: t('stepper.upsertEmployee.personalInfo.description'),
+        key: EOnboardingStep.Personal
       },
       {
         title: t('stepper.upsertEmployee.jobOrganization.title'),
-        description: t('stepper.upsertEmployee.jobOrganization.description')
+        description: t('stepper.upsertEmployee.jobOrganization.description'),
+        key: EOnboardingStep.Job
       },
       {
         title: t('stepper.upsertEmployee.contractSalary.title'),
-        description: t('stepper.upsertEmployee.contractSalary.description')
+        description: t('stepper.upsertEmployee.contractSalary.description'),
+        key: EOnboardingStep.Contract
       },
       {
         title: t('stepper.upsertEmployee.accountConfirmation.title'),
-        description: t('stepper.upsertEmployee.accountConfirmation.description')
+        description: t('stepper.upsertEmployee.accountConfirmation.description'),
+        key: EOnboardingStep.Account
       }
     ]
     return STEPS

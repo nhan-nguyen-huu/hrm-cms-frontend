@@ -1,14 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import PersonalEmployeeForm from '~/components/forms/employee/personal-employee-form'
+import { commonHelper } from '~/helpers'
 import { formHelper } from '~/helpers/form.helper'
 import { type TPersonalEmployeeSchema, getPersonalEmployeeSchema } from '~/helpers/schemas/employee-schema.helper'
+import useQueryParams from '~/hooks/use-query-params'
 import ActionUpsertEmployee from '~/routes/dashboard/employee-mgt/employee-profile/components/action-upsert-employee'
 import HeaderUpsertEmployee from '~/routes/dashboard/employee-mgt/employee-profile/components/header-upsert-employee'
+import { EOnboardingStep } from '~/shared/enums/common.enum'
 import type { eScreenMode } from '~/shared/models/common.model'
 
 interface IUpsertEmployeeProps {
@@ -17,9 +20,11 @@ interface IUpsertEmployeeProps {
 const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
   console.log(screenMode)
   const { t } = useTranslation()
-  const [activeStep, setActiveStep] = useState(0)
+  const { searchParams, setQuery } = useQueryParams()
+  const activeStepParam = (searchParams.get('step') as EOnboardingStep) ?? EOnboardingStep.Personal
+  const [activeStep, setActiveStep] = useState<EOnboardingStep>(activeStepParam)
+  const { activeStepKey } = commonHelper.getOnboardingStep(activeStep)
   const navi = useNavigate()
-
   // Personal employee form
   const personalEmployeeSchema = getPersonalEmployeeSchema(t)
   const personalEmployeeForm = useForm<TPersonalEmployeeSchema>({
@@ -32,31 +37,48 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
   const handleCancel = () => {
     navi(-1)
   }
+
   const handleBack = () => {
-    setActiveStep((prev) => prev - 1)
+    const { prevStepKey } = commonHelper.getOnboardingStep(activeStep)
+    setActiveStep(prevStepKey)
+    setQuery({
+      step: prevStepKey
+    })
   }
+
   const handleContinue = () => {
-    console.log('Check: ', personalEmployeeForm.getValues())
-    setActiveStep((prev) => prev + 1)
+    const { nextStepKey } = commonHelper.getOnboardingStep(activeStep)
+    setActiveStep(nextStepKey)
+    setQuery({
+      step: nextStepKey
+    })
   }
+
   const handleCreate = () => {
     console.log('Check: ', personalEmployeeForm.getValues())
   }
 
   const handleGetDisabledContinueAction = () => {
     switch (activeStep) {
-      case 0:
+      case EOnboardingStep.Personal:
         return !personalEmployeeForm.formState.isValid
       default:
         return true
     }
   }
+
+  useEffect(() => {
+    setQuery({
+      step: activeStepKey
+    })
+  }, [])
+
   return (
     <>
       {/* Header */}
       <HeaderUpsertEmployee activeStep={activeStep} />
       {/* Form */}
-      {activeStep === 0 && <PersonalEmployeeForm form={personalEmployeeForm} />}
+      {activeStep === EOnboardingStep.Personal && <PersonalEmployeeForm form={personalEmployeeForm} />}
 
       {/* Action */}
       <ActionUpsertEmployee

@@ -92,6 +92,12 @@
       "documents": "Documents",
       "changeHistory": "Change history"
     },
+    "onboardingStep": {
+      "personal": "Personal information",
+      "job": "Job & Organization",
+      "contract": "Contract & Salary",
+      "account": "Account & Confirmation"
+    },
     "gender": {
       "male": "Male",
       "famale": "Female"
@@ -431,6 +437,7 @@
     "exportList": "Export list",
     "exportEmployeeProfile": "Export profile",
     "editEmployeeProfile": "Edit profile",
+    "deleteDraftProfile": "Delete draft profile",
     "addEmployee": "Add employee",
     "cancel": "Cancel",
     "saveDraft": "Save draft",

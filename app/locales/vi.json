@@ -92,6 +92,12 @@
       "documents": "Tài liệu",
       "changeHistory": "Lịch sử thay đổi"
     },
+    "onboardingStep": {
+      "personal": "Thông tin cá nhân",
+      "job": "Công việc & tổ chức",
+      "contract": "Hợp đồng & lương",
+      "account": "Tài khoản & xác nhận"
+    },
     "gender": {
       "male": "Nam",
       "famale": "Nữ"
@@ -431,6 +437,7 @@
     "exportList": "Xuất danh sách",
     "exportEmployeeProfile": "Xuất hồ sơ",
     "editEmployeeProfile": "Chỉnh sửa hồ sơ",
+    "deleteDraftProfile": "Xóa hồ sơ nháp",
     "addEmployee": "Thêm nhân viên",
     "cancel": "Hủy",
     "saveDraft": "Lưu nháp",

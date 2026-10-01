@@ -1,12 +1,10 @@
 import { useEffect } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import type { OnChangeFn, RowSelectionState } from '@tanstack/react-table'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router'
-import ButtonAction from '~/components/actions/button-action'
 import FilterPanel from '~/components/common/filter-panel'
-import HeaderPage from '~/components/common/header-page'
 import TableCustom from '~/components/customs/table-custom'
 import { paramsHelper } from '~/helpers'
 import { employeeMgtColumn } from '~/helpers/columns/employee-mgt-column'
@@ -18,11 +16,9 @@ import {
 import { useGetListEmployeeApi } from '~/hooks/apis/use-employee-api'
 import { usePagination } from '~/hooks/use-pagination'
 import useQueryParams from '~/hooks/use-query-params'
-import useRowSelection from '~/hooks/use-row-selection'
 import PageLayout from '~/layouts/page.layout'
 import { COMMON_CONSTANT } from '~/shared/constants/common.constant'
 import { DATA } from '~/shared/constants/data.constant'
-import { BASE_ROUTES } from '~/shared/constants/routes.constant'
 import { EEmployeeProfileTab, EEmployeeStatus } from '~/shared/enums/common.enum'
 import { EFilterPanelEmployeeProfileFormKey, EFilterPanelFormKey } from '~/shared/enums/form.enum'
 
@@ -33,11 +29,12 @@ const DEFAULT_VALUES: TFilterPanelEmployeeProfileFormSchema = {
 
 interface IEmployeeOfficialRecordProps {
   tab?: EEmployeeProfileTab
+  rowSelection?: RowSelectionState
+  onRowSelectionChange?: OnChangeFn<RowSelectionState>
 }
 
-const EmployeeOfficialRecord = ({ tab }: IEmployeeOfficialRecordProps) => {
+const EmployeeOfficialRecord = ({ tab, rowSelection, onRowSelectionChange }: IEmployeeOfficialRecordProps) => {
   // Lib
-  const navi = useNavigate()
   const { t } = useTranslation()
 
   // Query
@@ -45,7 +42,6 @@ const EmployeeOfficialRecord = ({ tab }: IEmployeeOfficialRecordProps) => {
 
   // Table
   const columns = employeeMgtColumn.getEmployee(t)
-  const { rowSelection, setRowSelection } = useRowSelection()
 
   // Pagination
   const { paging, setPage, setSize, getResetPaging, getSearchPaging, resetPaging } = usePagination()
@@ -83,7 +79,7 @@ const EmployeeOfficialRecord = ({ tab }: IEmployeeOfficialRecordProps) => {
 
   // Reset
   const handleReset = () => {
-    setRowSelection({})
+    onRowSelectionChange?.({})
     filterPanelForm.reset(DEFAULT_VALUES)
     resetPaging()
     updateQueries({
@@ -99,29 +95,6 @@ const EmployeeOfficialRecord = ({ tab }: IEmployeeOfficialRecordProps) => {
 
   return (
     <PageLayout>
-      {/* Header */}
-      <HeaderPage
-        title={t('sidebarMenu.employeeMgt.employeeProfile')}
-        description='248 nhân viên đang làm việc · 6 hồ sơ chờ duyệt thay đổi'
-      >
-        {/* Action */}
-        <section className='flex items-center justify-end gap-3 flex-wrap'>
-          <ButtonAction
-            actionName={t('action.importExcel')}
-            actionType='UPLOAD'
-            onClick={() => {
-              console.log('data: ', filterPanelForm.getValues())
-            }}
-          />
-          <ButtonAction actionName={t('action.exportList')} actionType='DOWNLOAD' />
-          <ButtonAction
-            actionName={t('action.addEmployee')}
-            actionType='CREATE'
-            onClick={() => navi(BASE_ROUTES.CREATE)}
-          />
-        </section>
-      </HeaderPage>
-
       {/* Filter */}
       <FilterPanel
         onSearch={handleSearch}
@@ -148,7 +121,7 @@ const EmployeeOfficialRecord = ({ tab }: IEmployeeOfficialRecordProps) => {
         data={dataList}
         emptyText={t('empty.noData')}
         rowSelection={rowSelection}
-        onRowSelectionChange={setRowSelection}
+        onRowSelectionChange={onRowSelectionChange}
         page={paging?.page}
         totalPage={totalPage}
         onPageChange={setPage}

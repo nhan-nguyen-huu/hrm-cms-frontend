@@ -92,6 +92,12 @@
       "documents": "문서",
       "changeHistory": "변경 이력"
     },
+    "onboardingStep": {
+      "personal": "개인 정보",
+      "job": "직무 및 조직",
+      "contract": "계약 및 급여",
+      "account": "계정 및 확인"
+    },
     "gender": {
       "male": "남성",
       "famale": "여성"
@@ -431,6 +437,7 @@
     "exportList": "목록 내보내기",
     "exportEmployeeProfile": "직원 프로필 내보내기",
     "editEmployeeProfile": "직원 프로필 수정",
+    "deleteDraftProfile": "임시 프로필 삭제",
     "addEmployee": "직원 추가",
     "cancel": "취소",
     "saveDraft": "임시 저장",

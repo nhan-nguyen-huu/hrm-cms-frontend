@@ -1,3 +1,5 @@
+import type React from 'react'
+
 export enum eScreenMode {
   View = 'VIEW',
   Create = 'CREATE',
@@ -88,6 +90,7 @@ export interface IFilterTabItem {
 }
 
 export interface IStep {
+  key?: string
   title?: string
   description?: string
 }
@@ -120,4 +123,10 @@ export interface IInfoSection {
   key: string
   title: string
   fields: IInfoField[]
+}
+
+export interface IDataTab {
+  description?: string
+  actions?: React.ReactNode
+  content?: React.ReactNode
 }

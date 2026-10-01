@@ -171,3 +171,10 @@ export enum EEmployeeDocumentStatus {
   Superseded = 'SUPERSEDED',
   Expired = 'EXPIRED'
 }
+
+export enum EOnboardingStep {
+  Personal = 'PERSONAL',
+  Job = 'JOB',
+  Contract = 'CONTRACT',
+  Account = 'ACCOUNT'
+}
