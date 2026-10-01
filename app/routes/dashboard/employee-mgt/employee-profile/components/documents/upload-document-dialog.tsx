@@ -1,20 +1,19 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
-import { clsx } from 'cn'
-import { FileText, Upload } from 'lucide-react'
-import { useForm, useWatch } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import DialogCustom from '~/components/customs/dialog-custom'
 import FormField from '~/components/forms/form-field'
 import FormSelectField from '~/components/forms/form-select-field'
 import { Textarea } from '~/components/ui/textarea'
+import UploadFile from '~/components/uploads/upload-file'
 import { formHelper } from '~/helpers/form.helper'
-import { fortmatHelper } from '~/helpers/format.helper'
 import {
   EMPLOYEE_DOCUMENT_ACCEPT,
+  EMPLOYEE_DOCUMENT_MAX_SIZE,
   EMPLOYEE_DOCUMENT_NOTE_MAX_LENGTH,
   type TUploadEmployeeDocumentSchema,
   getUploadEmployeeDocumentSchema
@@ -37,13 +36,11 @@ interface IUploadDocumentDialogProps {
 const UploadDocumentDialog = ({ open, onOpenChange, userId, initialFile }: IUploadDocumentDialogProps) => {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
-  const fileInputRef = useRef<HTMLInputElement>(null)
   const form = useForm<TUploadEmployeeDocumentSchema>({
     resolver: zodResolver(getUploadEmployeeDocumentSchema(t)),
     defaultValues: formHelper.getDefaultValuesUploadEmployeeDocument(),
     mode: 'all'
   })
-  const file = useWatch({ control: form.control, name: EUploadEmployeeDocumentFormKey.File })
 
   useEffect(() => {
     if (open && initialFile) {
@@ -65,12 +62,6 @@ const UploadDocumentDialog = ({ open, onOpenChange, userId, initialFile }: IUplo
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) form.reset(formHelper.getDefaultValuesUploadEmployeeDocument())
     onOpenChange(nextOpen)
-  }
-
-  const handlePickFile = (fileList?: FileList | null) => {
-    const picked = fileList?.[0]
-    if (picked) form.setValue(EUploadEmployeeDocumentFormKey.File, picked, { shouldValidate: true })
-    if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
   const handleSubmit = (values: TUploadEmployeeDocumentSchema) => {
@@ -109,44 +100,22 @@ const UploadDocumentDialog = ({ open, onOpenChange, userId, initialFile }: IUplo
           name={EUploadEmployeeDocumentFormKey.File}
           label={t('inputLabel.documentFile')}
           isRequired
-          render={(_, fieldState) => (
-            <button
-              type='button'
-              onClick={() => fileInputRef.current?.click()}
-              onDragOver={(event) => event.preventDefault()}
-              onDrop={(event) => {
-                event.preventDefault()
-                handlePickFile(event.dataTransfer.files)
-              }}
-              className={clsx(
-                'flex w-full flex-col items-center gap-2 rounded-xl border border-dashed px-4 py-6 text-center hover:border-primary',
-                fieldState.invalid ? 'border-destructive' : 'border-[#C7D2E0]'
-              )}
-            >
-              {file ? (
-                <span className='flex items-center gap-2 text-[13px] font-semibold text-app-secondary'>
-                  <FileText className='size-4 text-primary' />
-                  {file.name}
-                  <span className='font-normal text-[#93A2B6]'>· {fortmatHelper.formatFileSize(file.size)}</span>
-                </span>
-              ) : (
-                <>
-                  <span className='flex size-9 items-center justify-center rounded-lg bg-[#EAF1FA] text-primary'>
-                    <Upload className='size-4' />
-                  </span>
-                  <span className='text-[13px] font-semibold text-app-secondary'>{t('msg.dropOrPickFile')}</span>
-                </>
-              )}
-              <span className='text-[11.5px] text-[#93A2B6]'>{t('msg.documentFileRule')}</span>
-            </button>
+          render={(field, fieldState) => (
+            // The API takes one file per request
+            <UploadFile
+              value={field.value ? [field.value] : []}
+              // null (not undefined) so react-hook-form clears the value when the file is removed
+              onChange={(files) => field.onChange(files[0] ?? null)}
+              isMultiple={false}
+              isInValid={fieldState.invalid}
+              title={t('msg.dropOrPickFile')}
+              description={t('msg.documentFileRule')}
+              accept={EMPLOYEE_DOCUMENT_ACCEPT.join(',')}
+              maxFileSizeBytes={EMPLOYEE_DOCUMENT_MAX_SIZE}
+              maxFileSizeExceeded={t('inputValidate.documentTooLarge')}
+              classNameWrapper='w-full'
+            />
           )}
-        />
-        <input
-          ref={fileInputRef}
-          type='file'
-          hidden
-          accept={EMPLOYEE_DOCUMENT_ACCEPT.join(',')}
-          onChange={(event) => handlePickFile(event.target.files)}
         />
         <FormField
           control={form.control}
