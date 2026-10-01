@@ -35,7 +35,7 @@ export const paramsHelper = {
     return {
       ...paramsHelper.paginationToSearchParams(searchParams),
       documentType: searchParams.get('documentType') ?? defaultValues?.documentType ?? '',
-      status: searchParams.get('status') ?? defaultValues?.status ?? '',
+      documentStatus: searchParams.get('documentStatus') ?? defaultValues?.documentStatus ?? '',
       tab: tab as string
     }
   },

@@ -56,7 +56,7 @@ export enum ePersonalEmployeeFormKey {
 
 export enum EFilterPanelEmployeeDocumentFormKey {
   DocumentType = 'documentType',
-  Status = 'status'
+  Status = 'documentStatus'
 }
 
 export enum EFilterPanelEmployeeEventFormKey {

@@ -85,7 +85,7 @@ export const formHelper = {
         DEFAULT_VALUES?.documentType,
       [EFilterPanelEmployeeDocumentFormKey.Status]:
         (searchParams.get(EFilterPanelEmployeeDocumentFormKey.Status) as EEmployeeDocumentStatus) ??
-        DEFAULT_VALUES?.status
+        DEFAULT_VALUES?.documentStatus
     }
   },
   getDefaultValuesEmployeeEvent: (

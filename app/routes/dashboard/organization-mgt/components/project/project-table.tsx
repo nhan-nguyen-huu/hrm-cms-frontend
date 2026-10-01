@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import TableCustom from '~/components/customs/table-custom'
-import { projectColumn } from '~/helpers/columns/project-column'
+import { organizationMgtColumn } from '~/helpers/columns/organization-mgt-column'
 import { useTransferEnum } from '~/hooks/user-transfer-enum'
 import type { IProject } from '~/shared/models/project.model'
 
@@ -26,7 +26,7 @@ const ProjectTable = ({
 }: IProjectTableProps) => {
   const { t } = useTranslation()
   const { getTranslateEnum } = useTransferEnum()
-  const columns = projectColumn.getList(t, getTranslateEnum)
+  const columns = organizationMgtColumn.getProject(t, getTranslateEnum)
   return (
     <TableCustom
       columns={columns}

@@ -2,20 +2,16 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
-import { Search, Upload } from 'lucide-react'
+import { Upload } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
+import FilterPanel from '~/components/common/filter-panel'
 import AlertDialogCustom from '~/components/customs/alert-dialog-custom'
-import CardCustom from '~/components/customs/card-custom'
-import { COMPACT_CARD_CLASS } from '~/components/customs/info-grid-card'
 import TableCustom from '~/components/customs/table-custom'
-import FormField from '~/components/forms/form-field'
-import FormSelectField from '~/components/forms/form-select-field'
 import { Button } from '~/components/ui/button'
-import { InputGroup, InputGroupAddon, InputGroupInput } from '~/components/ui/input-group'
 import { paramsHelper } from '~/helpers'
-import { employeeDocumentColumn } from '~/helpers/columns/employee-document-column'
+import { employeeMgtColumn } from '~/helpers/columns/employee-mgt-column'
 import { commonHelper } from '~/helpers/common.helper'
 import { formHelper } from '~/helpers/form.helper'
 import {
@@ -69,12 +65,12 @@ const DocumentsProfile = ({ data }: IDocumentsProfileProps) => {
   const [uploadFile, setUploadFile] = useState<File>()
   const [isUploadOpen, setIsUploadOpen] = useState(false)
   const [deletingDocument, setDeletingDocument] = useState<IEmployeeDocument>()
-  const columns = employeeDocumentColumn.getList(t, getTranslateEnum, {
+  const columns = employeeMgtColumn.getDocument(t, getTranslateEnum, {
     renderAction: (row) => <DocumentRowMenu document={row} onDelete={setDeletingDocument} />
   })
 
   // Pagination
-  const { paging, setPage, setSize, getSearchPaging } = usePagination()
+  const { paging, setPage, setSize, getResetPaging, getSearchPaging, resetPaging } = usePagination()
 
   // Form
   const filterPanelForm = useForm<TFilterPanelEmployeeDocumentFormSchema>({
@@ -120,10 +116,17 @@ const DocumentsProfile = ({ data }: IDocumentsProfileProps) => {
     }
   })
 
-  // Search — the filters apply as soon as they change (design has no search / reset buttons)
+  // Search
   const handleSearch = () => {
     setPage(DEFAULT_PAGING.PAGE)
     updateQueries({ ...getSearchPaging(), ...handleConvertData() })
+  }
+
+  // Reset
+  const handleReset = () => {
+    filterPanelForm.reset(DEFAULT_VALUES)
+    resetPaging()
+    updateQueries({ ...getResetPaging(), ...DEFAULT_VALUES })
   }
 
   const openUpload = (file?: File) => {
@@ -141,94 +144,53 @@ const DocumentsProfile = ({ data }: IDocumentsProfileProps) => {
   return (
     <section className='grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_340px]'>
       <section className='flex min-w-0 flex-col gap-4'>
-        <CardCustom
-          title={t('title.employeeDocuments')}
-          classNameCard={COMPACT_CARD_CLASS}
-          classNameCardContent='flex flex-col gap-3'
-        >
-          {/* Filter */}
-          <form
-            className='flex flex-wrap items-center gap-2'
-            onSubmit={(event) => {
-              event.preventDefault()
-              handleSearch()
-            }}
-          >
-            <section className='w-60'>
-              <FormField
-                control={filterPanelForm.control}
-                name={EFilterPanelFormKey.Keyword}
-                render={(field) => (
-                  <InputGroup className='bg-white px-2'>
-                    <InputGroupInput
-                      {...field}
-                      value={field.value ?? ''}
-                      id={field.name}
-                      placeholder={t('inputPlaceholder.searchDocument')}
-                      autoComplete='off'
-                      onBlur={() => {
-                        field.onBlur()
-                        handleSearch()
-                      }}
-                    />
-                    <InputGroupAddon>
-                      <Search className='size-4 text-[#99A1AF]' />
-                    </InputGroupAddon>
-                  </InputGroup>
-                )}
-              />
-            </section>
-            {[
-              {
-                name: EFilterPanelEmployeeDocumentFormKey.DocumentType,
-                options: DATA.GET_OPTIONS_EMPLOYEE_DOCUMENT_TYPE(t)
-              },
-              {
-                name: EFilterPanelEmployeeDocumentFormKey.Status,
-                options: DATA.GET_OPTIONS_EMPLOYEE_DOCUMENT_STATUS(t)
-              }
-            ].map((filter) => (
-              <section key={filter.name} className='w-48'>
-                <FormField
-                  control={filterPanelForm.control}
-                  name={filter.name}
-                  render={(field, fieldState) => (
-                    <FormSelectField
-                      field={field}
-                      fieldState={fieldState}
-                      options={filter.options}
+        {/* Filter */}
+        <FilterPanel
+          onSearch={handleSearch}
+          onReset={handleReset}
+          form={filterPanelForm}
+          fields={[
+            {
+              type: 'INPUT_GROUP',
+              name: EFilterPanelFormKey.Keyword,
+              placeholder: t('inputPlaceholder.searchDocument')
+            },
+            {
+              type: 'SELECT',
+              name: EFilterPanelEmployeeDocumentFormKey.DocumentType,
+              options: DATA.GET_OPTIONS_EMPLOYEE_DOCUMENT_TYPE(t)
+            },
+            {
+              type: 'SELECT',
+              name: EFilterPanelEmployeeDocumentFormKey.Status,
+              options: DATA.GET_OPTIONS_EMPLOYEE_DOCUMENT_STATUS(t)
+            }
+          ]}
+        />
 
-                      onValueChangeValidate={handleSearch}
-                    />
-                  )}
-                />
-              </section>
-            ))}
-            <section className='ml-auto'>
-              <Button type='button' onClick={() => openUpload()}>
-                <Upload className='size-4' />
-                {t('action.upload')}
-              </Button>
-            </section>
-          </form>
-
-          {/* Table */}
-          <TableCustom
-            classNameWrapperTable='rounded-none border-x-0 border-b-0'
-            loading={isLoading || isRefetching}
-            columns={columns}
-            data={items}
-            emptyText={t('empty.noData')}
-            getRowId={(row) => String(row.id)}
-            page={page}
-            totalPage={totalPage}
-            onPageChange={setPage}
-            pageSize={paging.size}
-            onPageSizeChange={setSize}
-            // No detail page for a document
-            disableNavigationAll
-          />
-        </CardCustom>
+        {/* Action + Table */}
+        <TableCustom
+          headerTitle={t('title.employeeDocuments')}
+          headerAction={
+            <Button type='button' onClick={() => openUpload()}>
+              <Upload className='size-4' />
+              {t('action.upload')}
+            </Button>
+          }
+          totalItems={filteredDocuments.length}
+          loading={isLoading || isRefetching}
+          columns={columns}
+          data={items}
+          emptyText={t('empty.noData')}
+          getRowId={(row) => String(row.id)}
+          page={page}
+          totalPage={totalPage}
+          onPageChange={setPage}
+          pageSize={paging.size}
+          onPageSizeChange={setSize}
+          // No detail page for a document
+          disableNavigationAll
+        />
 
         <UploadDropzoneCard onPick={openUpload} />
       </section>

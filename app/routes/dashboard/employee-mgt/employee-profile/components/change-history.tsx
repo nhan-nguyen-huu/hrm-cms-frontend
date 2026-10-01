@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import FilterPanel from '~/components/common/filter-panel'
 import TableCustom from '~/components/customs/table-custom'
 import { paramsHelper } from '~/helpers'
-import { employeeEventColumn } from '~/helpers/columns/employee-event-column'
+import { employeeMgtColumn } from '~/helpers/columns/employee-mgt-column'
 import { commonHelper } from '~/helpers/common.helper'
 import { formHelper } from '~/helpers/form.helper'
 import { type TFilterPanelEmployeeEventFormSchema, getFilterPanelEmployeeEventSchema } from '~/helpers/schema.helper'
@@ -43,7 +43,7 @@ const ChangeHistoryProfile = ({ data }: IChangeHistoryProfileProps) => {
   const { searchParams, setQuery, updateQueries } = useQueryParams()
 
   // Table
-  const columns = employeeEventColumn.getList(t, getTranslateEnum)
+  const columns = employeeMgtColumn.getEvent(t, getTranslateEnum)
 
   // Pagination
   const { paging, setPage, setSize, getResetPaging, getSearchPaging, resetPaging } = usePagination()
