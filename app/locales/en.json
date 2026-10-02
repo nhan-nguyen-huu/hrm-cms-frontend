@@ -417,6 +417,7 @@
     "overdueRequests": "{{count}} requests overdue by {{days}} days",
     "withinNextDays": "Within the next {{days}} days",
     "uploadDocumentSuccess": "Document uploaded",
+    "uploadFileFailed": "File upload failed, please try again",
     "deleteDocumentSuccess": "Document deleted",
     "deleteDocumentConfirm": "Delete document \"{{name}}\"? This cannot be undone.",
     "documentUploadRule": "Documents uploaded by employees need HR approval",

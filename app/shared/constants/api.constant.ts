@@ -4,6 +4,10 @@ export const API_AUTH = {
   LOGOUT_URL: '/logout'
 }
 
+export const API_FILE = {
+  UPLOAD_URL: '/file/upload'
+}
+
 export const API_EMPLOYEE = {
   GET_LIST_URL: '/employee',
   GET_DETAIL_URL: (id?: number) => `/employee/${id}`,
