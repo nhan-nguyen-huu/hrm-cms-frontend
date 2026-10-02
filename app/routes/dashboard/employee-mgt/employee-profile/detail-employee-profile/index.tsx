@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
+import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
+import BreadcrumbCustom from '~/components/customs/breadcrumb-custom'
 import SkelethonLoading from '~/components/loading/skelethon-loading'
 import { useGetDetailEmployeeApi } from '~/hooks/apis/use-employee-api'
 import useQueryParams from '~/hooks/use-query-params'
@@ -12,9 +14,11 @@ import HeaderProfile from '~/routes/dashboard/employee-mgt/employee-profile/comp
 import OverViewProfile from '~/routes/dashboard/employee-mgt/employee-profile/components/overview-profile'
 import PersonalInfoProfile from '~/routes/dashboard/employee-mgt/employee-profile/components/personal-info'
 import TimeAndAttendanceProfile from '~/routes/dashboard/employee-mgt/employee-profile/components/time-and-attendance'
+import { BREADCRUMB_SEGMENT } from '~/shared/constants/data.constant'
 import { EEmployeeProfileDetailTab } from '~/shared/enums/common.enum'
 
 const DetailEmployeeProfile = () => {
+  const { t } = useTranslation()
   const { id } = useParams()
   const { searchParams } = useQueryParams()
   const currentTab = (searchParams.get('tab') as EEmployeeProfileDetailTab) ?? EEmployeeProfileDetailTab.OverView
@@ -40,6 +44,7 @@ const DetailEmployeeProfile = () => {
   }
   return (
     <PageLayout>
+      <BreadcrumbCustom items={BREADCRUMB_SEGMENT.EMPLOYEE_PROFILE_DETAIL(t, dataDetail?.fullName)} />
       <SkelethonLoading loading={isLoading || isRefetching}>
         <HeaderProfile tab={tab} onChangeTab={setTab} data={dataDetail} />
       </SkelethonLoading>

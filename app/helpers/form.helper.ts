@@ -1,10 +1,26 @@
-import type { TFilterPanelEmployeeProfileFormSchema, TFilterPanelFormSchema } from '~/helpers/schema.helper'
-import { EEmployeeStatus, EGender, EMaritalStatus, ENationality } from '~/shared/enums/common.enum'
+import type {
+  TFilterPanelEmployeeDocumentFormSchema,
+  TFilterPanelEmployeeEventFormSchema,
+  TFilterPanelEmployeeProfileFormSchema,
+  TFilterPanelFormSchema
+} from '~/helpers/schema.helper'
+import {
+  EEmployeeDocumentStatus,
+  EEmployeeDocumentType,
+  EEmployeeStatus,
+  EGender,
+  EMaritalStatus,
+  ENationality,
+  EOrgEventType
+} from '~/shared/enums/common.enum'
 import {
   EAddProjectMemberFormKey,
+  EFilterPanelEmployeeDocumentFormKey,
+  EFilterPanelEmployeeEventFormKey,
   EFilterPanelEmployeeProfileFormKey,
   EFilterPanelFormKey,
   ELoginFormKey,
+  EUploadEmployeeDocumentFormKey,
   ePersonalEmployeeFormKey
 } from '~/shared/enums/form.enum'
 
@@ -56,6 +72,39 @@ export const formHelper = {
       ...formHelper.getDefaultValuesFilterPanel(searchParams, DEFAULT_VALUES),
       [EFilterPanelEmployeeProfileFormKey.EmploymentStatus]:
         (searchParams.get('employmentStatus') as EEmployeeStatus) ?? DEFAULT_VALUES?.employmentStatus
+    }
+  },
+  getDefaultValuesEmployeeDocument: (
+    searchParams: URLSearchParams,
+    DEFAULT_VALUES: TFilterPanelEmployeeDocumentFormSchema
+  ) => {
+    return {
+      ...formHelper.getDefaultValuesFilterPanel(searchParams, DEFAULT_VALUES),
+      [EFilterPanelEmployeeDocumentFormKey.DocumentType]:
+        (searchParams.get(EFilterPanelEmployeeDocumentFormKey.DocumentType) as EEmployeeDocumentType) ??
+        DEFAULT_VALUES?.documentType,
+      [EFilterPanelEmployeeDocumentFormKey.Status]:
+        (searchParams.get(EFilterPanelEmployeeDocumentFormKey.Status) as EEmployeeDocumentStatus) ??
+        DEFAULT_VALUES?.documentStatus
+    }
+  },
+  getDefaultValuesEmployeeEvent: (
+    searchParams: URLSearchParams,
+    DEFAULT_VALUES: TFilterPanelEmployeeEventFormSchema
+  ) => {
+    return {
+      ...formHelper.getDefaultValuesFilterPanel(searchParams, DEFAULT_VALUES),
+      [EFilterPanelEmployeeEventFormKey.EventType]:
+        (searchParams.get(EFilterPanelEmployeeEventFormKey.EventType) as EOrgEventType) ?? DEFAULT_VALUES?.eventType,
+      [EFilterPanelEmployeeEventFormKey.Actor]:
+        searchParams.get(EFilterPanelEmployeeEventFormKey.Actor) ?? DEFAULT_VALUES?.actor
+    }
+  },
+  getDefaultValuesUploadEmployeeDocument: () => {
+    return {
+      [EUploadEmployeeDocumentFormKey.DocumentType]: undefined,
+      [EUploadEmployeeDocumentFormKey.File]: undefined,
+      [EUploadEmployeeDocumentFormKey.Note]: ''
     }
   }
 }

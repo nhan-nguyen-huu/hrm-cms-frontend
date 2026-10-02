@@ -53,3 +53,20 @@ export enum ePersonalEmployeeFormKey {
   // Avatar
   Avatar = 'avatar'
 }
+
+export enum EFilterPanelEmployeeDocumentFormKey {
+  DocumentType = 'documentType',
+  Status = 'documentStatus'
+}
+
+export enum EFilterPanelEmployeeEventFormKey {
+  EventType = 'eventType',
+  Actor = 'actor'
+}
+
+// Fields of EmployeeDocumentUploadForm (API docs, multipart)
+export enum EUploadEmployeeDocumentFormKey {
+  DocumentType = 'documentType',
+  File = 'file',
+  Note = 'note'
+}

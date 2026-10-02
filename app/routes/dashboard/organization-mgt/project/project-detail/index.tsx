@@ -6,7 +6,7 @@ import { useParams } from 'react-router'
 import { toast } from 'sonner'
 import TableCustom from '~/components/customs/table-custom'
 import { Button } from '~/components/ui/button'
-import { projectMemberColumn } from '~/helpers/columns/project-member-column'
+import { organizationMgtColumn } from '~/helpers/columns/organization-mgt-column'
 import { usePagination } from '~/hooks/use-pagination'
 import AddProjectMemberDialog from '~/routes/dashboard/organization-mgt/components/project/add-project-member-dialog'
 import ProjectAllocationCard from '~/routes/dashboard/organization-mgt/components/project/project-allocation-card'
@@ -18,7 +18,7 @@ import type { IProjectMember } from '~/shared/models/project.model'
 const ProjectDetailPage = () => {
   const { id } = useParams()
   const { t } = useTranslation()
-  const columns = projectMemberColumn.getList(t)
+  const columns = organizationMgtColumn.getProjectMember(t)
   const { paging, setPage, setSize } = usePagination({ isNoSyncParams: true })
 
   // TODO: replace with the project detail API (GET /projects/:id) once available

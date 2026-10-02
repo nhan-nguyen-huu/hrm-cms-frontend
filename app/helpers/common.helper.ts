@@ -118,6 +118,18 @@ export const commonHelper = {
     ]
       .filter(Boolean)
       .join(' · '),
+  // Case-insensitive "contains" over several fields; an empty keyword matches everything
+  includesKeyword: (keyword?: string | null, ...values: (string | null | undefined)[]) => {
+    const search = keyword?.trim().toLowerCase()
+    if (!search) return true
+    return values.some((value) => value?.toLowerCase().includes(search))
+  },
+  // Client-side paging of a list the API returns in full: clamps the page to the last one
+  paginate: <T>(list: T[], page: number, size: number) => {
+    const totalPage = Math.ceil(list.length / size)
+    const currentPage = Math.min(page, Math.max(totalPage - 1, 0))
+    return { items: list.slice(currentPage * size, (currentPage + 1) * size), totalPage, page: currentPage }
+  },
   getEnumOptions:
     <T extends TEnumLike>(enumType: T, enumPath: string) =>
     (t: TFunction) =>

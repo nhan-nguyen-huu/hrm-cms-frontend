@@ -34,7 +34,22 @@
     "resignations": "퇴사",
     "monthShort": "{{month}}월",
     "remainingDays": "{{count}}일 남음",
-    "descriptionJob": "{{employeeCode}} - {{jobTitleName}}, {{departmentName}} - 입사일 {{startDate}} ({{year}}년 {{month}}개월)"
+    "descriptionJob": "{{employeeCode}} - {{jobTitleName}}, {{departmentName}} - 입사일 {{startDate}} ({{year}}년 {{month}}개월)",
+    "dateWithAge": "{{date}} ({{age}}세)",
+    "notUpdated": "미입력",
+    "bornOn": "{{date}} 출생",
+    "registeredIn": "{{month}} 등록",
+    "vndPerMonth": "{{amount}} ₫/월",
+    "requiredFieldsFilled": "필수 항목 {{filled}} / {{required}}",
+    "missingFields": "누락: {{fields}}",
+    "allActors": "처리자: 전체",
+    "uploadedBy": "{{name}} 업로드",
+    "uploadedByEmployeeOn": "직원 업로드 {{date}}",
+    "totalDocuments": "전체 문서",
+    "totalSize": "용량",
+    "fileCount": "{{count}}개 파일",
+    "idAndQualificationDocuments": "신분증 · 학위",
+    "recruitmentAndOtherDocuments": "채용 서류 · 기타"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -139,6 +154,70 @@
       "approved": "승인",
       "rejected": "반려",
       "all": "전체"
+    },
+    "relationship": {
+      "father": "부",
+      "mother": "모",
+      "spouse": "배우자",
+      "child": "자녀",
+      "sibling": "형제자매",
+      "other": "기타",
+      "family": "가족"
+    },
+    "dependentStatus": {
+      "pending": "승인 대기",
+      "approved": "승인됨",
+      "rejected": "반려"
+    },
+    "educationLevel": {
+      "highSchool": "고등학교",
+      "college": "전문대",
+      "university": "대학교",
+      "master": "석사",
+      "doctor": "박사"
+    },
+    "employeeDocumentType": {
+      "all": "문서 유형: 전체",
+      "cv": "채용 서류",
+      "idCard": "신분증",
+      "qualification": "학위·자격",
+      "signedContract": "계약서",
+      "decision": "결정문",
+      "other": "기타"
+    },
+    "orgEventType": {
+      "all": "변경 유형: 전체",
+      "departmentCreated": "부서 생성",
+      "departmentUpdated": "부서 수정",
+      "departmentHeadChanged": "부서장 변경",
+      "departmentHeadCleared": "부서장 해제",
+      "departmentDeleted": "부서 삭제",
+      "departmentClosedWithHandover": "부서 폐쇄 및 인계",
+      "departmentProjectsMoved": "부서 프로젝트 이동",
+      "departmentReceivedHandover": "부서 인수",
+      "departmentOverAllocationGranted": "부서 초과 배정 승인",
+      "projectCreated": "프로젝트 생성",
+      "projectUpdated": "프로젝트 수정",
+      "projectDeleted": "프로젝트 삭제",
+      "projectMemberAdded": "프로젝트 멤버 추가",
+      "projectMemberAllocationChanged": "프로젝트 배정률 변경",
+      "projectMemberRemoved": "프로젝트 멤버 제외",
+      "projectOverAllocationGranted": "프로젝트 초과 배정 승인",
+      "employeeHired": "입사",
+      "employeeRehired": "재입사",
+      "employeeAssigned": "발령",
+      "employeeContractSigned": "계약 체결",
+      "employeeContractExpired": "계약 만료",
+      "employeeContractRemoved": "계약 삭제",
+      "employeeDocumentAdded": "문서 추가",
+      "employeeDocumentRemoved": "문서 삭제"
+    },
+    "employeeDocumentStatus": {
+      "all": "상태: 전체",
+      "valid": "유효",
+      "pending": "승인 대기",
+      "superseded": "효력 상실",
+      "expired": "만료"
     }
   },
   "tables": {
@@ -171,6 +250,18 @@
       "role": "프로젝트 역할",
       "allocation": "배분",
       "joinedMonth": "참여 시작일"
+    },
+    "employeeDocumentTableKey": {
+      "name": "문서명",
+      "documentType": "유형",
+      "fileSize": "용량",
+      "uploadedAt": "업로드일",
+      "status": "상태"
+    },
+    "employeeEventTableKey": {
+      "occurredAt": "시간",
+      "actor": "처리자",
+      "content": "변경 내용"
     }
   },
   "inputLabel": {
@@ -213,7 +304,25 @@
     "leaveDays": "휴가 일수",
     "remainingLeave": "잔여 연차",
     "leaveReason": "휴가 사유",
-    "explanationContent": "소명 내용"
+    "explanationContent": "소명 내용",
+    "placeOfBirth": "출생지",
+    "taxCode": "개인 세금 번호",
+    "socialInsuranceNumber": "사회보험 번호",
+    "healthInsuranceNumber": "건강보험 카드 번호",
+    "companyEmail": "회사 이메일",
+    "relationship": "관계",
+    "emergencyPhoneNumber": "비상 연락처 전화",
+    "educationLevel": "학력",
+    "major": "전공",
+    "school": "학교",
+    "graduationYear": "졸업 연도",
+    "foreignLanguage": "외국어",
+    "certificate": "자격증",
+    "currentDeduction": "현재 공제액",
+    "avatar": "증명사진",
+    "documentType": "문서 유형",
+    "documentFile": "파일",
+    "note": "메모"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "이메일 또는 관리자 ID로 로그인",
@@ -225,7 +334,11 @@
     "searchProject": "프로젝트명, 코드, PM…",
     "selectEmployee": "직원 선택",
     "select": "선택",
-    "noteForEmployee": "직원에게 남길 메모 (선택)…"
+    "noteForEmployee": "직원에게 남길 메모 (선택)…",
+    "selectDocumentType": "문서 유형 선택",
+    "enterDocumentNote": "메모 입력 (선택)",
+    "searchDocument": "문서명으로 검색…",
+    "searchChangeHistory": "변경 내용, 처리자로 검색…"
   },
   "inputValidate": {
     "thisInformationIsRequired": "이 정보는 필수입니다",
@@ -233,7 +346,10 @@
     "invalidPhoneFormat": "전화번호는 10자리여야 합니다",
     "invalidCccdFormat": "신분증 번호는 12자리여야 합니다",
     "invalidAllocation": "배분율은 1~100 사이의 정수여야 합니다",
-    "confirmOverAllocation": "총 배분이 100%를 초과하면 확인이 필요합니다"
+    "confirmOverAllocation": "총 배분이 100%를 초과하면 확인이 필요합니다",
+    "invalidDocumentType": "PDF, JPG, PNG 파일만 가능합니다",
+    "documentTooLarge": "파일이 10MB를 초과합니다",
+    "maxLength": "최대 {{max}}자"
   },
   "title": {
     "addNewEmployee": "신규 직원 추가",
@@ -263,7 +379,21 @@
     "pendingRequests": "승인 대기 신청",
     "expiringContracts": "만료 예정 계약",
     "headcountByDepartment": "부서별 인원",
-    "headcountTrend": "최근 6개월 인원 변동"
+    "headcountTrend": "최근 6개월 인원 변동",
+    "identityDocuments": "신분증 및 식별 정보",
+    "contactAndAddress": "연락처 및 주소",
+    "education": "학력",
+    "dependents": "부양가족",
+    "profileCompleteness": "프로필 완성도",
+    "internalNotes": "내부 메모",
+    "pendingItems": "처리 대기",
+    "employeeDocuments": "인사 문서",
+    "uploadDocument": "문서 업로드",
+    "deleteDocument": "문서 삭제",
+    "changeHistory": "프로필 변경 이력",
+    "pendingApproval": "승인 대기",
+    "documentWarnings": "서류 경고",
+    "statistics": "통계"
   },
   "msg": {
     "changeLanguageSuccess": "언어가 성공적으로 변경되었습니다",
@@ -285,7 +415,14 @@
     "approveRequestsSuccess": "{{count}}건을 승인했습니다",
     "hiresAndResignationsThisMonth": "이번 달 신규 입사 {{hires}}명 · 퇴사 {{resignations}}명",
     "overdueRequests": "{{days}}일 기한 초과 {{count}}건",
-    "withinNextDays": "향후 {{days}}일 이내"
+    "withinNextDays": "향후 {{days}}일 이내",
+    "uploadDocumentSuccess": "문서가 업로드되었습니다",
+    "deleteDocumentSuccess": "문서가 삭제되었습니다",
+    "deleteDocumentConfirm": "\"{{name}}\" 문서를 삭제하시겠습니까? 되돌릴 수 없습니다.",
+    "documentUploadRule": "직원이 업로드한 문서는 HR 승인이 필요합니다",
+    "dropOrPickFile": "파일을 끌어다 놓거나 클릭하여 선택",
+    "documentFileRule": "PDF, JPG, PNG · 파일당 최대 10MB",
+    "featureNotAvailable": "아직 API가 없는 기능입니다"
   },
   "confirm": {
     "confirmLogoutTitle": "로그아웃하시겠습니까?",
@@ -324,6 +461,13 @@
     "approveRequest": "승인",
     "reject": "반려",
     "exportReport": "보고서 내보내기",
+    "add": "추가",
+    "addNote": "메모",
+    "editSection": "이 항목 수정",
+    "upload": "업로드",
+    "openFile": "파일 열기",
+    "delete": "삭제",
+    "approve": "승인",
     "selectFile": "파일을 선택하세요"
   },
   "stepper": {

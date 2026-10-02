@@ -34,7 +34,22 @@
     "resignations": "Resignations",
     "monthShort": "M{{month}}",
     "remainingDays": "{{count}} days left",
-    "descriptionJob": "{{employeeCode}} - {{jobTitleName}}, {{departmentName}} - Joined {{startDate}} ({{year}} years {{month}} months)"
+    "descriptionJob": "{{employeeCode}} - {{jobTitleName}}, {{departmentName}} - Joined {{startDate}} ({{year}} years {{month}} months)",
+    "dateWithAge": "{{date}} ({{age}} years old)",
+    "notUpdated": "Not updated",
+    "bornOn": "born {{date}}",
+    "registeredIn": "registered {{month}}",
+    "vndPerMonth": "{{amount}} ₫/month",
+    "requiredFieldsFilled": "{{filled}} / {{required}} required fields",
+    "missingFields": "Missing: {{fields}}",
+    "allActors": "Changed by: All",
+    "uploadedBy": "Uploaded by {{name}}",
+    "uploadedByEmployeeOn": "Uploaded by employee on {{date}}",
+    "totalDocuments": "Total documents",
+    "totalSize": "Size",
+    "fileCount": "{{count}} files",
+    "idAndQualificationDocuments": "ID · qualifications",
+    "recruitmentAndOtherDocuments": "Recruitment · other"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -139,6 +154,70 @@
       "approved": "Approved",
       "rejected": "Rejected",
       "all": "All"
+    },
+    "relationship": {
+      "father": "Father",
+      "mother": "Mother",
+      "spouse": "Spouse",
+      "child": "Child",
+      "sibling": "Sibling",
+      "other": "Other",
+      "family": "Family"
+    },
+    "dependentStatus": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "educationLevel": {
+      "highSchool": "High school",
+      "college": "College",
+      "university": "University",
+      "master": "Master",
+      "doctor": "Doctorate"
+    },
+    "employeeDocumentType": {
+      "all": "Document type: All",
+      "cv": "Recruitment",
+      "idCard": "ID document",
+      "qualification": "Qualification",
+      "signedContract": "Contract",
+      "decision": "Decision",
+      "other": "Other"
+    },
+    "orgEventType": {
+      "all": "Change type: All",
+      "departmentCreated": "Department created",
+      "departmentUpdated": "Department updated",
+      "departmentHeadChanged": "Department head changed",
+      "departmentHeadCleared": "Department head cleared",
+      "departmentDeleted": "Department deleted",
+      "departmentClosedWithHandover": "Department closed with handover",
+      "departmentProjectsMoved": "Department projects moved",
+      "departmentReceivedHandover": "Department received handover",
+      "departmentOverAllocationGranted": "Department over-allocation granted",
+      "projectCreated": "Project created",
+      "projectUpdated": "Project updated",
+      "projectDeleted": "Project deleted",
+      "projectMemberAdded": "Added to project",
+      "projectMemberAllocationChanged": "Project allocation changed",
+      "projectMemberRemoved": "Removed from project",
+      "projectOverAllocationGranted": "Project over-allocation granted",
+      "employeeHired": "Employee hired",
+      "employeeRehired": "Employee rehired",
+      "employeeAssigned": "Employee assigned",
+      "employeeContractSigned": "Contract signed",
+      "employeeContractExpired": "Contract expired",
+      "employeeContractRemoved": "Contract removed",
+      "employeeDocumentAdded": "Document added",
+      "employeeDocumentRemoved": "Document removed"
+    },
+    "employeeDocumentStatus": {
+      "all": "Status: All",
+      "valid": "Valid",
+      "pending": "Pending",
+      "superseded": "Superseded",
+      "expired": "Expired"
     }
   },
   "tables": {
@@ -171,6 +250,18 @@
       "role": "Project role",
       "allocation": "Allocation",
       "joinedMonth": "Joined from"
+    },
+    "employeeDocumentTableKey": {
+      "name": "Document",
+      "documentType": "Type",
+      "fileSize": "Size",
+      "uploadedAt": "Uploaded",
+      "status": "Status"
+    },
+    "employeeEventTableKey": {
+      "occurredAt": "Time",
+      "actor": "Changed by",
+      "content": "Change"
     }
   },
   "inputLabel": {
@@ -213,7 +304,25 @@
     "leaveDays": "Leave days",
     "remainingLeave": "Remaining leave",
     "leaveReason": "Reason for leave",
-    "explanationContent": "Explanation"
+    "explanationContent": "Explanation",
+    "placeOfBirth": "Place of birth",
+    "taxCode": "Personal tax code",
+    "socialInsuranceNumber": "Social insurance number",
+    "healthInsuranceNumber": "Health insurance number",
+    "companyEmail": "Company email",
+    "relationship": "Relationship",
+    "emergencyPhoneNumber": "Emergency phone",
+    "educationLevel": "Education level",
+    "major": "Major",
+    "school": "School",
+    "graduationYear": "Graduation year",
+    "foreignLanguage": "Foreign language",
+    "certificate": "Certificate",
+    "currentDeduction": "Current deduction",
+    "avatar": "Portrait photo",
+    "documentType": "Document type",
+    "documentFile": "File",
+    "note": "Note"
   },
   "inputPlaceholder": {
     "logInWithEmailOrAdminID": "Log in with email or admin ID",
@@ -225,7 +334,11 @@
     "searchProject": "Project name, code, PM…",
     "selectEmployee": "Select an employee",
     "select": "Select",
-    "noteForEmployee": "Note to the employee (optional)…"
+    "noteForEmployee": "Note to the employee (optional)…",
+    "selectDocumentType": "Select document type",
+    "enterDocumentNote": "Enter a note (optional)",
+    "searchDocument": "Search by document name…",
+    "searchChangeHistory": "Search by change, person…"
   },
   "inputValidate": {
     "thisInformationIsRequired": "This information is required",
@@ -233,7 +346,10 @@
     "invalidPhoneFormat": "Phone number must have 10 digits",
     "invalidCccdFormat": "ID card number must have 12 digits",
     "invalidAllocation": "Allocation must be a whole number from 1 to 100",
-    "confirmOverAllocation": "Confirmation is required when total allocation exceeds 100%"
+    "confirmOverAllocation": "Confirmation is required when total allocation exceeds 100%",
+    "invalidDocumentType": "Only PDF, JPG, PNG files",
+    "documentTooLarge": "File is larger than 10 MB",
+    "maxLength": "At most {{max}} characters"
   },
   "title": {
     "addNewEmployee": "Add New Employee",
@@ -263,7 +379,21 @@
     "pendingRequests": "Pending requests",
     "expiringContracts": "Contracts expiring soon",
     "headcountByDepartment": "Headcount by department",
-    "headcountTrend": "Headcount changes, last 6 months"
+    "headcountTrend": "Headcount changes, last 6 months",
+    "identityDocuments": "Identity documents",
+    "contactAndAddress": "Contact & address",
+    "education": "Education",
+    "dependents": "Dependents",
+    "profileCompleteness": "Profile completeness",
+    "internalNotes": "Internal notes",
+    "pendingItems": "Pending",
+    "employeeDocuments": "Profile documents",
+    "uploadDocument": "Upload document",
+    "deleteDocument": "Delete document",
+    "changeHistory": "Profile change log",
+    "pendingApproval": "Pending approval",
+    "documentWarnings": "Document warnings",
+    "statistics": "Statistics"
   },
   "msg": {
     "changeLanguageSuccess": "Change language successfully",
@@ -285,7 +415,14 @@
     "approveRequestsSuccess": "Approved {{count}} requests",
     "hiresAndResignationsThisMonth": "{{hires}} new hires · {{resignations}} resignations this month",
     "overdueRequests": "{{count}} requests overdue by {{days}} days",
-    "withinNextDays": "Within the next {{days}} days"
+    "withinNextDays": "Within the next {{days}} days",
+    "uploadDocumentSuccess": "Document uploaded",
+    "deleteDocumentSuccess": "Document deleted",
+    "deleteDocumentConfirm": "Delete document \"{{name}}\"? This cannot be undone.",
+    "documentUploadRule": "Documents uploaded by employees need HR approval",
+    "dropOrPickFile": "Drop a file here or click to choose",
+    "documentFileRule": "PDF, JPG, PNG · up to 10 MB per file",
+    "featureNotAvailable": "This feature has no API yet"
   },
   "confirm": {
     "confirmLogoutTitle": "Do you want to log out?",
@@ -324,6 +461,13 @@
     "approveRequest": "Approve",
     "reject": "Reject",
     "exportReport": "Export report",
+    "add": "Add",
+    "addNote": "Note",
+    "editSection": "Edit section",
+    "upload": "Upload",
+    "openFile": "Open file",
+    "delete": "Delete",
+    "approve": "Approve",
     "selectFile": "Select file"
   },
   "stepper": {
