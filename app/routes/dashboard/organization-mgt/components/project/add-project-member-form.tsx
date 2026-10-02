@@ -8,7 +8,7 @@ import { Field } from '~/components/ui/field'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '~/components/ui/input-group'
 import type { TAddProjectMemberSchema } from '~/helpers/schemas/project-schema.helper'
 import ProjectAllocationCheck from '~/routes/dashboard/organization-mgt/components/project/project-allocation-check'
-import { MOCK_PROJECT_ROLE_OPTIONS } from '~/shared/constants/mock-project.constant'
+import { DATA } from '~/shared/constants/data.constant'
 import { EAddProjectMemberFormKey } from '~/shared/enums/form.enum'
 import type { IOption } from '~/shared/models/common.model'
 import type { IAllocationCheckRow } from '~/shared/models/project.model'
@@ -66,7 +66,7 @@ const AddProjectMemberForm = ({
             <FormSelectField
               field={field}
               fieldState={fieldState}
-              options={MOCK_PROJECT_ROLE_OPTIONS}
+              options={DATA.GET_OPTIONS_PROJECT_ROLE()}
               placeHolder={t('inputPlaceholder.select')}
             />
           )}

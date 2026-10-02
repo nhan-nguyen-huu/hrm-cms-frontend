@@ -5,9 +5,8 @@ import BreadcrumbCustom from '~/components/customs/breadcrumb-custom'
 import CardInfo from '~/components/customs/card-info'
 import ProjectStatus from '~/components/tags/project-status'
 import { Button } from '~/components/ui/button'
-import { useTransferEnum } from '~/hooks/user-transfer-enum'
+import { dateHelper } from '~/helpers/date.helper'
 import { BREADCRUMB_SEGMENT } from '~/shared/constants/data.constant'
-import { EDepartment } from '~/shared/enums/common.enum'
 import type { IProjectDetail } from '~/shared/models/project.model'
 
 interface IProjectDetailHeaderProps {
@@ -17,27 +16,22 @@ interface IProjectDetailHeaderProps {
 // Breadcrumb + project title card of the project detail screen
 const ProjectDetailHeader = ({ project }: IProjectDetailHeaderProps) => {
   const { t } = useTranslation()
-  const { getTranslateEnum } = useTransferEnum()
-  const period = [project?.startMonth, project?.endMonth].filter(Boolean).join(' – ')
   // Hierarchy is Department → Project → Employee, so the department leads the meta line
-  const departmentName =
-    project?.department &&
-    getTranslateEnum({ enumPath: 'department', enumType: EDepartment, value: project.department })
   const metaItems = [
-    departmentName && t('common.orgPositionDepartment', { departmentName }),
-    project?.code,
-    project?.projectManager?.name && t('common.pmName', { name: project.projectManager.name }),
-    period
+    project?.departmentName && t('common.orgPositionDepartment', { departmentName: project.departmentName }),
+    project?.projectCode,
+    project?.managerFullName && t('common.pmName', { name: project.managerFullName }),
+    dateHelper.formatMonthRange(project?.startDate, project?.endDate)
   ]
 
   return (
     <section className='flex flex-col gap-3'>
-      <BreadcrumbCustom items={BREADCRUMB_SEGMENT.PROJECT_DETAIL(t, project?.name)} />
+      <BreadcrumbCustom items={BREADCRUMB_SEGMENT.PROJECT_DETAIL(t, project?.projectName)} />
 
       <CardInfo
         icon={<LayoutGrid className='size-5' />}
-        title={project?.name}
-        badge={<ProjectStatus status={project?.status} />}
+        title={project?.projectName}
+        badge={project && <ProjectStatus status={project.status} isEndingSoon={project.endingSoon} />}
         subtitleItems={metaItems}
       >
         <ButtonAction actionName={t('action.exportList')} actionType='DOWNLOAD' />

@@ -11,7 +11,8 @@
     "orgPositionProject": "Dự án {{projectName}} · {{memberCount}} thành viên",
     "all": "Tất cả",
     "showingCount": "Hiển thị {{shown}} / {{total}}",
-    "projectSummary": "{{total}} dự án · Đang chạy {{inProgress}} · Sắp kết thúc {{endingSoon}} · Mới khởi động {{kickoff}} · Hoàn thành {{completed}}",
+    "projectTotal": "{{total}} dự án",
+    "projectEndingSoon": "Sắp kết thúc",
     "pmName": "PM {{name}}",
     "personCount": "{{count}} người",
     "fteValue": "{{value}} FTE",
@@ -112,10 +113,11 @@
       "ko": "Hàn Quốc"
     },
     "projectStatus": {
-      "inProgress": "Đang chạy",
-      "kickoff": "Khởi động",
-      "endingSoon": "Sắp kết thúc",
-      "completed": "Hoàn thành"
+      "all": "Tất cả trạng thái",
+      "planning": "Khởi động",
+      "running": "Đang chạy",
+      "completed": "Hoàn thành",
+      "cancelled": "Đã huỷ"
     },
     "department": {
       "technology": "Kỹ thuật",

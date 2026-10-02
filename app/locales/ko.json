@@ -11,7 +11,8 @@
     "orgPositionProject": "{{projectName}} Project · {{memberCount}} members",
     "all": "전체",
     "showingCount": "{{shown}} / {{total}} 표시",
-    "projectSummary": "프로젝트 {{total}}건 · 진행 {{inProgress}} · 종료 임박 {{endingSoon}} · 신규 착수 {{kickoff}} · 완료 {{completed}}",
+    "projectTotal": "프로젝트 {{total}}건",
+    "projectEndingSoon": "종료 임박",
     "pmName": "PM {{name}}",
     "personCount": "{{count}}명",
     "fteValue": "{{value}} FTE",
@@ -112,10 +113,11 @@
       "ko": "한국"
     },
     "projectStatus": {
-      "inProgress": "진행 중",
-      "kickoff": "착수 단계",
-      "endingSoon": "종료 임박",
-      "completed": "완료"
+      "all": "전체 상태",
+      "planning": "착수 단계",
+      "running": "진행 중",
+      "completed": "완료",
+      "cancelled": "취소"
     },
     "department": {
       "technology": "기술",

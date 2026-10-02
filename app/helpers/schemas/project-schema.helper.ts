@@ -4,8 +4,7 @@ import { EAddProjectMemberFormKey } from '~/shared/enums/form.enum'
 
 export const MAX_TOTAL_ALLOCATION = 100
 
-// getOtherAllocation(employeeId) = % already allocated to the employee's other projects
-export const getAddProjectMemberSchema = (t: TFunction, getOtherAllocation: (employeeId: string) => number) =>
+export const getAddProjectMemberSchema = (t: TFunction) =>
   z
     .object({
       [EAddProjectMemberFormKey.Employee]: z
@@ -19,13 +18,13 @@ export const getAddProjectMemberSchema = (t: TFunction, getOtherAllocation: (emp
           message: t('inputValidate.invalidAllocation')
         }),
       [EAddProjectMemberFormKey.JoinedDate]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
-      [EAddProjectMemberFormKey.ConfirmOverAllocation]: z.boolean()
+      [EAddProjectMemberFormKey.ConfirmOverAllocation]: z.boolean(),
+      [EAddProjectMemberFormKey.OtherAllocation]: z.number()
     })
     // Spec (design note): total allocation across projects must not exceed 100% unless the exception is confirmed
     .superRefine((values, ctx) => {
       const total =
-        getOtherAllocation(values[EAddProjectMemberFormKey.Employee]) +
-        Number(values[EAddProjectMemberFormKey.Allocation] || 0)
+        values[EAddProjectMemberFormKey.OtherAllocation] + Number(values[EAddProjectMemberFormKey.Allocation] || 0)
       if (total > MAX_TOTAL_ALLOCATION && !values[EAddProjectMemberFormKey.ConfirmOverAllocation]) {
         ctx.addIssue({
           code: 'custom',
