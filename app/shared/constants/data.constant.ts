@@ -13,19 +13,14 @@ import type {
   IStep,
   ITabItem
 } from '~/shared/models/common.model'
+import type { IDepartment } from '~/shared/models/department.model'
 import type { IEmployee, IEmployeeDocument, IOrgEvent } from '~/shared/models/employee.model'
 import type { IOverviewSummary } from '~/shared/models/overview.model'
-import type {
-  IAllocationCheckRow,
-  IProject,
-  IProjectAllocationSummary,
-  IProjectMemberCandidate
-} from '~/shared/models/project.model'
+import type { IAllocationCheckRow, IAllocationLine, IProject, IProjectDetail } from '~/shared/models/project.model'
 import type { IRequest } from '~/shared/models/request.model'
 
 import { EnIcon, KoIcon, ViIcon } from '../../assets/svgs'
 import {
-  EDepartment,
   EEducationLevel,
   EEmployeeDocumentStatus,
   EEmployeeDocumentType,
@@ -133,7 +128,24 @@ export const DATA = {
   GET_OPTIONS_MARITALSTATUS: commonHelper.getEnumOptions(EMaritalStatus, 'maritalStatus'),
   GET_OPTIONS_NATIONLITY: commonHelper.getEnumOptions(ENationality, 'nationality'),
   GET_OPTIONS_PROJECT_STATUS: commonHelper.getEnumOptions(EProjectStatus, 'projectStatus'),
-  GET_OPTIONS_DEPARTMENT: commonHelper.getEnumOptions(EDepartment, 'department'),
+  // Department filter: "Tất cả" + the departments from GET /department
+  GET_OPTIONS_DEPARTMENT: (t: TFunction, departments: IDepartment[]): IOption[] => [
+    { label: t('common.all'), value: COMMON_CONSTANT.FILTER_ALL },
+    ...departments.map((department) => ({ label: department.departmentName, value: String(department.id) }))
+  ],
+  // Role inside a project — free text for BE (sent as is); a fixed list until BE has master data
+  GET_OPTIONS_PROJECT_ROLE: (): IOption[] =>
+    [
+      'Project PM',
+      'Backend',
+      'Frontend',
+      'QA',
+      'DevOps',
+      'System architecture',
+      'Integration',
+      'Business analysis',
+      'Data & reporting'
+    ].map((role) => ({ label: role, value: role })),
   GET_ORGANIZATION_TABS: (t: TFunction) => {
     const { DEPARTMENT } = ROUTES.DASHBOARD.ORGANIZATION_MGT
     const TABS: ITabItem[] = [
@@ -149,7 +161,16 @@ export const DATA = {
     return TABS
   },
   // Rows of the "Staff allocation" card on the project detail page
-  GET_PROJECT_ALLOCATION_ROWS: (t: TFunction, summary?: IProjectAllocationSummary) => {
+  // BE returns the members and their total in FTE; the average is derived from them
+  GET_PROJECT_ALLOCATION_ROWS: (t: TFunction, project?: IProjectDetail) => {
+    const members = project?.members ?? []
+    const summary = {
+      memberCount: project ? members.length : undefined,
+      fte: project?.totalAllocation == null ? undefined : Number(project.totalAllocation),
+      averageAllocation: members.length
+        ? members.reduce((sum, member) => sum + (Number(member.allocationPercent) || 0), 0) / members.length
+        : undefined
+    }
     const ROWS: IInfoRow[] = [
       {
         label: t('inputLabel.memberCount'),
@@ -167,37 +188,24 @@ export const DATA = {
     return ROWS
   },
   // Employee select of the "add member" dialog: "Đinh Thu Trâm · NV0175 · Kỹ thuật"
-  GET_OPTIONS_PROJECT_MEMBER_CANDIDATE: (
-    candidates: IProjectMemberCandidate[],
-    getTranslateEnum: TGetTranslateEnumFn
-  ): IOption[] =>
+  GET_OPTIONS_PROJECT_MEMBER_CANDIDATE: (candidates: IEmployee[]): IOption[] =>
     candidates.map((candidate) => ({
-      value: candidate.id,
-      label: [
-        candidate.name,
-        candidate.code,
-        candidate.department &&
-          getTranslateEnum({ enumPath: 'department', enumType: EDepartment, value: candidate.department })
-      ]
-        .filter(Boolean)
-        .join(' · ')
+      value: String(candidate.id),
+      label: [candidate.fullName, candidate.employeeCode, candidate.primaryDepartmentName].filter(Boolean).join(' · ')
     })),
-  // Allocation check of the "add member" dialog: the employee's other projects + this project
-  GET_ALLOCATION_CHECK_ROWS: (
-    t: TFunction,
-    project?: IProject,
-    candidate?: IProjectMemberCandidate,
-    allocation?: number
-  ) => {
+  // Allocation check of the "add member" dialog: the employee's other projects (allocation preview) + this project
+  GET_ALLOCATION_CHECK_ROWS: (t: TFunction, project?: IProject, lines?: IAllocationLine[], allocation?: number) => {
     const ROWS: IAllocationCheckRow[] = [
-      ...(candidate?.allocations ?? []).map((item, index) => ({
-        key: item.projectId ?? String(index),
+      ...(lines ?? []).map((item, index) => ({
+        key: String(item.projectId ?? index),
         label: [item.projectName, item.projectCode].filter(Boolean).join(' · '),
-        allocation: item.allocation ?? 0
+        allocation: Number(item.allocationPercent) || 0
       })),
       {
         key: 'current',
-        label: t('msg.thisProject', { name: [project?.name, project?.code].filter(Boolean).join(' · ') }),
+        label: t('msg.thisProject', {
+          name: [project?.projectName, project?.projectCode].filter(Boolean).join(' · ')
+        }),
         allocation: allocation ?? 0,
         isCurrent: true
       }

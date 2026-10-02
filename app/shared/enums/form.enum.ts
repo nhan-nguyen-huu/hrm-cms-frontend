@@ -6,10 +6,10 @@ export enum EFilterPanelEmployeeProfileFormKey {
   EmploymentStatus = 'employmentStatus'
 }
 
+// Same names as the GET /project query params (ProjectCriteria)
 export enum EFilterPanelProjectFormKey {
-  Department = 'department',
-  Status = 'status',
-  Year = 'year'
+  Department = 'departmentId',
+  Status = 'status'
 }
 
 export enum EAddProjectMemberFormKey {
@@ -17,7 +17,9 @@ export enum EAddProjectMemberFormKey {
   Role = 'role',
   Allocation = 'allocation',
   JoinedDate = 'joinedDate',
-  ConfirmOverAllocation = 'confirmOverAllocation'
+  ConfirmOverAllocation = 'confirmOverAllocation',
+  // Hidden: % the selected employee already has on other projects (allocation preview)
+  OtherAllocation = 'otherAllocation'
 }
 
 export enum EReviewRequestFormKey {

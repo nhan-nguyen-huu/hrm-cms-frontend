@@ -2,7 +2,8 @@ import type {
   TFilterPanelEmployeeDocumentFormSchema,
   TFilterPanelEmployeeEventFormSchema,
   TFilterPanelEmployeeProfileFormSchema,
-  TFilterPanelFormSchema
+  TFilterPanelFormSchema,
+  TFilterPanelProjectFormSchema
 } from '~/helpers/schema.helper'
 import {
   EEmployeeDocumentStatus,
@@ -11,7 +12,8 @@ import {
   EGender,
   EMaritalStatus,
   ENationality,
-  EOrgEventType
+  EOrgEventType,
+  EProjectStatus
 } from '~/shared/enums/common.enum'
 import {
   EAddProjectMemberFormKey,
@@ -19,6 +21,7 @@ import {
   EFilterPanelEmployeeEventFormKey,
   EFilterPanelEmployeeProfileFormKey,
   EFilterPanelFormKey,
+  EFilterPanelProjectFormKey,
   ELoginFormKey,
   EUploadEmployeeDocumentFormKey,
   ePersonalEmployeeFormKey
@@ -30,13 +33,23 @@ export const formHelper = {
       [EFilterPanelFormKey.Keyword]: searchParams.get('keyword') ?? DEFAULT_VALUES?.keyword
     }
   },
+  getDefaultValuesProject: (searchParams: URLSearchParams, DEFAULT_VALUES: TFilterPanelProjectFormSchema) => {
+    return {
+      ...formHelper.getDefaultValuesFilterPanel(searchParams, DEFAULT_VALUES),
+      [EFilterPanelProjectFormKey.Department]:
+        searchParams.get(EFilterPanelProjectFormKey.Department) ?? DEFAULT_VALUES?.departmentId,
+      [EFilterPanelProjectFormKey.Status]:
+        (searchParams.get(EFilterPanelProjectFormKey.Status) as EProjectStatus) ?? DEFAULT_VALUES?.status
+    }
+  },
   getDefaultValuesAddProjectMember: () => {
     return {
       [EAddProjectMemberFormKey.Employee]: '',
       [EAddProjectMemberFormKey.Role]: '',
       [EAddProjectMemberFormKey.Allocation]: '',
       [EAddProjectMemberFormKey.JoinedDate]: undefined,
-      [EAddProjectMemberFormKey.ConfirmOverAllocation]: false
+      [EAddProjectMemberFormKey.ConfirmOverAllocation]: false,
+      [EAddProjectMemberFormKey.OtherAllocation]: 0
     }
   },
   getDefaultValuesLogin: () => {

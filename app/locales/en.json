@@ -11,7 +11,8 @@
     "orgPositionProject": "{{projectName}} Project · {{memberCount}} members",
     "all": "All",
     "showingCount": "Showing {{shown}} / {{total}}",
-    "projectSummary": "{{total}} projects · In progress {{inProgress}} · Ending soon {{endingSoon}} · Kick-off {{kickoff}} · Completed {{completed}}",
+    "projectTotal": "{{total}} projects",
+    "projectEndingSoon": "Ending soon",
     "pmName": "PM {{name}}",
     "personCount": "{{count}} people",
     "fteValue": "{{value}} FTE",
@@ -112,10 +113,11 @@
       "ko": "South Korea"
     },
     "projectStatus": {
-      "inProgress": "In progress",
-      "kickoff": "Kick-off",
-      "endingSoon": "Ending soon",
-      "completed": "Completed"
+      "all": "All statuses",
+      "planning": "Kick-off",
+      "running": "In progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
     },
     "department": {
       "technology": "Technology",

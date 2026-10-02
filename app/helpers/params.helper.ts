@@ -1,7 +1,8 @@
 import type {
   TFilterPanelEmployeeDocumentFormSchema,
   TFilterPanelEmployeeEventFormSchema,
-  TFilterPanelEmployeeProfileFormSchema
+  TFilterPanelEmployeeProfileFormSchema,
+  TFilterPanelProjectFormSchema
 } from '~/helpers/schema.helper'
 import { DEFAULT_PAGING } from '~/hooks/use-pagination'
 import type { EEmployeeProfileDetailTab, EEmployeeProfileTab, EEmployeeStatus } from '~/shared/enums/common.enum'
@@ -25,6 +26,13 @@ export const paramsHelper = {
       employmentStatus:
         searchParams.get('employmentStatus') ?? (defaultValues?.employmentStatus as EEmployeeStatus) ?? '',
       tab: tab as string
+    }
+  },
+  projectToSearchParams: (searchParams: URLSearchParams, defaultValues?: TFilterPanelProjectFormSchema) => {
+    return {
+      ...paramsHelper.paginationToSearchParams(searchParams),
+      departmentId: searchParams.get('departmentId') ?? defaultValues?.departmentId ?? '',
+      status: searchParams.get('status') ?? defaultValues?.status ?? ''
     }
   },
   employeeDocumentToSearchParams: (

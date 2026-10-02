@@ -56,6 +56,13 @@ export const dateHelper = {
     return `${dayjs(fromDate).format(formatString)} ~ ${dayjs(toDate).format(formatString)}`
   },
 
+  // Month range "01/2026 – 12/2026"; an open side is left out, '' when both are missing
+  formatMonthRange: (fromDate?: Date | string | dayjs.Dayjs, toDate?: Date | string | dayjs.Dayjs) =>
+    [fromDate, toDate]
+      .map((date) => dateHelper.formatDate(date, DATE_FORMAT_MONTH_YEAR))
+      .filter(Boolean)
+      .join(' – '),
+
   // Compact day range without the year: "21/09", "21–22/09" (same month), "30/09–02/10"; '' when fromDate is missing
   formatShortDateRange: (fromDate?: Date | string | dayjs.Dayjs, toDate?: Date | string | dayjs.Dayjs) => {
     if (!fromDate) return ''
