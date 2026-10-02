@@ -417,6 +417,7 @@
     "overdueRequests": "{{count}} đơn đã quá hạn xử lý {{days}} ngày",
     "withinNextDays": "Trong vòng {{days}} ngày tới",
     "uploadDocumentSuccess": "Đã tải lên tài liệu",
+    "uploadFileFailed": "Tải tệp lên thất bại, vui lòng thử lại",
     "deleteDocumentSuccess": "Đã xoá tài liệu",
     "deleteDocumentConfirm": "Xoá tài liệu \"{{name}}\"? Thao tác này không thể hoàn tác.",
     "documentUploadRule": "Tài liệu nhân viên tải lên cần HR duyệt",

@@ -417,6 +417,7 @@
     "overdueRequests": "{{days}}일 기한 초과 {{count}}건",
     "withinNextDays": "향후 {{days}}일 이내",
     "uploadDocumentSuccess": "문서가 업로드되었습니다",
+    "uploadFileFailed": "파일 업로드에 실패했습니다. 다시 시도해 주세요",
     "deleteDocumentSuccess": "문서가 삭제되었습니다",
     "deleteDocumentConfirm": "\"{{name}}\" 문서를 삭제하시겠습니까? 되돌릴 수 없습니다.",
     "documentUploadRule": "직원이 업로드한 문서는 HR 승인이 필요합니다",

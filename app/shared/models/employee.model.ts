@@ -161,11 +161,11 @@ export interface IDocumentWarning {
   description?: string
 }
 
-// POST /employee/{userId}/document — EmployeeDocumentUploadForm (multipart)
-export interface IUploadEmployeeDocumentPayload {
+// POST /employee/{userId}/document — EmployeeDocumentUploadForm (JSON). `fileUrl` is the one POST /file/upload returned
+export interface IAddEmployeeDocumentPayload {
   userId?: number
-  documentType: EEmployeeDocumentType
-  file: File
+  fileUrl?: string
+  documentType?: EEmployeeDocumentType
   note?: string
 }
 
