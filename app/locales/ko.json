@@ -49,7 +49,8 @@
     "totalSize": "용량",
     "fileCount": "{{count}}개 파일",
     "idAndQualificationDocuments": "신분증 · 학위",
-    "recruitmentAndOtherDocuments": "채용 서류 · 기타"
+    "recruitmentAndOtherDocuments": "채용 서류 · 기타",
+    "stepCurrentlyPause": "단계 {{step}}/{{totalStep}} · {{name}}"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -262,6 +263,13 @@
       "occurredAt": "시간",
       "actor": "처리자",
       "content": "변경 내용"
+    },
+    "draftEmployeeTableKey": {
+      "draftProfile": "임시 프로필",
+      "department": "부서",
+      "stepCurrentlyPause": "단계 {{step}}/{{totalStep}} · {{name}}",
+      "needAdditional": "추가 보완 필요",
+      "update": "업데이트"
     }
   },
   "inputLabel": {
@@ -331,6 +339,8 @@
     "enterIfDifferentFromPermanentAddress": "상주 주소와 다를 경우 입력하세요",
     "departmentAll": "부서: 전체",
     "searchEmployee": "이름, 사원 코드, 이메일...",
+    "searchDraftEmployee": "이름, 주민등록번호, 이메일…",
+    "pausedStepAll": "중단 단계: 전체",
     "searchProject": "프로젝트명, 코드, PM…",
     "selectEmployee": "직원 선택",
     "select": "선택",

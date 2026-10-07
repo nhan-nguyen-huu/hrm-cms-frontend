@@ -99,6 +99,7 @@ export const DATA = {
     ]
   },
   GET_OPTIONS_EMPLOYEE_STATUS: commonHelper.getEnumOptions(EEmployeeStatus, 'employeeStatus'),
+  GET_OPTIONS_ONBOARDING_STEP: commonHelper.getEnumOptions(EOnboardingStep, 'onboardingStep'),
   GET_OPTIONS_EMPLOYEE_PROFILE_TAB: commonHelper.getEnumOptions(EEmployeeProfileTab, 'employeeProfileTab'),
   GET_OPTIONS_EMPLOYEE_PROFILE_DETAIL_TAB: commonHelper.getEnumOptions(
     EEmployeeProfileDetailTab,

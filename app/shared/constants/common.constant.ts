@@ -18,4 +18,4 @@ export const COMMON_CONSTANT = {
   // Days a request may wait for approval before it counts as overdue (design: "quá hạn SLA 2 ngày")
   // TODO(assumption): confirm whether BE makes this configurable
   REQUEST_SLA_DAYS: 2
-}
+} as const
