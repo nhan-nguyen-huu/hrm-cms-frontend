@@ -9,17 +9,22 @@ import TitleHead from '~/components/customs/table-custom/components/title-head'
 import DocumentStatus from '~/components/tags/document-status'
 import EmployeeInfo from '~/components/tags/employee-info'
 import EmployeeStatus from '~/components/tags/employee-status'
+import { Button } from '~/components/ui/button'
 import { DATE_FORMAT_SLASH, DATE_TIME_FORMAT_SLASH, dateHelper } from '~/helpers/date.helper'
 import { fortmatHelper } from '~/helpers/format.helper'
 import type { TGetTranslateEnumFn } from '~/hooks/user-transfer-enum'
+import InfoUpdateEmployee from '~/routes/dashboard/employee-mgt/employee-profile/components/info-update-employee'
+import NeedAdditional from '~/routes/dashboard/employee-mgt/employee-profile/components/need-additional'
+import StepCurrentlyPause from '~/routes/dashboard/employee-mgt/employee-profile/components/step-currently-pause'
 import { EEmployeeDocumentType, type EEmployeeStatus, EOrgEventType } from '~/shared/enums/common.enum'
 import {
   EBaseTableKey,
+  EDraftEmployeeTableKey,
   EEmployeeDocumentTableKey,
   EEmployeeEventTableKey,
   EEmployeeProfileTableKey
 } from '~/shared/enums/table.enum'
-import type { IEmployee, IEmployeeDocument, IOrgEvent } from '~/shared/models/employee.model'
+import type { IDraftEmployee, IEmployee, IEmployeeDocument, IOrgEvent } from '~/shared/models/employee.model'
 
 interface IEmployeeDocumentColumnOptions {
   // Buttons of a row (open, delete)
@@ -113,6 +118,93 @@ export const employeeMgtColumn = {
           )
         },
         size: 160
+      }
+    ]
+    return columns
+  },
+  getDraftEmployee: (t: TFunction) => {
+    const columns: ColumnDef<IDraftEmployee>[] = [
+      {
+        id: EBaseTableKey.Select,
+        header: ({ table }) => <CheckboxTableField table={table} tableType='HEADER' />,
+        cell: ({ row }) => <CheckboxTableField row={row} tableType='BODY' />,
+        size: 40,
+        enableSorting: false,
+        enableHiding: false,
+        meta: {
+          disableNavigation: true
+        }
+      },
+      {
+        accessorKey: EDraftEmployeeTableKey.DraftProfile,
+        header: () => {
+          return <TitleHead title={t('tables.draftEmployeeTableKey.draftProfile')} className='text-left' />
+        },
+        cell: ({ row }) => {
+          return (
+            <EmployeeInfo
+              name={row.original?.payload?.personal?.fullName}
+              email={row.original?.payload?.personal?.personalEmail}
+            />
+          )
+        },
+        size: 160
+      },
+      {
+        accessorKey: EDraftEmployeeTableKey.Department,
+        header: () => {
+          return <TitleHead title={t('tables.draftEmployeeTableKey.department')} className='text-left' />
+        },
+        cell: ({ row }) => {
+          return <ContentBody content={row?.original?.payload?.job?.departmentName} className='text-left' />
+        },
+        size: 120
+      },
+      {
+        accessorKey: EDraftEmployeeTableKey.StepCurrentlyPause,
+        header: () => {
+          return <TitleHead title={t('tables.draftEmployeeTableKey.stepCurrentlyPause')} className='text-left' />
+        },
+        cell: ({ row }) => {
+          return <StepCurrentlyPause currentStep={row?.original?.currentStep} />
+        },
+        size: 200
+      },
+      {
+        accessorKey: EDraftEmployeeTableKey.NeedAdditional,
+        header: () => {
+          return <TitleHead title={t('tables.draftEmployeeTableKey.needAdditional')} className='text-left' />
+        },
+        cell: ({ row }) => {
+          return <NeedAdditional missingFields={row?.original?.missingFields} />
+        },
+        size: 160
+      },
+      {
+        accessorKey: EDraftEmployeeTableKey.Update,
+        header: () => {
+          return <TitleHead title={t('tables.draftEmployeeTableKey.update')} className='text-left' />
+        },
+        cell: ({ row }) => {
+          return (
+            <InfoUpdateEmployee updatedAt={row?.original?.updatedAt} updatedByName={row?.original?.updatedByName} />
+          )
+        },
+        size: 140
+      },
+      {
+        accessorKey: EBaseTableKey.Action,
+        header: () => {
+          return <TitleHead title={t('tables.baseTableKey.action')} />
+        },
+        cell: () => {
+          return (
+            <section className='flex items-center justify-center'>
+              <Button variant={'link'}>{t('action.continue')}</Button>
+            </section>
+          )
+        },
+        size: 120
       }
     ]
     return columns

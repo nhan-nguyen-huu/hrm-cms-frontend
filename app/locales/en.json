@@ -49,7 +49,8 @@
     "totalSize": "Size",
     "fileCount": "{{count}} files",
     "idAndQualificationDocuments": "ID · qualifications",
-    "recruitmentAndOtherDocuments": "Recruitment · other"
+    "recruitmentAndOtherDocuments": "Recruitment · other",
+    "stepCurrentlyPause": "Step {{step}}/{{totalStep}} · {{name}}"
   },
   "sidebarMenu": {
     "employeeMgt": {
@@ -262,6 +263,13 @@
       "occurredAt": "Time",
       "actor": "Changed by",
       "content": "Change"
+    },
+    "draftEmployeeTableKey": {
+      "draftProfile": "Draft profile",
+      "department": "Department",
+      "stepCurrentlyPause": "Step {{step}}/{{totalStep}} · {{name}}",
+      "needAdditional": "Additional information needed",
+      "update": "Update"
     }
   },
   "inputLabel": {
@@ -331,6 +339,8 @@
     "enterIfDifferentFromPermanentAddress": "Enter if different from permanent address",
     "departmentAll": "Department: All",
     "searchEmployee": "Name, employee ID, email...",
+    "searchDraftEmployee": "Name, national ID, email…",
+    "pausedStepAll": "Paused at step: All",
     "searchProject": "Project name, code, PM…",
     "selectEmployee": "Select an employee",
     "select": "Select",

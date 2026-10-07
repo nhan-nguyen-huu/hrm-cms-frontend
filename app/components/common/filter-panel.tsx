@@ -28,6 +28,7 @@ interface IBaseFilterField<T extends FieldValues> {
   placeholder?: string
   options?: IOption[]
   hasAllOption?: boolean
+  placeholderAllOption?: string
   className?: string
   showTime?: boolean
 }
@@ -63,7 +64,11 @@ const FilterPanel = <T extends FieldValues>({ form, fields = [], onReset, onSear
                       <FormSelectField
                         field={f}
                         fieldState={fs}
-                        options={commonHelper.handleOptionFilter(item?.hasAllOption, item?.options)}
+                        options={commonHelper.handleOptionFilter(
+                          item?.hasAllOption,
+                          item?.options,
+                          item?.placeholderAllOption
+                        )}
                         placeHolder={item.placeholder}
                       />
                     )

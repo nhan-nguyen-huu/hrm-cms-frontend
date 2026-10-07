@@ -1,10 +1,16 @@
 import type {
+  TFilterPanelDraftEmployeeFormSchema,
   TFilterPanelEmployeeDocumentFormSchema,
   TFilterPanelEmployeeEventFormSchema,
   TFilterPanelEmployeeProfileFormSchema
 } from '~/helpers/schema.helper'
 import { DEFAULT_PAGING } from '~/hooks/use-pagination'
-import type { EEmployeeProfileDetailTab, EEmployeeProfileTab, EEmployeeStatus } from '~/shared/enums/common.enum'
+import type {
+  EEmployeeProfileDetailTab,
+  EEmployeeProfileTab,
+  EEmployeeStatus,
+  EOnboardingStep
+} from '~/shared/enums/common.enum'
 import { EFilterPanelFormKey } from '~/shared/enums/form.enum'
 
 export const paramsHelper = {
@@ -24,6 +30,17 @@ export const paramsHelper = {
       ...paramsHelper.paginationToSearchParams(searchParams),
       employmentStatus:
         searchParams.get('employmentStatus') ?? (defaultValues?.employmentStatus as EEmployeeStatus) ?? '',
+      tab: tab as string
+    }
+  },
+  draftEmployeeToSearchParams: (
+    searchParams: URLSearchParams,
+    defaultValues?: TFilterPanelDraftEmployeeFormSchema,
+    tab?: EEmployeeProfileTab
+  ) => {
+    return {
+      ...paramsHelper.paginationToSearchParams(searchParams),
+      currentStep: searchParams.get('currentStep') ?? (defaultValues?.currentStep as EOnboardingStep) ?? '',
       tab: tab as string
     }
   },

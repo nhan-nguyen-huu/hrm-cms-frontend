@@ -1,16 +1,25 @@
 import React from 'react'
 
+import { clsx } from 'cn'
 import { RotateCcw, Search } from 'lucide-react'
 import { DownloadIcon, PencilIcon, PlusIcon, TrashIcon, UploadIcon } from '~/assets/svgs'
 import { Button } from '~/components/ui/button'
-import type { TButtonAction, TButtonVariant } from '~/shared/types/common.type'
+import type { TButtonAction, TButtonVariant, TPositionIcon } from '~/shared/types/common.type'
 
 interface IButtonActionProps extends React.ComponentProps<'button'> {
   actionName: string
   actionType?: TButtonAction
+  positionIcon?: TPositionIcon
+  variantClassName?: TButtonVariant
 }
 
-const ButtonAction = ({ actionType = 'DEFAULT', actionName, ...props }: IButtonActionProps) => {
+const ButtonAction = ({
+  actionType = 'DEFAULT',
+  actionName,
+  positionIcon,
+  variantClassName,
+  ...props
+}: IButtonActionProps) => {
   const iconMapping: Record<TButtonAction, React.ComponentType<React.SVGProps<SVGSVGElement>> | undefined> = {
     DEFAULT: undefined,
     CREATE: PlusIcon,
@@ -32,10 +41,10 @@ const ButtonAction = ({ actionType = 'DEFAULT', actionName, ...props }: IButtonA
     DELETE: 'destructive'
   }
   const Icon = iconMapping[actionType]
-  const variant = variantMapping[actionType]
+  const variant = variantClassName ?? variantMapping[actionType]
   return (
-    <Button {...props} variant={variant}>
-      {Icon && <Icon className='size-5' />}
+    <Button variant={variant} {...props}>
+      {Icon && <Icon className={clsx('size-5', positionIcon === 'RIGHT' && 'order-2')} />}
       <span>{actionName}</span>
     </Button>
   )

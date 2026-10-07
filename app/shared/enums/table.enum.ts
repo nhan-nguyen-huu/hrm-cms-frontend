@@ -17,6 +17,14 @@ export enum EEmployeeProfileTableKey {
   Status = 'status'
 }
 
+export enum EDraftEmployeeTableKey {
+  DraftProfile = 'draftProfile',
+  Department = 'department',
+  StepCurrentlyPause = 'stepCurrentlyPause',
+  NeedAdditional = 'needAdditional',
+  Update = 'update'
+}
+
 export enum EProjectTableKey {
   Name = 'name',
   Code = 'code',
