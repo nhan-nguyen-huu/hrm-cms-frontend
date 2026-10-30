@@ -45,11 +45,12 @@ interface DataTableProps<TData, TValue> {
   rowSelection?: RowSelectionState
   onRowSelectionChange?: OnChangeFn<RowSelectionState>
   // Pagination
-  page: number
-  totalPage: number
-  pageSize: number
-  onPageChange: (page: number) => void
-  onPageSizeChange: (size: number) => void
+  page?: number
+  totalPage?: number
+  pageSize?: number
+  onPageChange?: (page: number) => void
+  onPageSizeChange?: (size: number) => void
+  isHiddenPagination?: boolean
 }
 
 const TableCustom = <TData, TValue>({
@@ -75,7 +76,8 @@ const TableCustom = <TData, TValue>({
   pageSize,
   totalPage,
   onPageChange,
-  onPageSizeChange
+  onPageSizeChange,
+  isHiddenPagination
 
   // onDelete
 }: DataTableProps<TData, TValue>) => {
@@ -177,22 +179,21 @@ const TableCustom = <TData, TValue>({
                             ))}
                           </TableRow>
                         ))}
-                        <TableRow className='hover:bg-transparent'>
-                          <TableCell colSpan={visibleColumnsCount}>
-                            <section className='flex items-center justify-between gap-2 w-full h-6'>
-                              {/* {totalRow > 0 && (
-                                <p className='text-[#6E7F96] text-[12.5px]'>Đã chọn {totalRow} nhân viên</p>
-                              )} */}
-                              <PaginationCustom
-                                page={page}
-                                totalPage={totalPage}
-                                onPageChange={onPageChange}
-                                pageSize={pageSize}
-                                onPageSizeChange={onPageSizeChange}
-                              />
-                            </section>
-                          </TableCell>
-                        </TableRow>
+                        {!isHiddenPagination && (
+                          <TableRow className='hover:bg-transparent'>
+                            <TableCell colSpan={visibleColumnsCount}>
+                              <section className='flex items-center justify-between gap-2 w-full h-6'>
+                                <PaginationCustom
+                                  page={page ?? 0}
+                                  totalPage={totalPage ?? 0}
+                                  onPageChange={onPageChange!}
+                                  pageSize={pageSize ?? 0}
+                                  onPageSizeChange={onPageSizeChange!}
+                                />
+                              </section>
+                            </TableCell>
+                          </TableRow>
+                        )}
                       </>
                     }
                     whenFalse={

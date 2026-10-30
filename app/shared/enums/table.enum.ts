@@ -55,3 +55,10 @@ export enum EEmployeeEventTableKey {
   Actor = 'actorFullName',
   Content = 'message'
 }
+
+export enum EEmployementContractFormKey {
+  ContractType = 'contractType',
+  ContractNumber = 'contractNumber',
+  EffectiveNess = 'effectiveNess',
+  Status = 'status'
+}
