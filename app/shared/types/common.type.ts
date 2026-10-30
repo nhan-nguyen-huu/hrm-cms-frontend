@@ -23,3 +23,4 @@ export type TFilterPanelForm =
   TFilterPanelFormSchema | TFilterPanelEmployeeProfileFormSchema | TFilterPanelProjectFormSchema
 export type TFieldFilterPanel = 'INPUT_GROUP' | 'SELECT' | 'DATE' | 'DATE_RANGE' | 'RADIO'
 export type TAspect = 'EMPLOYEE'
+export type TFormatNumber = 'NUMBER' | 'CURRENCY'

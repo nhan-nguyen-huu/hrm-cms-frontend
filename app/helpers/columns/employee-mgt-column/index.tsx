@@ -22,7 +22,8 @@ import {
   EDraftEmployeeTableKey,
   EEmployeeDocumentTableKey,
   EEmployeeEventTableKey,
-  EEmployeeProfileTableKey
+  EEmployeeProfileTableKey,
+  EEmployementContractFormKey
 } from '~/shared/enums/table.enum'
 import type { IDraftEmployee, IEmployee, IEmployeeDocument, IOrgEvent } from '~/shared/models/employee.model'
 
@@ -330,6 +331,44 @@ export const employeeMgtColumn = {
           )
         },
         size: 420
+      }
+    ]
+    return columns
+  },
+  getEmploymentContract: (t: TFunction) => {
+    const columns: ColumnDef<IEmployee | any>[] = [
+      {
+        accessorKey: EEmployementContractFormKey.ContractType,
+        header: () => <TitleHead title={t('tables.employmentContractTableKey.contractType')} className='text-left' />,
+        cell: ({ row }) => (
+          <ContentBody
+            content={row.getValue(EEmployementContractFormKey.ContractType)}
+            className='text-left font-semibold'
+          />
+        ),
+        size: 160
+      },
+      {
+        accessorKey: EEmployementContractFormKey.ContractNumber,
+        header: () => <TitleHead title={t('tables.employmentContractTableKey.contractNumber')} className='text-left' />,
+        cell: ({ row }) => (
+          <ContentBody content={row.getValue(EEmployementContractFormKey.ContractNumber)} className='text-left' />
+        ),
+        size: 160
+      },
+      {
+        accessorKey: EEmployementContractFormKey.EffectiveNess,
+        header: () => <TitleHead title={t('tables.employmentContractTableKey.effectiveNess')} className='text-left' />,
+        cell: ({ row }) => (
+          <ContentBody content={row.getValue(EEmployementContractFormKey.EffectiveNess)} className='text-left' />
+        ),
+        size: 160
+      },
+      {
+        accessorKey: EEmployementContractFormKey.Status,
+        header: () => <TitleHead title={t('tables.employmentContractTableKey.status')} />,
+        cell: ({ row }) => <ContentBody content={row.getValue(EEmployementContractFormKey.Status)} />,
+        size: 160
       }
     ]
     return columns
