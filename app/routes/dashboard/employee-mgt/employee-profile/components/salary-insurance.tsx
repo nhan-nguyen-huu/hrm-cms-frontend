@@ -1,21 +1,21 @@
 import { useTranslation } from 'react-i18next'
 import CardCustom from '~/components/customs/card-custom'
-import { fortmatHelper } from '~/helpers'
+import { formatHelper } from '~/helpers'
 
 const SalaryInsurance = () => {
   const { t } = useTranslation()
   const _DATA = [
     {
       label: t('title.baseSalary'),
-      value: fortmatHelper.formatCurrency(19000000)
+      value: formatHelper.formatCurrency(19000000)
     },
     {
       label: t('title.insuranceSalary'),
-      value: fortmatHelper.formatCurrency(12000000)
+      value: formatHelper.formatCurrency(12000000)
     },
     {
       label: t('title.fixedAllowance'),
-      value: fortmatHelper.formatCurrency(2200000)
+      value: formatHelper.formatCurrency(2200000)
     },
     {
       label: t('title.dependents'),

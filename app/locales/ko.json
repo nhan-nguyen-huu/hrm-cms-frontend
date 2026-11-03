@@ -88,6 +88,21 @@
       "terminated": "퇴사",
       "probation": "수습"
     },
+    "contractType": {
+      "probation": "수습 계약",
+      "definiteTerm": "기간제 계약",
+      "indefiniteTerm": "무기 계약",
+      "seasonal": "계절 근로 계약"
+    },
+    "employmentType": {
+      "fullTime": "정규직",
+      "partTime": "시간제",
+      "contract": "계약직",
+      "intern": "인턴"
+    },
+    "workShift": {
+      "standard": "일반 근무 09:00 – 18:00"
+    },
     "employeeProfileTab": {
       "officialRecord": "공식 기록",
       "draft": "임시 저장"
@@ -290,6 +305,28 @@
     "username": "아이디",
     "password": "비밀번호",
     "fullName": "성명",
+    "department": "부서",
+    "participatingProject": "참여 프로젝트",
+    "jobTitle": "직책",
+    "jobGrade": "직급",
+    "lineManager": "직속 관리자",
+    "workLocation": "근무지",
+    "employmentType": "고용 형태",
+    "workShift": "근무조",
+    "annualLeaveFund": "연차 휴가 한도",
+    "contractType": "계약 유형",
+    "contractNumber": "계약 번호",
+    "signedDate": "계약 체결일",
+    "effectiveDate": "효력 발생일",
+    "expiryDate": "만료일",
+    "probationSalaryRate": "수습 급여 비율(%)",
+    "baseSalary": "기본급",
+    "probationSalary": "수습 급여",
+    "insuranceSalary": "보험 기준 급여",
+    "allowanceName": "수당명",
+    "amount": "금액",
+    "bankName": "은행명",
+    "bankAccountNumber": "은행 계좌번호",
     "birthDate": "생년월일",
     "gender": "성별",
     "cccdNumber": "신분증 번호",
@@ -386,7 +423,13 @@
     "portraitPhoto": "증명사진",
     "note": "참고",
     "importProgress": "입력 진행률",
+    "jobPosition": "직무 위치",
     "orgPosition": "조직 내 위치",
+    "timeAndWorkplace": "근무 기간 및 장소",
+    "appliedPolicies": "적용 정책",
+    "contractDetails": "계약",
+    "income": "소득",
+    "insuranceTaxAccount": "보험, 세금 및 계좌",
     "projectMembers": "프로젝트 구성원",
     "projectInfo": "프로젝트 정보",
     "staffAllocation": "인력 배분",
@@ -472,7 +515,10 @@
     "documentUploadRule": "직원이 업로드한 문서는 HR 승인이 필요합니다",
     "dropOrPickFile": "파일을 끌어다 놓거나 클릭하여 선택",
     "documentFileRule": "PDF, JPG, PNG · 파일당 최대 10MB",
-    "featureNotAvailable": "아직 API가 없는 기능입니다"
+    "featureNotAvailable": "아직 API가 없는 기능입니다",
+    "probationInsuranceNote": "수습 기간에는 별도 계약을 체결하므로 보험이 적용되지 않습니다. 정식 근로 계약으로 전환되면 시스템에서 자동으로 적용합니다.",
+    "allowanceInsuranceNote": "각 수당의 과세 및 보험 적용 여부는 첫 급여 지급 전에 회계팀에서 확정합니다.",
+    "futureStartDateNote": "입사일 {{date}}은(는) 미래 날짜이므로 해당 날짜까지 프로필이 입사 대기 상태로 표시되며 근태에 포함되지 않습니다."
   },
   "confirm": {
     "confirmLogoutTitle": "로그아웃하시겠습니까?",
@@ -512,6 +558,7 @@
     "reject": "반려",
     "exportReport": "보고서 내보내기",
     "add": "추가",
+    "addAllowance": "수당 추가",
     "addNote": "메모",
     "editSection": "이 항목 수정",
     "upload": "업로드",

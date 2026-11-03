@@ -3,11 +3,15 @@ import { API_EMPLOYEE } from '~/shared/constants/api.constant'
 import type { IApiPagination, IApiResponse } from '~/shared/models/common.model'
 import type {
   IAddEmployeeDocumentPayload,
+  IContract,
   IDraftEmployee,
   IEmployee,
   IEmployeeDocument,
   IEmployeeParams,
-  IOrgEvent
+  IJob,
+  IOptionResponse,
+  IOrgEvent,
+  IPersonal
 } from '~/shared/models/employee.model'
 
 export const EmployeeService = {
@@ -37,5 +41,35 @@ export const EmployeeService = {
   // Not paginated: recent events about this person
   GetEmployeeEvents: async (userId?: number): Promise<IApiResponse<IOrgEvent[]>> => {
     return await axiosClient.get(API_EMPLOYEE.GET_EVENTS_URL(userId))
+  },
+  GetInfoEmployeeDraft: async (id?: number): Promise<IApiResponse<IEmployee>> => {
+    return await axiosClient.get(API_EMPLOYEE.GET_INFO_EMPLOYEE_DRAFT_URL(id))
+  },
+  SavePersonalStep: async (payload?: IPersonal): Promise<IApiResponse<IEmployee>> => {
+    return await axiosClient.post(API_EMPLOYEE.SAVE_PERSONAL_URL, payload)
+  },
+  GetListDepartment: async (params?: IEmployeeParams): Promise<IApiResponse<IOptionResponse[]>> => {
+    return await axiosClient.get(API_EMPLOYEE.GET_LIST_DEPARTMENT_URL, { params })
+  },
+  GetListProject: async (params?: IEmployeeParams): Promise<IApiResponse<IOptionResponse[]>> => {
+    return await axiosClient.get(API_EMPLOYEE.GET_LIST_PROJECT_URL, { params })
+  },
+  GetListJobTitle: async (params?: IEmployeeParams): Promise<IApiResponse<IOptionResponse[]>> => {
+    return await axiosClient.get(API_EMPLOYEE.GET_LIST_JOB_TITLE_URL, { params })
+  },
+  GetListJobGrade: async (params?: IEmployeeParams): Promise<IApiResponse<IOptionResponse[]>> => {
+    return await axiosClient.get(API_EMPLOYEE.GET_LIST_JOB_GRADE_URL, { params })
+  },
+  GetListManager: async (params?: IEmployeeParams): Promise<IApiResponse<IOptionResponse[]>> => {
+    return await axiosClient.get(API_EMPLOYEE.GET_LIST_MAMAGER_URL, { params })
+  },
+  GetListOffice: async (params?: IEmployeeParams): Promise<IApiResponse<IOptionResponse[]>> => {
+    return await axiosClient.get(API_EMPLOYEE.GET_LIST_OFFICE_URL, { params })
+  },
+  SaveJobStep: async (payload?: IJob): Promise<IApiResponse<IEmployee>> => {
+    return await axiosClient.post(API_EMPLOYEE.SAVE_JOB_URL, payload)
+  },
+  SaveContractStep: async (payload?: IContract): Promise<IApiResponse<IEmployee>> => {
+    return await axiosClient.post(API_EMPLOYEE.SAVE_CONTRACT_URL, payload)
   }
 }

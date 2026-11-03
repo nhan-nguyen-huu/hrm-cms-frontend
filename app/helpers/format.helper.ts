@@ -3,13 +3,13 @@ import i18n from '~/lib/i18n'
 import { ELanguage } from '~/shared/enums/common.enum'
 import type { TFormatNumber } from '~/shared/types/common.type'
 
-export const fortmatHelper = {
+export const formatHelper = {
   onlyNumber: (value: string, maxLength?: number) => {
     const digits = value.replace(/\D/g, '')
     return maxLength ? digits.slice(0, maxLength) : digits
   },
-  phoneNumber: (value: string) => fortmatHelper.onlyNumber(value, 10),
-  cccdNumber: (value: string) => fortmatHelper.onlyNumber(value, 12),
+  phoneNumber: (value: string) => formatHelper.onlyNumber(value, 10),
+  cccdNumber: (value: string) => formatHelper.onlyNumber(value, 12),
   formatPhoneNumber: (value?: string) => {
     const raw = value?.replace(/\D/g, '').slice(0, 11)
     const part1 = raw?.slice(0, 3)
@@ -67,6 +67,14 @@ export const fortmatHelper = {
           currency: 'VND',
           maximumFractionDigits: 0
         }).format(value)
+    }
+  },
+  formatPrice: (value?: string) => {
+    let data = value?.replace(/,/g, '').replace(/\D/g, '') ?? ''
+    data = data.replace(/^0+(?=\d)/, '')
+    return {
+      raw: data,
+      formatted: data.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     }
   }
 }

@@ -1,8 +1,21 @@
 import type { TFunction } from 'i18next'
 import z from 'zod'
 import { CCCD_NUMBER_REGEX, EMAIL_REGEX, PHONE_NUMBER_REGEX } from '~/helpers/schema.helper'
-import { EEmployeeDocumentType, EGender, EMaritalStatus, ENationality } from '~/shared/enums/common.enum'
-import { EUploadEmployeeDocumentFormKey, ePersonalEmployeeFormKey } from '~/shared/enums/form.enum'
+import {
+  EContractType,
+  EEmployeeDocumentType,
+  EEmploymentType,
+  EGender,
+  EMaritalStatus,
+  ENationality,
+  EWorkShift
+} from '~/shared/enums/common.enum'
+import {
+  EContractEmployeeFormKey,
+  EJobEmployeeFormKey,
+  EPersonalEmployeeFormKey,
+  EUploadEmployeeDocumentFormKey
+} from '~/shared/enums/form.enum'
 
 // Upload rules shown in the design (CmsHoSoTaiLieu) — TODO(assumption): BE limits not in the API docs, confirm with BE
 export const EMPLOYEE_DOCUMENT_MAX_SIZE = 10 * 1024 * 1024
@@ -35,40 +48,112 @@ export type TUploadEmployeeDocumentSchema = z.infer<ReturnType<typeof getUploadE
 export const getPersonalEmployeeSchema = (t: TFunction) =>
   z.object({
     // Basic information
-    [ePersonalEmployeeFormKey.FullName]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
-    [ePersonalEmployeeFormKey.BirthDate]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
-    [ePersonalEmployeeFormKey.Gender]: z.enum(EGender, { error: t('inputValidate.thisInformationIsRequired') }),
-    [ePersonalEmployeeFormKey.CccdNumber]: z
+    [EPersonalEmployeeFormKey.FullName]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EPersonalEmployeeFormKey.DateOfBirth]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EPersonalEmployeeFormKey.Gender]: z.enum(EGender, { error: t('inputValidate.thisInformationIsRequired') }),
+    [EPersonalEmployeeFormKey.IdCardNumber]: z
       .string()
       .nonempty({ message: t('inputValidate.thisInformationIsRequired') })
       .regex(CCCD_NUMBER_REGEX, { message: t('inputValidate.invalidCccdFormat') }),
-    [ePersonalEmployeeFormKey.DateOfIssue]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
-    [ePersonalEmployeeFormKey.PlaceOfIssue]: z
+    [EPersonalEmployeeFormKey.IdCardIssuedDate]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EPersonalEmployeeFormKey.IdCardIssuedPlace]: z
       .string()
       .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
 
     // Contact
-    [ePersonalEmployeeFormKey.PhoneNumber]: z
+    [EPersonalEmployeeFormKey.Phone]: z
       .string()
       .nonempty({ message: t('inputValidate.thisInformationIsRequired') })
       .regex(PHONE_NUMBER_REGEX, { message: t('inputValidate.invalidPhoneFormat') }),
-    [ePersonalEmployeeFormKey.Email]: z
+    [EPersonalEmployeeFormKey.PersonalEmail]: z
       .string()
       .nonempty({ message: t('inputValidate.thisInformationIsRequired') })
       .regex(EMAIL_REGEX, t('inputValidate.invalidEmailFormat')),
-    [ePersonalEmployeeFormKey.EmergencyContact]: z.string().optional(),
-    [ePersonalEmployeeFormKey.PermanentAddress]: z
+    [EPersonalEmployeeFormKey.PermanentAddress]: z
       .string()
       .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
-    [ePersonalEmployeeFormKey.CurrentResidence]: z.string().optional(),
+    [EPersonalEmployeeFormKey.CurrentAddress]: z.string().optional(),
+    [EPersonalEmployeeFormKey.EmergencyContact]: z.string().optional(),
 
     // Additional
-    [ePersonalEmployeeFormKey.MaritalStatus]: z.enum(EMaritalStatus).optional(),
-    [ePersonalEmployeeFormKey.Nationality]: z.enum(ENationality).optional(),
-    [ePersonalEmployeeFormKey.NumberOfDependents]: z.string().optional(),
+    [EPersonalEmployeeFormKey.MaritalStatus]: z.enum(EMaritalStatus).optional(),
+    [EPersonalEmployeeFormKey.Nationality]: z.enum(ENationality).optional(),
+    [EPersonalEmployeeFormKey.DependentCount]: z.string().optional(),
 
     // Avatar
-    [ePersonalEmployeeFormKey.Avatar]: z.instanceof(File).optional()
+    [EPersonalEmployeeFormKey.Avatar]: z.instanceof(File).optional()
   })
 
 export type TPersonalEmployeeSchema = z.infer<ReturnType<typeof getPersonalEmployeeSchema>>
+
+export const getJobEmployeeSchema = (t: TFunction) =>
+  z.object({
+    [EJobEmployeeFormKey.DepartmentId]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EJobEmployeeFormKey.ProjectId]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EJobEmployeeFormKey.JobTitleId]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EJobEmployeeFormKey.JobGradeId]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EJobEmployeeFormKey.LineManagerId]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+
+    [EJobEmployeeFormKey.StartDate]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EJobEmployeeFormKey.EmploymentType]: z.enum(EEmploymentType, {
+      error: t('inputValidate.thisInformationIsRequired')
+    }),
+    [EJobEmployeeFormKey.OfficeId]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EJobEmployeeFormKey.WorkShift]: z.enum(EWorkShift, {
+      error: t('inputValidate.thisInformationIsRequired')
+    }),
+
+    [EJobEmployeeFormKey.AnnualLeaveDays]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') })
+  })
+
+export type TJobEmployeeSchema = z.infer<ReturnType<typeof getJobEmployeeSchema>>
+
+export const getContractEmployeeSchema = (t: TFunction) =>
+  z.object({
+    [EContractEmployeeFormKey.ContractType]: z.enum(EContractType, {
+      error: t('inputValidate.thisInformationIsRequired')
+    }),
+    [EContractEmployeeFormKey.ContractNumber]: z.string().optional(),
+    [EContractEmployeeFormKey.SignedDate]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.EffectiveDate]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.ExpiryDate]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.ProbationSalaryRate]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+
+    [EContractEmployeeFormKey.BaseSalary]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.ProbationSalary]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.InsuranceSalary]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.Allowances]: z
+      .array(
+        z.object({
+          [EContractEmployeeFormKey.AllowanceName]: z.string().optional(),
+          [EContractEmployeeFormKey.Amount]: z
+            .string()
+            .optional()
+            .refine((value) => Boolean(value), {
+              message: t('inputValidate.thisInformationIsRequired')
+            })
+        })
+      )
+      .optional(),
+
+    [EContractEmployeeFormKey.TaxCode]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.SocialInsuranceNumber]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.BankName]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.BankAccountNumber]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') })
+  })
+
+export type TContractEmployeeSchema = z.infer<ReturnType<typeof getContractEmployeeSchema>>

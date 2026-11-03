@@ -8,11 +8,11 @@ import FormSelectField from '~/components/forms/form-select-field'
 import { Field } from '~/components/ui/field'
 import { Input } from '~/components/ui/input'
 import UploadImage from '~/components/uploads/upload-image'
-import { fortmatHelper } from '~/helpers/format.helper'
+import { formatHelper } from '~/helpers/format.helper'
 import type { TPersonalEmployeeSchema } from '~/helpers/schemas/employee-schema.helper'
-import ImportProgressEmployee from '~/routes/dashboard/employee-mgt/employee-profile/components/import-progress-employee'
+import ImportProgressPersonalEmployee from '~/routes/dashboard/employee-mgt/employee-profile/components/import-progress-personal-employee'
 import { DATA } from '~/shared/constants/data.constant'
-import { ePersonalEmployeeFormKey } from '~/shared/enums/form.enum'
+import { EPersonalEmployeeFormKey } from '~/shared/enums/form.enum'
 
 interface IPersonalEmployeeFormProps {
   form: UseFormReturn<TPersonalEmployeeSchema>
@@ -33,7 +33,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 sm:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.FullName}
+                name={EPersonalEmployeeFormKey.FullName}
                 label={t('inputLabel.fullName')}
                 isRequired
                 render={(f, fs) => (
@@ -52,7 +52,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 md:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.BirthDate}
+                name={EPersonalEmployeeFormKey.DateOfBirth}
                 label={t('inputLabel.birthDate')}
                 isRequired
                 render={(f, fs) => (
@@ -69,7 +69,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 md:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.Gender}
+                name={EPersonalEmployeeFormKey.Gender}
                 label={t('inputLabel.gender')}
                 isRequired
                 render={(field, fieldState) => (
@@ -82,7 +82,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 sm:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.CccdNumber}
+                name={EPersonalEmployeeFormKey.IdCardNumber}
                 label={t('inputLabel.cccdNumber')}
                 isRequired
                 render={(f, fs) => (
@@ -95,7 +95,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
                     maxLength={12}
                     inputMode='numeric'
                     type='text'
-                    onChange={(e) => f.onChange(fortmatHelper.cccdNumber(e.target.value))}
+                    onChange={(e) => f.onChange(formatHelper.cccdNumber(e.target.value))}
                   />
                 )}
               />
@@ -105,7 +105,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 md:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.DateOfIssue}
+                name={EPersonalEmployeeFormKey.IdCardIssuedDate}
                 label={t('inputLabel.dateOfIssue')}
                 isRequired
                 render={(f, fs) => (
@@ -122,7 +122,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 sm:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.PlaceOfIssue}
+                name={EPersonalEmployeeFormKey.IdCardIssuedPlace}
                 label={t('inputLabel.placeOfIssue')}
                 isRequired
                 render={(f, fs) => (
@@ -146,7 +146,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 sm:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.PhoneNumber}
+                name={EPersonalEmployeeFormKey.Phone}
                 label={t('inputLabel.phoneNumber')}
                 isRequired
                 render={(f, fs) => (
@@ -159,7 +159,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
                     maxLength={10}
                     inputMode='numeric'
                     type='text'
-                    onChange={(e) => f.onChange(fortmatHelper.phoneNumber(e.target.value))}
+                    onChange={(e) => f.onChange(formatHelper.phoneNumber(e.target.value))}
                   />
                 )}
               />
@@ -169,7 +169,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 sm:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.Email}
+                name={EPersonalEmployeeFormKey.PersonalEmail}
                 label={t('inputLabel.personalEmail')}
                 isRequired
                 render={(f, fs) => (
@@ -188,7 +188,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 sm:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.EmergencyContact}
+                name={EPersonalEmployeeFormKey.EmergencyContact}
                 label={t('inputLabel.emergencyContact')}
                 render={(f, fs) => (
                   <Input
@@ -206,7 +206,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 sm:col-span-6'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.PermanentAddress}
+                name={EPersonalEmployeeFormKey.PermanentAddress}
                 label={t('inputLabel.permanentAddress')}
                 isRequired
                 render={(f, fs) => (
@@ -225,7 +225,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 sm:col-span-6'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.CurrentResidence}
+                name={EPersonalEmployeeFormKey.CurrentAddress}
                 label={t('inputLabel.currentResidence')}
                 render={(f, fs) => (
                   <Input
@@ -248,7 +248,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 md:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.MaritalStatus}
+                name={EPersonalEmployeeFormKey.MaritalStatus}
                 label={t('inputLabel.maritalStatus')}
                 isRequired
                 render={(field, fieldState) => (
@@ -261,7 +261,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 md:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.Nationality}
+                name={EPersonalEmployeeFormKey.Nationality}
                 label={t('inputLabel.nationality')}
                 isRequired
                 render={(field, fieldState) => (
@@ -274,7 +274,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
             <Field className='col-span-12 sm:col-span-4'>
               <FormField
                 control={form.control}
-                name={ePersonalEmployeeFormKey.NumberOfDependents}
+                name={EPersonalEmployeeFormKey.DependentCount}
                 label={t('inputLabel.numberOfDependents')}
                 render={(f, fs) => (
                   <Input
@@ -296,7 +296,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
           <Field>
             <FormField
               control={form.control}
-              name={ePersonalEmployeeFormKey.Avatar}
+              name={EPersonalEmployeeFormKey.Avatar}
               isRequired
               render={(f, fs) => (
                 <UploadImage
@@ -317,7 +317,7 @@ const PersonalEmployeeForm = ({ form }: IPersonalEmployeeFormProps) => {
         </CardCustom>
 
         {/* Import progress  */}
-        <ImportProgressEmployee form={form} />
+        <ImportProgressPersonalEmployee form={form} />
 
         {/* Note */}
         <CardCustom title={t('title.note')}>

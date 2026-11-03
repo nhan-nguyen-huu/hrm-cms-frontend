@@ -130,3 +130,9 @@ export interface IDataTab {
   actions?: React.ReactNode
   content?: React.ReactNode
 }
+
+export interface IProgressItem {
+  label?: string
+  isDone?: boolean
+  display?: string
+}

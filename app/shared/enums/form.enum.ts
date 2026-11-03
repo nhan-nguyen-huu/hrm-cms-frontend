@@ -35,29 +35,71 @@ export enum ELoginFormKey {
   Password = 'password'
 }
 
-export enum ePersonalEmployeeFormKey {
+export enum EPersonalEmployeeFormKey {
   // Basic
   FullName = 'fullName',
-  BirthDate = 'birthDate',
+  DateOfBirth = 'dateOfBirth',
   Gender = 'gender',
-  CccdNumber = 'cccdNumber',
-  DateOfIssue = 'dateOfIssue',
-  PlaceOfIssue = 'placeOfIssue',
+  IdCardNumber = 'idCardNumber',
+  IdCardIssuedDate = 'idCardIssuedDate',
+  IdCardIssuedPlace = 'idCardIssuedPlace',
 
   // Contact
-  PhoneNumber = 'phoneNumber',
-  Email = 'email',
-  EmergencyContact = 'emergencyContact',
+  Phone = 'phone',
+  PersonalEmail = 'personalEmail',
   PermanentAddress = 'permanentAddress',
-  CurrentResidence = 'currentResidence',
+  CurrentAddress = 'currentAddress',
+  EmergencyContact = 'emergencyContact',
 
   // Additional
   MaritalStatus = 'maritalStatus',
   Nationality = 'nationality',
-  NumberOfDependents = 'numberOfDependents',
+  DependentCount = 'dependentCount',
 
   // Avatar
   Avatar = 'avatar'
+}
+
+export enum EJobEmployeeFormKey {
+  // Position
+  DepartmentId = 'departmentId',
+  ProjectId = 'projectId',
+  JobTitleId = 'jobTitleId',
+  JobGradeId = 'jobGradeId',
+  LineManagerId = 'lineManagerId',
+
+  // Time & work
+  StartDate = 'startDate',
+  EmploymentType = 'employmentType',
+  OfficeId = 'officeId',
+  WorkShift = 'workShift',
+
+  // Policy
+  AnnualLeaveDays = 'annualLeaveDays'
+}
+
+export enum EContractEmployeeFormKey {
+  // Contract
+  ContractType = 'contractType',
+  ContractNumber = 'contractNumber',
+  SignedDate = 'signedDate',
+  EffectiveDate = 'effectiveDate',
+  ExpiryDate = 'expiryDate',
+  ProbationSalaryRate = 'probationSalaryRate',
+
+  // Salary
+  BaseSalary = 'baseSalary',
+  ProbationSalary = 'probationSalary',
+  InsuranceSalary = 'insuranceSalary',
+  Allowances = 'allowances',
+  AllowanceName = 'allowanceName',
+  Amount = 'amount',
+
+  // Insurance
+  TaxCode = 'taxCode',
+  SocialInsuranceNumber = 'socialInsuranceNumber',
+  BankName = 'bankName',
+  BankAccountNumber = 'bankAccountNumber'
 }
 
 export enum EFilterPanelEmployeeDocumentFormKey {

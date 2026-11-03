@@ -16,7 +16,7 @@ const HeaderUpsertEmployee = ({ activeStep = EOnboardingStep.Personal }: IHeader
   return (
     <CardCustom
       title={t('title.addNewEmployee')}
-      description={t('common.stepByStepEmployee', { activeStep: activeStep + 1 })}
+      description={t('common.stepByStepEmployee', { activeStep: activeStepNumber + 1 })}
       classNameDescription='text-[#6E7F96] text-[12.5px]'
       classNameCardTitle='font-bold! text-[19px] text-app-secondary capitalize'
     >

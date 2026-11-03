@@ -163,5 +163,25 @@ export const commonHelper = {
       prevStepKey: steps[activeStepNumber - 1],
       prevStepNumber: activeStepNumber - 1
     }
+  },
+  convertToOptions: <T extends object>(data: T[] | undefined, labelKey: keyof T, valueKey: keyof T): IOption[] =>
+    data?.map((item) => ({
+      label: String(item[labelKey] ?? ''),
+      value: String(item[valueKey] ?? '')
+    })) ?? [],
+
+  countCompletedFields: <TField extends string>(
+    fields: readonly TField[],
+    values: object | undefined,
+    errors: object
+  ): number => {
+    const valuesByKey = new Map(Object.entries(values ?? {}))
+    const errorsByKey = new Map(Object.entries(errors))
+    return fields.reduce((total, field) => {
+      const value = valuesByKey.get(field)
+      const hasValue = value !== undefined && value !== null && value !== ''
+      const hasError = Boolean(errorsByKey.get(field))
+      return hasValue && !hasError ? total + 1 : total
+    }, 0)
   }
 }

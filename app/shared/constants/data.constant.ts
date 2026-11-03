@@ -1,5 +1,5 @@
 import type { TFunction } from 'i18next'
-import { DATE_FORMAT_SLASH, DATE_TIME_FORMAT_DAY_MONTH, commonHelper, dateHelper, fortmatHelper } from '~/helpers'
+import { DATE_FORMAT_SLASH, DATE_TIME_FORMAT_DAY_MONTH, commonHelper, dateHelper, formatHelper } from '~/helpers'
 import type { TGetTranslateEnumFn } from '~/hooks/user-transfer-enum'
 import { COMMON_CONSTANT } from '~/shared/constants/common.constant'
 import { ROUTES } from '~/shared/constants/routes.constant'
@@ -21,12 +21,14 @@ import type { IRequest } from '~/shared/models/request.model'
 
 import { EnIcon, KoIcon, ViIcon } from '../../assets/svgs'
 import {
+  EContractType,
   EEducationLevel,
   EEmployeeDocumentStatus,
   EEmployeeDocumentType,
   EEmployeeProfileDetailTab,
   EEmployeeProfileTab,
   EEmployeeStatus,
+  EEmploymentType,
   EGender,
   ELanguage,
   EMaritalStatus,
@@ -36,7 +38,8 @@ import {
   EProjectStatus,
   ERelationship,
   ERequestStatus,
-  ERequestStatusFilter
+  ERequestStatusFilter,
+  EWorkShift
 } from '../enums/common.enum'
 
 const ORGANIZATION_PATH = `/${ROUTES.DASHBOARD.BASE}/${ROUTES.DASHBOARD.ORGANIZATION_MGT.BASE}`
@@ -94,6 +97,9 @@ export const DATA = {
     ]
   },
   GET_OPTIONS_EMPLOYEE_STATUS: commonHelper.getEnumOptions(EEmployeeStatus, 'employeeStatus'),
+  GET_OPTIONS_CONTRACT_TYPE: commonHelper.getEnumOptions(EContractType, 'contractType'),
+  GET_OPTIONS_EMPLOYMENT_TYPE: commonHelper.getEnumOptions(EEmploymentType, 'employmentType'),
+  GET_OPTIONS_WORK_SHIFT: commonHelper.getEnumOptions(EWorkShift, 'workShift'),
   GET_OPTIONS_ONBOARDING_STEP: commonHelper.getEnumOptions(EOnboardingStep, 'onboardingStep'),
   GET_OPTIONS_EMPLOYEE_PROFILE_TAB: commonHelper.getEnumOptions(EEmployeeProfileTab, 'employeeProfileTab'),
   GET_OPTIONS_EMPLOYEE_PROFILE_DETAIL_TAB: commonHelper.getEnumOptions(
@@ -474,7 +480,7 @@ export const DATA = {
     const totalSize = documents.reduce((sum, document) => sum + (document.fileSize ?? 0), 0)
     const ROWS: IInfoRow[] = [
       { label: t('common.totalDocuments'), value: t('common.fileCount', { count: documents.length }) },
-      { label: t('common.totalSize'), value: fortmatHelper.formatFileSize(totalSize) },
+      { label: t('common.totalSize'), value: formatHelper.formatFileSize(totalSize) },
       {
         label: t('enums.employeeDocumentType.signedContract'),
         value: t('common.fileCount', { count: count([EEmployeeDocumentType.SignedContract]) })

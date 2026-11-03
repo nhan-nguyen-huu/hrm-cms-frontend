@@ -33,8 +33,8 @@ const FormSelectField = <T extends FieldValues>({
       items={options.map((option) => ({ value: String(option.value ?? ''), label: option.label ?? '' }))}
       value={field.value ?? ''}
       onValueChange={(value) => {
-        field.onChange(value)
-        onValueChangeValidate?.(value as string)
+        field.onChange(value ?? '')
+        onValueChangeValidate?.()
       }}
       onOpenChange={(open) => {
         if (!open && !field.value) {

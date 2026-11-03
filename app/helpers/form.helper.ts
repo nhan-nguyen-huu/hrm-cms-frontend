@@ -19,15 +19,17 @@ import {
 } from '~/shared/enums/common.enum'
 import {
   EAddProjectMemberFormKey,
+  EContractEmployeeFormKey,
   EFilterPanelDraftEmployeeProfileFormKey,
   EFilterPanelEmployeeDocumentFormKey,
   EFilterPanelEmployeeEventFormKey,
   EFilterPanelEmployeeProfileFormKey,
   EFilterPanelFormKey,
   EFilterPanelProjectFormKey,
+  EJobEmployeeFormKey,
   ELoginFormKey,
-  EUploadEmployeeDocumentFormKey,
-  ePersonalEmployeeFormKey
+  EPersonalEmployeeFormKey,
+  EUploadEmployeeDocumentFormKey
 } from '~/shared/enums/form.enum'
 
 export const formHelper = {
@@ -61,28 +63,58 @@ export const formHelper = {
       [ELoginFormKey.Password]: ''
     }
   },
-  getDefaultValuesLoginPersonalEmployee: () => {
+  getDefaultValuesPersonalEmployee: () => {
     return {
-      [ePersonalEmployeeFormKey.FullName]: '',
-      [ePersonalEmployeeFormKey.BirthDate]: undefined,
-      [ePersonalEmployeeFormKey.Gender]: EGender.Male,
-      [ePersonalEmployeeFormKey.CccdNumber]: '',
-      [ePersonalEmployeeFormKey.DateOfIssue]: undefined,
-      [ePersonalEmployeeFormKey.PlaceOfIssue]: '',
+      [EPersonalEmployeeFormKey.FullName]: '',
+      [EPersonalEmployeeFormKey.DateOfBirth]: undefined,
+      [EPersonalEmployeeFormKey.Gender]: EGender.Male,
+      [EPersonalEmployeeFormKey.IdCardNumber]: '',
+      [EPersonalEmployeeFormKey.IdCardIssuedDate]: undefined,
+      [EPersonalEmployeeFormKey.IdCardIssuedPlace]: '',
 
-      [ePersonalEmployeeFormKey.PhoneNumber]: '',
-      [ePersonalEmployeeFormKey.Email]: '',
-      [ePersonalEmployeeFormKey.EmergencyContact]: '',
-      [ePersonalEmployeeFormKey.PermanentAddress]: '',
-      [ePersonalEmployeeFormKey.CurrentResidence]: '',
+      [EPersonalEmployeeFormKey.Phone]: '',
+      [EPersonalEmployeeFormKey.PersonalEmail]: '',
+      [EPersonalEmployeeFormKey.PermanentAddress]: '',
+      [EPersonalEmployeeFormKey.CurrentAddress]: '',
+      [EPersonalEmployeeFormKey.EmergencyContact]: '',
 
-      [ePersonalEmployeeFormKey.MaritalStatus]: EMaritalStatus.Single,
-      [ePersonalEmployeeFormKey.Nationality]: ENationality.Vi,
-      [ePersonalEmployeeFormKey.NumberOfDependents]: '0',
+      [EPersonalEmployeeFormKey.MaritalStatus]: EMaritalStatus.Single,
+      [EPersonalEmployeeFormKey.Nationality]: ENationality.Vi,
+      [EPersonalEmployeeFormKey.DependentCount]: '0',
 
-      [ePersonalEmployeeFormKey.Avatar]: undefined
+      [EPersonalEmployeeFormKey.Avatar]: undefined
     }
   },
+  getDefaultValuesJobEmployee: () => {
+    return {
+      [EJobEmployeeFormKey.DepartmentId]: '',
+      [EJobEmployeeFormKey.ProjectId]: '',
+      [EJobEmployeeFormKey.JobTitleId]: '',
+      [EJobEmployeeFormKey.JobGradeId]: '',
+      [EJobEmployeeFormKey.LineManagerId]: '',
+      [EJobEmployeeFormKey.StartDate]: undefined,
+      [EJobEmployeeFormKey.EmploymentType]: undefined,
+      [EJobEmployeeFormKey.OfficeId]: '',
+      [EJobEmployeeFormKey.WorkShift]: undefined,
+      [EJobEmployeeFormKey.AnnualLeaveDays]: '12'
+    }
+  },
+  getDefaultValuesContractEmployee: () => ({
+    [EContractEmployeeFormKey.ContractType]: undefined,
+    [EContractEmployeeFormKey.ContractNumber]: '',
+    [EContractEmployeeFormKey.SignedDate]: undefined,
+    [EContractEmployeeFormKey.EffectiveDate]: undefined,
+    [EContractEmployeeFormKey.ExpiryDate]: undefined,
+    [EContractEmployeeFormKey.ProbationSalaryRate]: '',
+    [EContractEmployeeFormKey.BaseSalary]: '',
+    [EContractEmployeeFormKey.ProbationSalary]: '',
+    [EContractEmployeeFormKey.InsuranceSalary]: '',
+    [EContractEmployeeFormKey.Allowances]: [],
+    [EContractEmployeeFormKey.TaxCode]: '',
+    [EContractEmployeeFormKey.SocialInsuranceNumber]: '',
+    [EContractEmployeeFormKey.BankName]: '',
+    [EContractEmployeeFormKey.BankAccountNumber]: ''
+  }),
   getDefaultValuesEmployee: (searchParams: URLSearchParams, DEFAULT_VALUES: TFilterPanelEmployeeProfileFormSchema) => {
     return {
       ...formHelper.getDefaultValuesFilterPanel(searchParams, DEFAULT_VALUES),

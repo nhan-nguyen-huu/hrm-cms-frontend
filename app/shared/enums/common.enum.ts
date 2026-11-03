@@ -3,6 +3,7 @@ export enum ELanguage {
   Vi = 'vi',
   Ko = 'ko'
 }
+
 export enum EEmployeeStatus {
   All = 'ALL',
   PendingOnboard = 'PENDING_ONBOARD',
@@ -10,6 +11,17 @@ export enum EEmployeeStatus {
   Suspended = 'SUSPENDED',
   Terminated = 'TERMINATED',
   Probation = 'PROBATION'
+}
+
+export enum EEmploymentType {
+  FullTime = 'FULL_TIME',
+  PartTime = 'PART_TIME',
+  Contract = 'CONTRACT',
+  Intern = 'INTERN'
+}
+
+export enum EWorkShift {
+  Standard = 'STANDARD'
 }
 
 export enum EErrorCode {
@@ -82,7 +94,12 @@ export enum EAspectType {
   Employee = 'EMPLOYEE'
 }
 
-export enum EContractType {}
+export enum EContractType {
+  Probation = 'PROBATION',
+  DefiniteTerm = 'DEFINITE_TERM',
+  IndefiniteTerm = 'INDEFINITE_TERM',
+  Seasonal = 'SEASONAL'
+}
 
 export enum EEmployeeProfileTab {
   OfficialRecord = 'OFFICIAL_RECORD',
