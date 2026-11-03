@@ -138,11 +138,11 @@ export const commonHelper = {
         value: enumType[key]
       })),
 
-  handleOptionFilter: (hasAllOption?: boolean, options?: IOption[]) => {
+  handleOptionFilter: (hasAllOption?: boolean, options?: IOption[], placeholderAllOption?: string) => {
     const result = hasAllOption
       ? [
           {
-            label: t('common.all'),
+            label: placeholderAllOption ?? t('common.all'),
             value: COMMON_CONSTANT.FILTER_ALL
           },
           ...(options ?? [])

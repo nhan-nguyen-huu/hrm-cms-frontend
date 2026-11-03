@@ -7,6 +7,10 @@ export enum EFilterPanelEmployeeProfileFormKey {
 }
 
 // Same names as the GET /project query params (ProjectCriteria)
+export enum EFilterPanelDraftEmployeeProfileFormKey {
+  CurrentStep = 'currentStep'
+}
+
 export enum EFilterPanelProjectFormKey {
   Department = 'departmentId',
   Status = 'status'
