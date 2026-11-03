@@ -1,54 +1,42 @@
 import type { ColumnDef } from '@tanstack/react-table'
-import clsx from 'clsx'
 import type { TFunction } from 'i18next'
-import { Ellipsis, TriangleAlert } from 'lucide-react'
+import { Ellipsis } from 'lucide-react'
 import ContentBody from '~/components/customs/table-custom/components/content-body'
 import TitleHead from '~/components/customs/table-custom/components/title-head'
 import EmployeeInfo from '~/components/tags/employee-info'
 import ProjectStatus from '~/components/tags/project-status'
-import type { TGetTranslateEnumFn } from '~/hooks/user-transfer-enum'
-import { EDepartment } from '~/shared/enums/common.enum'
+import { commonHelper } from '~/helpers/common.helper'
+import { DATE_FORMAT_MONTH_YEAR, dateHelper } from '~/helpers/date.helper'
 import { EBaseTableKey, EProjectMemberTableKey, EProjectTableKey } from '~/shared/enums/table.enum'
 import type { IProject, IProjectMember } from '~/shared/models/project.model'
 
-const MAX_TOTAL_ALLOCATION = 100
-
 export const organizationMgtColumn = {
-  getProject: (t: TFunction, getTranslateEnum: TGetTranslateEnumFn) => {
+  getProject: (t: TFunction) => {
     const columns: ColumnDef<IProject>[] = [
       {
         accessorKey: EProjectTableKey.Name,
         header: () => <TitleHead title={t('tables.projectTableKey.name')} className='text-left' />,
-        cell: ({ row }) => <ContentBody content={row.original.name} className='text-left font-semibold' />,
+        cell: ({ row }) => <ContentBody content={row.original.projectName} className='text-left font-semibold' />,
         size: 210
       },
       {
         accessorKey: EProjectTableKey.Code,
         header: () => <TitleHead title={t('tables.projectTableKey.code')} className='text-left' />,
-        cell: ({ row }) => <ContentBody content={row.original.code} className='text-left text-[#6E7F96]' />,
+        cell: ({ row }) => <ContentBody content={row.original.projectCode} className='text-left text-[#6E7F96]' />,
         size: 110
       },
       {
         accessorKey: EProjectTableKey.Department,
         header: () => <TitleHead title={t('tables.projectTableKey.department')} className='text-left' />,
-        cell: ({ row }) => (
-          <ContentBody
-            content={getTranslateEnum({
-              enumPath: 'department',
-              enumType: EDepartment,
-              value: row.original.department
-            })}
-            className='text-left'
-          />
-        ),
+        cell: ({ row }) => <ContentBody content={row.original.departmentName} className='text-left' />,
         size: 110
       },
       {
         accessorKey: EProjectTableKey.ProjectManager,
         header: () => <TitleHead title={t('tables.projectTableKey.projectManager')} className='text-left' />,
-        cell: ({ row }) => (
-          <EmployeeInfo name={row.original.projectManager?.name} email={row.original.projectManager?.email} />
-        ),
+        // The list API has the manager's name only (no email / avatar)
+        cell: ({ row }) =>
+          row.original.managerFullName ? <EmployeeInfo name={row.original.managerFullName} /> : <ContentBody />,
         size: 200
       },
       {
@@ -62,7 +50,7 @@ export const organizationMgtColumn = {
         header: () => <TitleHead title={t('tables.projectTableKey.period')} className='pl-4 text-left' />,
         cell: ({ row }) => (
           <ContentBody
-            content={[row.original.startMonth, row.original.endMonth].filter(Boolean).join(' – ')}
+            content={dateHelper.formatMonthRange(row.original.startDate, row.original.endDate)}
             className='pl-4 text-left'
           />
         ),
@@ -71,13 +59,13 @@ export const organizationMgtColumn = {
       {
         accessorKey: EProjectTableKey.Status,
         header: () => <TitleHead title={t('tables.projectTableKey.status')} className='text-left' />,
-        cell: ({ row }) => <ProjectStatus status={row.original.status} />,
+        cell: ({ row }) => <ProjectStatus status={row.original.status} isEndingSoon={row.original.endingSoon} />,
         size: 130
       },
       {
         id: EBaseTableKey.Action,
         header: () => null,
-        // TODO: row actions (detail / edit / delete) are not specified in the design yet
+        // TODO: row actions (detail / edit / delete) are not specified in the design yet (API: PUT / DELETE /project/{id})
         cell: () => (
           <button
             type='button'
@@ -100,32 +88,27 @@ export const organizationMgtColumn = {
       {
         accessorKey: EProjectMemberTableKey.Employee,
         header: () => <TitleHead title={t('tables.projectMemberTableKey.employee')} className='text-left' />,
-        cell: ({ row }) => <EmployeeInfo name={row.original.name} description={row.original.jobTitle} />,
+        // TODO: the API has no job title (design shows it) nor each member's total allocation across projects,
+        // so the staff number is shown under the name and the over-100% warning per row is not available
+        cell: ({ row }) => <EmployeeInfo name={row.original.fullName} description={row.original.employeeCode} />,
         size: 260
       },
       {
         accessorKey: EProjectMemberTableKey.Role,
         header: () => <TitleHead title={t('tables.projectMemberTableKey.role')} className='text-left' />,
-        cell: ({ row }) => <ContentBody content={row.original.role} className='text-left' />,
+        cell: ({ row }) => <ContentBody content={row.original.projectRole} className='text-left' />,
         size: 170
       },
       {
         accessorKey: EProjectMemberTableKey.Allocation,
         header: () => <TitleHead title={t('tables.projectMemberTableKey.allocation')} className='text-right' />,
         cell: ({ row }) => {
-          const { allocation, totalAllocation } = row.original
-          const isOverAllocated = (totalAllocation ?? 0) > MAX_TOTAL_ALLOCATION
+          const allocation = row.original.allocationPercent
           return (
-            <p
-              className={clsx(
-                'flex items-center justify-end gap-1 text-xs font-semibold',
-                isOverAllocated && 'text-amber-600'
-              )}
-              title={isOverAllocated ? t('msg.memberOverAllocated', { total: totalAllocation }) : undefined}
-            >
-              {isOverAllocated && <TriangleAlert className='size-3.5' />}
-              {allocation != null ? `${allocation}%` : '-'}
-            </p>
+            <ContentBody
+              content={allocation == null ? '-' : `${commonHelper.formatNumber(Number(allocation))}%`}
+              className='text-right text-xs font-semibold'
+            />
           )
         },
         size: 100
@@ -133,7 +116,12 @@ export const organizationMgtColumn = {
       {
         accessorKey: EProjectMemberTableKey.JoinedMonth,
         header: () => <TitleHead title={t('tables.projectMemberTableKey.joinedMonth')} className='text-right' />,
-        cell: ({ row }) => <ContentBody content={row.original.joinedMonth} className='text-right' />,
+        cell: ({ row }) => (
+          <ContentBody
+            content={dateHelper.formatDate(row.original.joinedFrom, DATE_FORMAT_MONTH_YEAR, '-')}
+            className='text-right'
+          />
+        ),
         size: 120
       },
       {

@@ -34,11 +34,14 @@ export enum ENationality {
   Ko = 'KO'
 }
 
+// Stored status of a project (API docs, ProjectCriteria). "Sắp kết thúc" is not a status: it is the derived
+// `endingSoon` flag of a running project, shown as its own badge
 export enum EProjectStatus {
-  InProgress = 'IN_PROGRESS',
-  Kickoff = 'KICKOFF',
-  EndingSoon = 'ENDING_SOON',
-  Completed = 'COMPLETED'
+  All = 'ALL',
+  Planning = 'PLANNING',
+  Running = 'RUNNING',
+  Completed = 'COMPLETED',
+  Cancelled = 'CANCELLED'
 }
 
 export enum EDepartment {
