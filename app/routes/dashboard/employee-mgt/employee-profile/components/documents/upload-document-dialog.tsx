@@ -14,6 +14,7 @@ import {
 import useMutationApi from '~/hooks/use-mutation-api'
 import UploadDocumentForm from '~/routes/dashboard/employee-mgt/employee-profile/components/documents/upload-document-form'
 import { EmployeeService } from '~/services/employee.service'
+import { FileService } from '~/services/file.service'
 import { QUERY_KEY } from '~/shared/constants/query-key.constant'
 import { EUploadEmployeeDocumentFormKey } from '~/shared/enums/form.enum'
 
@@ -25,7 +26,7 @@ interface IUploadDocumentDialogProps {
   initialFile?: File
 }
 
-// "Tải lên tài liệu" — document type + file + note, sent as multipart to POST /employee/{userId}/document
+// "Tải lên tài liệu" — document type + file + note: POST /file/upload, then POST /employee/{userId}/document with the fileUrl
 const UploadDocumentDialog = ({ open, onOpenChange, userId, initialFile }: IUploadDocumentDialogProps) => {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
@@ -41,8 +42,18 @@ const UploadDocumentDialog = ({ open, onOpenChange, userId, initialFile }: IUplo
     }
   }, [open, initialFile])
 
+  // Two calls: store the file, then attach the returned fileUrl to the employee
   const { mutate: uploadDocument, isPending } = useMutationApi({
-    mutationFn: EmployeeService.AddEmployeeDocument,
+    mutationFn: async ({ file, documentType, note }: TUploadEmployeeDocumentSchema) => {
+      // Original name kept: the API shows the stored file name as the document name
+      const uploaded = await FileService.UploadFile(file, true)
+      // The upload API answers result=true with no data (and a raw server message) when writing the file fails
+      if (!uploaded?.data?.fileUrl) {
+        toast.error(t('msg.uploadFileFailed'))
+        throw new Error(uploaded?.message)
+      }
+      return await EmployeeService.AddEmployeeDocument({ userId, fileUrl: uploaded.data.fileUrl, documentType, note })
+    },
     onSuccess: () => {
       toast.success(t('msg.uploadDocumentSuccess'))
       // The upload also adds an EMPLOYEE_DOCUMENT_ADDED event to the change history
@@ -59,7 +70,7 @@ const UploadDocumentDialog = ({ open, onOpenChange, userId, initialFile }: IUplo
 
   const handleSubmit = (values: TUploadEmployeeDocumentSchema) => {
     if (!userId) return
-    uploadDocument({ userId, ...values })
+    uploadDocument(values)
   }
 
   return (

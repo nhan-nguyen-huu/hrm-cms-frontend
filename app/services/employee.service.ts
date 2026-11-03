@@ -2,12 +2,12 @@ import axiosClient from '~/configs/axios.config'
 import { API_EMPLOYEE } from '~/shared/constants/api.constant'
 import type { IApiPagination, IApiResponse } from '~/shared/models/common.model'
 import type {
+  IAddEmployeeDocumentPayload,
   IDraftEmployee,
   IEmployee,
   IEmployeeDocument,
   IEmployeeParams,
-  IOrgEvent,
-  IUploadEmployeeDocumentPayload
+  IOrgEvent
 } from '~/shared/models/employee.model'
 
 export const EmployeeService = {
@@ -24,19 +24,12 @@ export const EmployeeService = {
   GetEmployeeDocuments: async (userId?: number): Promise<IApiResponse<IEmployeeDocument[]>> => {
     return await axiosClient.get(API_EMPLOYEE.DOCUMENT_URL(userId))
   },
+  // The file must be uploaded first (FileService.UploadFile); this only attaches its fileUrl to the employee
   AddEmployeeDocument: async ({
     userId,
-    file,
-    documentType,
-    note
-  }: IUploadEmployeeDocumentPayload): Promise<IApiResponse<IEmployeeDocument>> => {
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('documentType', documentType)
-    if (note) formData.append('note', note)
-    return await axiosClient.post(API_EMPLOYEE.DOCUMENT_URL(userId), formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
+    ...payload
+  }: IAddEmployeeDocumentPayload): Promise<IApiResponse<IEmployeeDocument>> => {
+    return await axiosClient.post(API_EMPLOYEE.DOCUMENT_URL(userId), payload)
   },
   DeleteEmployeeDocument: async (userId?: number, documentId?: number): Promise<IApiResponse<unknown>> => {
     return await axiosClient.delete(API_EMPLOYEE.DELETE_DOCUMENT_URL(userId, documentId))
