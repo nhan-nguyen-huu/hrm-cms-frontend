@@ -5,14 +5,17 @@ import dayjs from 'dayjs'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
+import ContractEmployeeForm from '~/components/forms/employee/contract-employee-form'
 import JobEmployeeForm from '~/components/forms/employee/job-employee-form'
 import PersonalEmployeeForm from '~/components/forms/employee/personal-employee-form'
 import SkelethonLoading from '~/components/loading/skelethon-loading'
-import { DATE_FORMAT, commonHelper } from '~/helpers'
+import { DATE_FORMAT, commonHelper, formatHelper } from '~/helpers'
 import { formHelper } from '~/helpers/form.helper'
 import {
+  type TContractEmployeeSchema,
   type TJobEmployeeSchema,
   type TPersonalEmployeeSchema,
+  getContractEmployeeSchema,
   getJobEmployeeSchema,
   getPersonalEmployeeSchema
 } from '~/helpers/schemas/employee-schema.helper'
@@ -24,16 +27,18 @@ import HeaderUpsertEmployee from '~/routes/dashboard/employee-mgt/employee-profi
 import { EmployeeService } from '~/services/employee.service'
 import { ROUTES } from '~/shared/constants/routes.constant'
 import { EGender, EMaritalStatus, ENationality, EOnboardingStep } from '~/shared/enums/common.enum'
-import { EJobEmployeeFormKey, EPersonalEmployeeFormKey } from '~/shared/enums/form.enum'
+import { EContractEmployeeFormKey, EJobEmployeeFormKey, EPersonalEmployeeFormKey } from '~/shared/enums/form.enum'
 import type { eScreenMode } from '~/shared/models/common.model'
-import type { IJob, IPersonal } from '~/shared/models/employee.model'
+import type { IContract, IJob, IPersonal } from '~/shared/models/employee.model'
 
 interface IUpsertEmployeeProps {
   screenMode: eScreenMode
 }
 
 type TSaveStepVariables =
-  { step: EOnboardingStep.Personal; payload: IPersonal } | { step: EOnboardingStep.Job; payload: IJob }
+  | { step: EOnboardingStep.Personal; payload: IPersonal }
+  | { step: EOnboardingStep.Job; payload: IJob }
+  | { step: EOnboardingStep.Contract; payload: IContract }
 
 const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
   console.log(screenMode)
@@ -73,6 +78,14 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
     mode: 'all'
   })
 
+  // Contract employee form
+  const contractEmployeeSchema = getContractEmployeeSchema(t)
+  const contractEmployeeForm = useForm<TContractEmployeeSchema>({
+    resolver: zodResolver(contractEmployeeSchema),
+    defaultValues: formHelper.getDefaultValuesContractEmployee(),
+    mode: 'all'
+  })
+
   // Action
   const handleCancel = () => {
     navi(
@@ -95,6 +108,8 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
           return EmployeeService.SavePersonalStep(variables.payload)
         case EOnboardingStep.Job:
           return EmployeeService.SaveJobStep(variables.payload)
+        case EOnboardingStep.Contract:
+          return EmployeeService.SaveContractStep(variables.payload)
       }
     },
     onSuccess: (res, variables) => {
@@ -146,6 +161,26 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
     saveStepMutation.mutate({ step: EOnboardingStep.Job, payload })
   }
 
+  const handleSaveContract = () => {
+    const formValues = contractEmployeeForm.getValues()
+    const payload: IContract = {
+      ...formValues,
+      id: id ? Number(id) : undefined,
+      signedDate: formValues.signedDate ? dayjs(formValues.signedDate).startOf('day').format(DATE_FORMAT) : undefined,
+      effectiveDate: formValues.effectiveDate ? dayjs(formValues.effectiveDate).startOf('day').format(DATE_FORMAT) : '',
+      expiryDate: formValues.expiryDate ? dayjs(formValues.expiryDate).startOf('day').format(DATE_FORMAT) : undefined,
+      probationSalaryRate: Number(formValues.probationSalaryRate),
+      baseSalary: Number(formValues.baseSalary),
+      probationSalary: Number(formValues.probationSalary),
+      insuranceSalary: Number(formValues.insuranceSalary),
+      allowances: formValues.allowances?.map((allowance) => ({
+        allowanceName: allowance.allowanceName?.trim(),
+        amount: Number(formatHelper.formatPrice(allowance.amount).raw)
+      }))
+    }
+    saveStepMutation.mutate({ step: EOnboardingStep.Contract, payload })
+  }
+
   const handleContinue = () => {
     switch (activeStep) {
       case EOnboardingStep.Personal:
@@ -153,6 +188,9 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
         break
       case EOnboardingStep.Job:
         handleSaveJob()
+        break
+      case EOnboardingStep.Contract:
+        handleSaveContract()
         break
     }
   }
@@ -163,6 +201,8 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
         return !personalEmployeeForm.formState.isValid
       case EOnboardingStep.Job:
         return !jobEmployeeForm.formState.isValid
+      case EOnboardingStep.Contract:
+        return !contractEmployeeForm.formState.isValid
       default:
         return true
     }
@@ -209,6 +249,42 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
     })
   }
 
+  const handleParseContractForm = () => {
+    if (!id || !dataInfoEmployeeDraft?.payload?.contract) return
+    const contract = dataInfoEmployeeDraft.payload.contract
+    contractEmployeeForm.reset({
+      [EContractEmployeeFormKey.ContractType]: contract.contractType,
+      [EContractEmployeeFormKey.ContractNumber]: contract.contractNumber ?? '',
+      [EContractEmployeeFormKey.SignedDate]: contract.signedDate ? new Date(contract.signedDate) : undefined,
+      [EContractEmployeeFormKey.EffectiveDate]: contract.effectiveDate ? new Date(contract.effectiveDate) : undefined,
+      [EContractEmployeeFormKey.ExpiryDate]: contract.expiryDate ? new Date(contract.expiryDate) : undefined,
+      [EContractEmployeeFormKey.ProbationSalaryRate]: String(contract.probationSalaryRate ?? ''),
+
+      [EContractEmployeeFormKey.BaseSalary]: contract.baseSalary
+        ? formatHelper.formatPrice(contract?.baseSalary?.toString())?.formatted
+        : '',
+      [EContractEmployeeFormKey.ProbationSalary]: contract.probationSalary
+        ? formatHelper.formatPrice(contract?.probationSalary?.toString())?.formatted
+        : '',
+      [EContractEmployeeFormKey.InsuranceSalary]: contract.insuranceSalary
+        ? formatHelper.formatPrice(contract?.insuranceSalary?.toString())?.formatted
+        : '',
+      [EContractEmployeeFormKey.Allowances]:
+        contract.allowances?.map((allowance) => ({
+          [EContractEmployeeFormKey.AllowanceName]: allowance.allowanceName ?? '',
+          [EContractEmployeeFormKey.Amount]:
+            allowance?.amount !== undefined && allowance.amount !== null
+              ? formatHelper.formatPrice(String(allowance.amount)).formatted
+              : ''
+        })) ?? [],
+
+      [EContractEmployeeFormKey.TaxCode]: contract.taxCode ?? '',
+      [EContractEmployeeFormKey.SocialInsuranceNumber]: contract.socialInsuranceNumber ?? '',
+      [EContractEmployeeFormKey.BankName]: contract.bankName ?? '',
+      [EContractEmployeeFormKey.BankAccountNumber]: contract.bankAccountNumber ?? ''
+    })
+  }
+
   const handleParseFormByStep = () => {
     switch (activeStep) {
       case EOnboardingStep.Personal:
@@ -216,6 +292,9 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
         break
       case EOnboardingStep.Job:
         handleParseJobForm()
+        break
+      case EOnboardingStep.Contract:
+        handleParseContractForm()
         break
     }
   }
@@ -249,6 +328,7 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
             }
           />
         )}
+        {activeStep === EOnboardingStep.Contract && <ContractEmployeeForm form={contractEmployeeForm} />}
       </SkelethonLoading>
 
       {/* Action */}

@@ -68,5 +68,13 @@ export const formatHelper = {
           maximumFractionDigits: 0
         }).format(value)
     }
+  },
+  formatPrice: (value?: string) => {
+    let data = value?.replace(/,/g, '').replace(/\D/g, '') ?? ''
+    data = data.replace(/^0+(?=\d)/, '')
+    return {
+      raw: data,
+      formatted: data.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    }
   }
 }

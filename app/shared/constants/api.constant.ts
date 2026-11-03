@@ -14,6 +14,7 @@ export const API_EMPLOYEE = {
   GET_INFO_EMPLOYEE_DRAFT_URL: (id?: number) => `/employee/draft/${id}`,
   SAVE_PERSONAL_URL: '/employee/draft/step/personal',
   SAVE_JOB_URL: '/employee/draft/step/job',
+  SAVE_CONTRACT_URL: '/employee/draft/step/contract',
   GET_LIST_DEPARTMENT_URL: '/employee/draft/department/option',
   GET_LIST_PROJECT_URL: '/employee/draft/project/option',
   GET_LIST_JOB_TITLE_URL: '/employee/draft/job-title/option',

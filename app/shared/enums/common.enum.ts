@@ -91,7 +91,12 @@ export enum EAspectType {
   Employee = 'EMPLOYEE'
 }
 
-export enum EContractType {}
+export enum EContractType {
+  Probation = 'PROBATION',
+  DefiniteTerm = 'DEFINITE_TERM',
+  IndefiniteTerm = 'INDEFINITE_TERM',
+  Seasonal = 'SEASONAL'
+}
 
 export enum EEmployeeProfileTab {
   OfficialRecord = 'OFFICIAL_RECORD',

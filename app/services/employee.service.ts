@@ -2,6 +2,7 @@ import axiosClient from '~/configs/axios.config'
 import { API_EMPLOYEE } from '~/shared/constants/api.constant'
 import type { IApiPagination, IApiResponse } from '~/shared/models/common.model'
 import type {
+  IContract,
   IDraftEmployee,
   IEmployee,
   IEmployeeDocument,
@@ -74,5 +75,8 @@ export const EmployeeService = {
   },
   SaveJobStep: async (payload?: IJob): Promise<IApiResponse<IEmployee>> => {
     return await axiosClient.post(API_EMPLOYEE.SAVE_JOB_URL, payload)
+  },
+  SaveContractStep: async (payload?: IContract): Promise<IApiResponse<IEmployee>> => {
+    return await axiosClient.post(API_EMPLOYEE.SAVE_CONTRACT_URL, payload)
   }
 }

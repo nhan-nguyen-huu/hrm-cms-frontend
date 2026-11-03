@@ -25,6 +25,7 @@ import type { IRequest } from '~/shared/models/request.model'
 
 import { EnIcon, KoIcon, ViIcon } from '../../assets/svgs'
 import {
+  EContractType,
   EDepartment,
   EEducationLevel,
   EEmployeeDocumentStatus,
@@ -101,6 +102,7 @@ export const DATA = {
     ]
   },
   GET_OPTIONS_EMPLOYEE_STATUS: commonHelper.getEnumOptions(EEmployeeStatus, 'employeeStatus'),
+  GET_OPTIONS_CONTRACT_TYPE: commonHelper.getEnumOptions(EContractType, 'contractType'),
   GET_OPTIONS_EMPLOYMENT_TYPE: commonHelper.getEnumOptions(EEmploymentType, 'employmentType'),
   GET_OPTIONS_WORK_SHIFT: commonHelper.getEnumOptions(EWorkShift, 'workShift'),
   GET_OPTIONS_ONBOARDING_STEP: commonHelper.getEnumOptions(EOnboardingStep, 'onboardingStep'),

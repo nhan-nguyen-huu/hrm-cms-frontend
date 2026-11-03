@@ -246,12 +246,15 @@ export interface IAllowance {
 }
 
 export interface IContract {
-  contractType: string
+  id?: number
+  contractType: EContractType
+  contractNumber?: string
   signedDate?: string
   effectiveDate: string
   expiryDate?: string
   probationSalaryRate?: number
   baseSalary?: number
+  probationSalary?: number
   insuranceSalary?: number
   taxCode?: string
   socialInsuranceNumber?: string

@@ -76,6 +76,30 @@ export enum EJobEmployeeFormKey {
   AnnualLeaveDays = 'annualLeaveDays'
 }
 
+export enum EContractEmployeeFormKey {
+  // Contract
+  ContractType = 'contractType',
+  ContractNumber = 'contractNumber',
+  SignedDate = 'signedDate',
+  EffectiveDate = 'effectiveDate',
+  ExpiryDate = 'expiryDate',
+  ProbationSalaryRate = 'probationSalaryRate',
+
+  // Salary
+  BaseSalary = 'baseSalary',
+  ProbationSalary = 'probationSalary',
+  InsuranceSalary = 'insuranceSalary',
+  Allowances = 'allowances',
+  AllowanceName = 'allowanceName',
+  Amount = 'amount',
+
+  // Insurance
+  TaxCode = 'taxCode',
+  SocialInsuranceNumber = 'socialInsuranceNumber',
+  BankName = 'bankName',
+  BankAccountNumber = 'bankAccountNumber'
+}
+
 export enum EFilterPanelEmployeeDocumentFormKey {
   DocumentType = 'documentType',
   Status = 'documentStatus'

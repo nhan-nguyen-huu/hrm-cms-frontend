@@ -2,6 +2,7 @@ import type { TFunction } from 'i18next'
 import z from 'zod'
 import { CCCD_NUMBER_REGEX, EMAIL_REGEX, PHONE_NUMBER_REGEX } from '~/helpers/schema.helper'
 import {
+  EContractType,
   EEmployeeDocumentType,
   EEmploymentType,
   EGender,
@@ -9,7 +10,12 @@ import {
   ENationality,
   EWorkShift
 } from '~/shared/enums/common.enum'
-import { EJobEmployeeFormKey, EPersonalEmployeeFormKey, EUploadEmployeeDocumentFormKey } from '~/shared/enums/form.enum'
+import {
+  EContractEmployeeFormKey,
+  EJobEmployeeFormKey,
+  EPersonalEmployeeFormKey,
+  EUploadEmployeeDocumentFormKey
+} from '~/shared/enums/form.enum'
 
 // Upload rules shown in the design (CmsHoSoTaiLieu) — TODO(assumption): BE limits not in the API docs, confirm with BE
 export const EMPLOYEE_DOCUMENT_MAX_SIZE = 10 * 1024 * 1024
@@ -103,3 +109,51 @@ export const getJobEmployeeSchema = (t: TFunction) =>
   })
 
 export type TJobEmployeeSchema = z.infer<ReturnType<typeof getJobEmployeeSchema>>
+
+export const getContractEmployeeSchema = (t: TFunction) =>
+  z.object({
+    [EContractEmployeeFormKey.ContractType]: z.enum(EContractType, {
+      error: t('inputValidate.thisInformationIsRequired')
+    }),
+    [EContractEmployeeFormKey.ContractNumber]: z.string().optional(),
+    [EContractEmployeeFormKey.SignedDate]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.EffectiveDate]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.ExpiryDate]: z.date({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.ProbationSalaryRate]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+
+    [EContractEmployeeFormKey.BaseSalary]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.ProbationSalary]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.InsuranceSalary]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.Allowances]: z
+      .array(
+        z.object({
+          [EContractEmployeeFormKey.AllowanceName]: z.string().optional(),
+          [EContractEmployeeFormKey.Amount]: z
+            .string()
+            .optional()
+            .refine((value) => Boolean(value), {
+              message: t('inputValidate.thisInformationIsRequired')
+            })
+        })
+      )
+      .optional(),
+
+    [EContractEmployeeFormKey.TaxCode]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.SocialInsuranceNumber]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.BankName]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EContractEmployeeFormKey.BankAccountNumber]: z
+      .string()
+      .nonempty({ message: t('inputValidate.thisInformationIsRequired') })
+  })
+
+export type TContractEmployeeSchema = z.infer<ReturnType<typeof getContractEmployeeSchema>>

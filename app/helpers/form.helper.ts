@@ -17,6 +17,7 @@ import {
 } from '~/shared/enums/common.enum'
 import {
   EAddProjectMemberFormKey,
+  EContractEmployeeFormKey,
   EFilterPanelDraftEmployeeProfileFormKey,
   EFilterPanelEmployeeDocumentFormKey,
   EFilterPanelEmployeeEventFormKey,
@@ -85,6 +86,22 @@ export const formHelper = {
       [EJobEmployeeFormKey.AnnualLeaveDays]: '12'
     }
   },
+  getDefaultValuesContractEmployee: () => ({
+    [EContractEmployeeFormKey.ContractType]: undefined,
+    [EContractEmployeeFormKey.ContractNumber]: '',
+    [EContractEmployeeFormKey.SignedDate]: undefined,
+    [EContractEmployeeFormKey.EffectiveDate]: undefined,
+    [EContractEmployeeFormKey.ExpiryDate]: undefined,
+    [EContractEmployeeFormKey.ProbationSalaryRate]: '',
+    [EContractEmployeeFormKey.BaseSalary]: '',
+    [EContractEmployeeFormKey.ProbationSalary]: '',
+    [EContractEmployeeFormKey.InsuranceSalary]: '',
+    [EContractEmployeeFormKey.Allowances]: [],
+    [EContractEmployeeFormKey.TaxCode]: '',
+    [EContractEmployeeFormKey.SocialInsuranceNumber]: '',
+    [EContractEmployeeFormKey.BankName]: '',
+    [EContractEmployeeFormKey.BankAccountNumber]: ''
+  }),
   getDefaultValuesEmployee: (searchParams: URLSearchParams, DEFAULT_VALUES: TFilterPanelEmployeeProfileFormSchema) => {
     return {
       ...formHelper.getDefaultValuesFilterPanel(searchParams, DEFAULT_VALUES),
