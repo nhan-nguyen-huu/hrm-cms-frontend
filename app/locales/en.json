@@ -87,6 +87,15 @@
       "terminated": "Terminated",
       "probation": "Probation"
     },
+    "employmentType": {
+      "fullTime": "Full-time",
+      "partTime": "Part-time",
+      "contract": "Contract",
+      "intern": "Intern"
+    },
+    "workShift": {
+      "standard": "Standard hours 09:00 – 18:00"
+    },
     "employeeProfileTab": {
       "officialRecord": "Official record",
       "draft": "Draft"
@@ -288,6 +297,15 @@
     "username": "Username",
     "password": "Password",
     "fullName": "Full name",
+    "department": "Department",
+    "participatingProject": "Participating project",
+    "jobTitle": "Job title",
+    "jobGrade": "Job grade",
+    "lineManager": "Line manager",
+    "workLocation": "Work location",
+    "employmentType": "Employment type",
+    "workShift": "Work shift",
+    "annualLeaveFund": "Annual leave entitlement",
     "birthDate": "Date of birth",
     "gender": "Gender",
     "cccdNumber": "ID card number",
@@ -384,7 +402,10 @@
     "portraitPhoto": "Portrait photo",
     "note": "Note",
     "importProgress": "Import progress",
+    "jobPosition": "Job position",
     "orgPosition": "Organization position",
+    "timeAndWorkplace": "Time & workplace",
+    "appliedPolicies": "Applicable policies",
     "projectMembers": "Project members",
     "projectInfo": "Project information",
     "staffAllocation": "Staff allocation",
@@ -469,7 +490,10 @@
     "documentUploadRule": "Documents uploaded by employees need HR approval",
     "dropOrPickFile": "Drop a file here or click to choose",
     "documentFileRule": "PDF, JPG, PNG · up to 10 MB per file",
-    "featureNotAvailable": "This feature has no API yet"
+    "featureNotAvailable": "This feature has no API yet",
+    "probationInsuranceNote": "Probation is covered by a separate contract, so insurance does not apply yet. The system will enable it automatically when the employee moves to an official labor contract.",
+    "allowanceInsuranceNote": "Accounting will finalize the taxable and insurance flags for each allowance before the first payroll run.",
+    "futureStartDateNote": "The start date {{date}} is in the future, so the profile will be marked as Pending onboarding and excluded from attendance until that date."
   },
   "confirm": {
     "confirmLogoutTitle": "Do you want to log out?",

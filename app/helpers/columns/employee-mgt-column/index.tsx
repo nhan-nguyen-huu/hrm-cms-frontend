@@ -11,7 +11,7 @@ import EmployeeInfo from '~/components/tags/employee-info'
 import EmployeeStatus from '~/components/tags/employee-status'
 import { Button } from '~/components/ui/button'
 import { DATE_FORMAT_SLASH, DATE_TIME_FORMAT_SLASH, dateHelper } from '~/helpers/date.helper'
-import { fortmatHelper } from '~/helpers/format.helper'
+import { formatHelper } from '~/helpers/format.helper'
 import type { TGetTranslateEnumFn } from '~/hooks/user-transfer-enum'
 import InfoUpdateEmployee from '~/routes/dashboard/employee-mgt/employee-profile/components/info-update-employee'
 import NeedAdditional from '~/routes/dashboard/employee-mgt/employee-profile/components/need-additional'
@@ -259,7 +259,7 @@ export const employeeMgtColumn = {
         accessorKey: EEmployeeDocumentTableKey.FileSize,
         header: () => <TitleHead title={t('tables.employeeDocumentTableKey.fileSize')} className='text-left' />,
         cell: ({ row }) => (
-          <ContentBody content={fortmatHelper.formatFileSize(row.original.fileSize)} className='text-left' />
+          <ContentBody content={formatHelper.formatFileSize(row.original.fileSize)} className='text-left' />
         ),
         size: 85
       },

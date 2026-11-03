@@ -5,11 +5,14 @@ import type {
   EEmployeeDocumentStatus,
   EEmployeeDocumentType,
   EEmployeeStatus,
+  EEmploymentType,
   EGender,
   EMaritalStatus,
+  ENationality,
   EOnboardingStep,
   EOrgEventType,
-  ERelationship
+  ERelationship,
+  EWorkShift
 } from '~/shared/enums/common.enum'
 import type { IBaseFilterPanel, IBasePagination } from '~/shared/models/common.model'
 
@@ -125,11 +128,13 @@ export interface IEmployee {
   profileCompleteness?: IProfileCompleteness
   notes?: IEmployeeNote[]
   pendingItems?: IEmployeePendingItem[]
+  payload?: IEmployeePayload
 }
 
 export interface IEmployeeParams extends IBasePagination, IBaseFilterPanel {
   employmentStatus?: EEmployeeStatus | null
   currentStep?: EOnboardingStep | null
+  departmentId?: number
 }
 
 // GET /employee/{userId}/document — EmployeeDocumentDto (API docs)
@@ -193,9 +198,10 @@ export interface IOrgEvent {
 }
 
 export interface IPersonal {
+  id?: number
   fullName?: string
   gender?: EGender
-  dateOfBirth: string
+  dateOfBirth?: string
   idCardNumber?: string
   idCardIssuedDate?: string
   idCardIssuedPlace?: string
@@ -204,24 +210,32 @@ export interface IPersonal {
   permanentAddress?: string
   currentAddress?: string
   maritalStatus?: EMaritalStatus
-  nationality?: string
+  nationality?: ENationality
   dependentCount?: number
   emergencyContactName?: string
   emergencyContactPhone?: string
   emergencyContactRelation?: string
   avatarPath?: string
+  emergencyContact?: string
 }
 
 export interface IJob {
+  id?: number
   departmentId?: number
   jobTitleId?: number
   lineManagerId?: number
   jobGradeId?: number
   projectId?: number
+  officeId?: number
+  startDate?: string
+  employmentType?: EEmploymentType
+  workShift?: EWorkShift
+  annualLeaveDays?: number
   departmentName?: string
   jobTitleName?: string
   jobGradeName?: string
   lineManagerName?: string
+  officeName?: string
 }
 
 export interface IAllowance {
@@ -284,4 +298,8 @@ export interface IDraftEmployee {
   updatedByName?: string
   payload?: IEmployeePayload
   missingFields?: IMissingField[]
+}
+export interface IOptionResponse {
+  id?: number
+  name?: string
 }

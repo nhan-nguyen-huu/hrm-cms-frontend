@@ -87,6 +87,15 @@
       "terminated": "Đã nghỉ việc",
       "probation": "Thử việc"
     },
+    "employmentType": {
+      "fullTime": "Toàn thời gian",
+      "partTime": "Bán thời gian",
+      "contract": "Hợp đồng",
+      "intern": "Thực tập"
+    },
+    "workShift": {
+      "standard": "Hành chính 09:00 – 18:00"
+    },
     "employeeProfileTab": {
       "officialRecord": "Hồ sơ chính thức",
       "draft": "Bản nháp"
@@ -288,6 +297,15 @@
     "username": "Tên đăng nhập",
     "password": "Mật khẩu",
     "fullName": "Họ và tên",
+    "department": "Phòng ban",
+    "participatingProject": "Dự án tham gia",
+    "jobTitle": "Chức danh",
+    "jobGrade": "Cấp bậc",
+    "lineManager": "Quản lý trực tiếp",
+    "workLocation": "Nơi làm việc",
+    "employmentType": "Loại hình làm việc",
+    "workShift": "Ca làm việc",
+    "annualLeaveFund": "Quỹ phép năm",
     "birthDate": "Ngày sinh",
     "gender": "Giới tính",
     "cccdNumber": "Số CCCD",
@@ -384,7 +402,10 @@
     "portraitPhoto": "Ảnh chân dung",
     "note": "Lưu ý",
     "importProgress": "Tiến độ nhập",
+    "jobPosition": "Vị trí công việc",
     "orgPosition": "Vị trí trong tổ chức",
+    "timeAndWorkplace": "Thời gian & nơi làm việc",
+    "appliedPolicies": "Chính sách áp dụng",
     "projectMembers": "Thành viên dự án",
     "projectInfo": "Thông tin dự án",
     "staffAllocation": "Phân bổ nhân sự",
@@ -469,7 +490,10 @@
     "documentUploadRule": "Tài liệu nhân viên tải lên cần HR duyệt",
     "dropOrPickFile": "Kéo thả tệp vào đây hoặc bấm để chọn",
     "documentFileRule": "PDF, JPG, PNG · tối đa 10 MB mỗi tệp",
-    "featureNotAvailable": "Chức năng này chưa có API, sẽ cập nhật sau"
+    "featureNotAvailable": "Chức năng này chưa có API, sẽ cập nhật sau",
+    "probationInsuranceNote": "Thử việc ký hợp đồng riêng nên chưa phát sinh bảo hiểm. Hệ thống tự bật khi chuyển sang HĐLĐ chính thức.",
+    "allowanceInsuranceNote": "Cờ chịu thuế và tính bảo hiểm của từng khoản phụ cấp do Kế toán chốt trước kỳ lương đầu tiên.",
+    "futureStartDateNote": "Ngày vào làm {{date}} nằm ở tương lai nên hồ sơ sẽ ở trạng thái Chờ nhận việc và chưa vào bảng công cho tới ngày đó."
   },
   "confirm": {
     "confirmLogoutTitle": "Bạn có muốn đăng xuất không?",

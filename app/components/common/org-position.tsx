@@ -33,7 +33,7 @@ const OrgPosition = ({ departmentName, projectName, memberCount, managerName, em
   const { t } = useTranslation()
   const orgPositionNodes: IOrgPositionNode[] = [
     {
-      label: t('common.orgPositionDepartment', { departmentName }),
+      label: departmentName,
       icon: <Network className='size-5 text-app-primay' />
     },
     {

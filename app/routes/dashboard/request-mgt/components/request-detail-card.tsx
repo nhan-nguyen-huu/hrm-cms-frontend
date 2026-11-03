@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
 import { Button } from '~/components/ui/button'
 import { Card } from '~/components/ui/card'
 import { Textarea } from '~/components/ui/textarea'
-import { DATE_TIME_FORMAT_SLASH, commonHelper, dateHelper, fortmatHelper } from '~/helpers'
+import { DATE_TIME_FORMAT_SLASH, commonHelper, dateHelper, formatHelper } from '~/helpers'
 import { type TReviewRequestSchema, getReviewRequestSchema } from '~/helpers/schemas/request-schema.helper'
 import { useTransferEnum } from '~/hooks/user-transfer-enum'
 import { DATA } from '~/shared/constants/data.constant'
@@ -107,7 +107,7 @@ const RequestDetailCard = ({ request, onApprove, onReject }: IRequestDetailCardP
           >
             <Paperclip className='size-4 text-[#6E7F96]' />
             <span>{request.attachment.name}</span>
-            <span className='text-[#93A2B6]'>· {fortmatHelper.formatFileSize(request.attachment.size)}</span>
+            <span className='text-[#93A2B6]'>· {formatHelper.formatFileSize(request.attachment.size)}</span>
           </a>
         )}
       </section>
