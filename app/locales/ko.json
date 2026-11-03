@@ -11,7 +11,8 @@
     "orgPositionProject": "{{projectName}} Project · {{memberCount}} members",
     "all": "전체",
     "showingCount": "{{shown}} / {{total}} 표시",
-    "projectSummary": "프로젝트 {{total}}건 · 진행 {{inProgress}} · 종료 임박 {{endingSoon}} · 신규 착수 {{kickoff}} · 완료 {{completed}}",
+    "projectTotal": "프로젝트 {{total}}건",
+    "projectEndingSoon": "종료 임박",
     "pmName": "PM {{name}}",
     "personCount": "{{count}}명",
     "fteValue": "{{value}} FTE",
@@ -134,10 +135,11 @@
       "ko": "한국"
     },
     "projectStatus": {
-      "inProgress": "진행 중",
-      "kickoff": "착수 단계",
-      "endingSoon": "종료 임박",
-      "completed": "완료"
+      "all": "전체 상태",
+      "planning": "착수 단계",
+      "running": "진행 중",
+      "completed": "완료",
+      "cancelled": "취소"
     },
     "department": {
       "technology": "기술",
@@ -507,6 +509,7 @@
     "overdueRequests": "{{days}}일 기한 초과 {{count}}건",
     "withinNextDays": "향후 {{days}}일 이내",
     "uploadDocumentSuccess": "문서가 업로드되었습니다",
+    "uploadFileFailed": "파일 업로드에 실패했습니다. 다시 시도해 주세요",
     "deleteDocumentSuccess": "문서가 삭제되었습니다",
     "deleteDocumentConfirm": "\"{{name}}\" 문서를 삭제하시겠습니까? 되돌릴 수 없습니다.",
     "documentUploadRule": "직원이 업로드한 문서는 HR 승인이 필요합니다",

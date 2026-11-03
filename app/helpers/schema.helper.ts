@@ -5,7 +5,8 @@ import {
   EEmployeeDocumentType,
   EEmployeeStatus,
   EOnboardingStep,
-  EOrgEventType
+  EOrgEventType,
+  EProjectStatus
 } from '~/shared/enums/common.enum'
 import {
   EFilterPanelDraftEmployeeProfileFormKey,
@@ -71,9 +72,9 @@ export type TFilterPanelEmployeeEventFormSchema = z.infer<ReturnType<typeof getF
 export const getFilterPanelProjectSchema = () =>
   z.object({
     ...getFilterPanelSchema().shape,
+    // Department id as a string (select value), or ALL
     [EFilterPanelProjectFormKey.Department]: z.string().nullish(),
-    [EFilterPanelProjectFormKey.Status]: z.string().nullish(),
-    [EFilterPanelProjectFormKey.Year]: z.string().nullish()
+    [EFilterPanelProjectFormKey.Status]: z.enum(EProjectStatus).nullish()
   })
 
 export type TFilterPanelProjectFormSchema = z.infer<ReturnType<typeof getFilterPanelProjectSchema>>

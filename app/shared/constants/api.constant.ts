@@ -4,6 +4,10 @@ export const API_AUTH = {
   LOGOUT_URL: '/logout'
 }
 
+export const API_FILE = {
+  UPLOAD_URL: '/file/upload'
+}
+
 export const API_EMPLOYEE = {
   GET_LIST_URL: '/employee',
   GET_LIST_DRAFT_URL: '/employee/draft',
@@ -21,4 +25,15 @@ export const API_EMPLOYEE = {
   GET_LIST_JOB_GRADE_URL: '/employee/draft/job-grade/option',
   GET_LIST_OFFICE_URL: '/employee/draft/office/option',
   GET_LIST_MAMAGER_URL: '/employee/draft/line-manager/option'
+}
+
+export const API_PROJECT = {
+  GET_LIST_URL: '/project',
+  GET_DETAIL_URL: (id?: number) => `/project/${id}`,
+  ALLOCATION_PREVIEW_URL: (id?: number) => `/project/${id}/allocation-preview`,
+  MEMBER_URL: (id?: number) => `/project/${id}/member`
+}
+
+export const API_DEPARTMENT = {
+  GET_LIST_URL: '/department'
 }
