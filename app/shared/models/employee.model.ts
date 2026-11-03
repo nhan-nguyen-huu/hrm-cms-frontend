@@ -7,6 +7,7 @@ import type {
   EEmployeeStatus,
   EGender,
   EMaritalStatus,
+  EOnboardingStep,
   EOrgEventType,
   ERelationship
 } from '~/shared/enums/common.enum'
@@ -128,6 +129,7 @@ export interface IEmployee {
 
 export interface IEmployeeParams extends IBasePagination, IBaseFilterPanel {
   employmentStatus?: EEmployeeStatus | null
+  currentStep?: EOnboardingStep | null
 }
 
 // GET /employee/{userId}/document — EmployeeDocumentDto (API docs)
@@ -188,4 +190,98 @@ export interface IOrgEvent {
   relatedProjectName?: string
   amount?: number
   note?: string
+}
+
+export interface IPersonal {
+  fullName?: string
+  gender?: EGender
+  dateOfBirth: string
+  idCardNumber?: string
+  idCardIssuedDate?: string
+  idCardIssuedPlace?: string
+  personalEmail?: string
+  phone?: string
+  permanentAddress?: string
+  currentAddress?: string
+  maritalStatus?: EMaritalStatus
+  nationality?: string
+  dependentCount?: number
+  emergencyContactName?: string
+  emergencyContactPhone?: string
+  emergencyContactRelation?: string
+  avatarPath?: string
+}
+
+export interface IJob {
+  departmentId?: number
+  jobTitleId?: number
+  lineManagerId?: number
+  jobGradeId?: number
+  projectId?: number
+  departmentName?: string
+  jobTitleName?: string
+  jobGradeName?: string
+  lineManagerName?: string
+}
+
+export interface IAllowance {
+  allowanceName?: string
+  amount?: number
+  taxable?: boolean
+  insurable?: string
+}
+
+export interface IContract {
+  contractType: string
+  signedDate?: string
+  effectiveDate: string
+  expiryDate?: string
+  probationSalaryRate?: number
+  baseSalary?: number
+  insuranceSalary?: number
+  taxCode?: string
+  socialInsuranceNumber?: string
+  bankName?: string
+  bankAccountNumber: string
+  allowances?: IAllowance[]
+}
+
+export interface IAccount {
+  username?: string
+  email?: string
+  requirePasswordChange?: boolean
+  sendInviteEmail?: boolean
+}
+
+export interface IDocument {
+  documentType?: string
+  filePath?: string
+  originalFileName?: string
+  contentType?: string
+  fileSize?: number
+  note?: string
+}
+
+export interface IEmployeePayload {
+  personal?: IPersonal
+  job?: IJob
+  contract?: IContract
+  account?: IAccount
+  documents?: IDocument
+}
+
+export interface IMissingField {
+  step?: EOnboardingStep
+  field?: string
+  message?: string
+}
+
+export interface IDraftEmployee {
+  id?: number
+  currentStep?: EOnboardingStep
+  expiresAt?: string
+  updatedAt?: string
+  updatedByName?: string
+  payload?: IEmployeePayload
+  missingFields?: IMissingField[]
 }

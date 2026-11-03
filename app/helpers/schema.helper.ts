@@ -1,11 +1,14 @@
 import { z } from 'zod'
+import { COMMON_CONSTANT } from '~/shared/constants/common.constant'
 import {
   EEmployeeDocumentStatus,
   EEmployeeDocumentType,
   EEmployeeStatus,
+  EOnboardingStep,
   EOrgEventType
 } from '~/shared/enums/common.enum'
 import {
+  EFilterPanelDraftEmployeeProfileFormKey,
   EFilterPanelEmployeeDocumentFormKey,
   EFilterPanelEmployeeEventFormKey,
   EFilterPanelEmployeeProfileFormKey,
@@ -35,6 +38,16 @@ export const getFilterPanelEmployeeProfileSchema = () =>
   })
 
 export type TFilterPanelEmployeeProfileFormSchema = z.infer<ReturnType<typeof getFilterPanelEmployeeProfileSchema>>
+
+export const getFilterPanelDraftEmployeeSchema = () =>
+  z.object({
+    ...getFilterPanelSchema().shape,
+    [EFilterPanelDraftEmployeeProfileFormKey.CurrentStep]: z
+      .union([z.enum(EOnboardingStep), z.literal(COMMON_CONSTANT.FILTER_ALL)])
+      .nullish()
+  })
+
+export type TFilterPanelDraftEmployeeFormSchema = z.infer<ReturnType<typeof getFilterPanelDraftEmployeeSchema>>
 
 export const getFilterPanelEmployeeDocumentSchema = () =>
   z.object({

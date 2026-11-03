@@ -9,23 +9,20 @@ import TableCustom from '~/components/customs/table-custom'
 import { paramsHelper } from '~/helpers'
 import { employeeMgtColumn } from '~/helpers/columns/employee-mgt-column'
 import { formHelper } from '~/helpers/form.helper'
-import {
-  type TFilterPanelEmployeeProfileFormSchema,
-  getFilterPanelEmployeeProfileSchema
-} from '~/helpers/schema.helper'
-import { useGetListEmployeeApi } from '~/hooks/apis/use-employee-api'
+import { type TFilterPanelDraftEmployeeFormSchema, getFilterPanelDraftEmployeeSchema } from '~/helpers/schema.helper'
+import { useGetListDraftEmployeeApi } from '~/hooks/apis/use-employee-api'
 import { usePagination } from '~/hooks/use-pagination'
 import useQueryParams from '~/hooks/use-query-params'
 import PageLayout from '~/layouts/page.layout'
 import DraftProfileNote from '~/routes/dashboard/employee-mgt/employee-profile/components/draft-profile-note'
 import { COMMON_CONSTANT } from '~/shared/constants/common.constant'
 import { DATA } from '~/shared/constants/data.constant'
-import { EEmployeeProfileTab, EEmployeeStatus } from '~/shared/enums/common.enum'
-import { EFilterPanelEmployeeProfileFormKey, EFilterPanelFormKey } from '~/shared/enums/form.enum'
+import { EEmployeeProfileTab } from '~/shared/enums/common.enum'
+import { EFilterPanelDraftEmployeeProfileFormKey, EFilterPanelFormKey } from '~/shared/enums/form.enum'
 
-const DEFAULT_VALUES: TFilterPanelEmployeeProfileFormSchema = {
+const DEFAULT_VALUES: TFilterPanelDraftEmployeeFormSchema = {
   [EFilterPanelFormKey.Keyword]: '',
-  [EFilterPanelEmployeeProfileFormKey.EmploymentStatus]: EEmployeeStatus.All
+  [EFilterPanelDraftEmployeeProfileFormKey.CurrentStep]: COMMON_CONSTANT.FILTER_ALL
 }
 
 interface IEmployeeDraftProps {
@@ -42,16 +39,16 @@ const EmployeeDraft = ({ tab, rowSelection, onRowSelectionChange }: IEmployeeDra
   const { searchParams, setQuery, updateQueries } = useQueryParams()
 
   // Table
-  const columns = employeeMgtColumn.getEmployee(t)
+  const columns = employeeMgtColumn.getDraftEmployee(t)
 
   // Pagination
   const { paging, setPage, setSize, getResetPaging, getSearchPaging, resetPaging } = usePagination()
 
   // Form
-  const filterPanelSchema = getFilterPanelEmployeeProfileSchema()
-  const filterPanelForm = useForm<TFilterPanelEmployeeProfileFormSchema>({
+  const filterPanelSchema = getFilterPanelDraftEmployeeSchema()
+  const filterPanelForm = useForm<TFilterPanelDraftEmployeeFormSchema>({
     resolver: zodResolver(filterPanelSchema),
-    defaultValues: formHelper.getDefaultValuesEmployee(searchParams, DEFAULT_VALUES),
+    defaultValues: formHelper.getDefaultValuesDraftEmployee(searchParams, DEFAULT_VALUES),
     mode: 'all'
   })
 
@@ -61,12 +58,11 @@ const EmployeeDraft = ({ tab, rowSelection, onRowSelectionChange }: IEmployeeDra
     return {
       ...paging,
       ...formValues,
-      employmentStatus:
-        formValues?.employmentStatus !== COMMON_CONSTANT.FILTER_ALL ? formValues?.employmentStatus : undefined
+      currentStep: formValues?.currentStep !== COMMON_CONSTANT.FILTER_ALL ? formValues?.currentStep : undefined
     }
   }
 
-  const { dataList, isLoading, isRefetching, totalPage } = useGetListEmployeeApi({
+  const { dataList, isLoading, isRefetching, totalPage } = useGetListDraftEmployeeApi({
     params: handleConvertData()
   })
 
@@ -91,7 +87,7 @@ const EmployeeDraft = ({ tab, rowSelection, onRowSelectionChange }: IEmployeeDra
 
   // Sync data and url
   useEffect(() => {
-    setQuery(paramsHelper.employeeToSearchParams(searchParams, DEFAULT_VALUES, tab))
+    setQuery(paramsHelper.draftEmployeeToSearchParams(searchParams, DEFAULT_VALUES, tab))
   }, [])
 
   return (
@@ -106,12 +102,14 @@ const EmployeeDraft = ({ tab, rowSelection, onRowSelectionChange }: IEmployeeDra
           {
             type: 'INPUT_GROUP',
             name: EFilterPanelFormKey.Keyword,
-            placeholder: t('inputPlaceholder.searchEmployee')
+            placeholder: t('inputPlaceholder.searchDraftEmployee')
           },
           {
             type: 'SELECT',
-            name: EFilterPanelEmployeeProfileFormKey.EmploymentStatus,
-            options: DATA.GET_OPTIONS_EMPLOYEE_STATUS(t)
+            name: EFilterPanelDraftEmployeeProfileFormKey.CurrentStep,
+            options: DATA.GET_OPTIONS_ONBOARDING_STEP(t),
+            hasAllOption: true,
+            placeholderAllOption: t('inputPlaceholder.pausedStepAll')
           }
         ]}
       />
@@ -129,6 +127,7 @@ const EmployeeDraft = ({ tab, rowSelection, onRowSelectionChange }: IEmployeeDra
         onPageChange={setPage}
         pageSize={paging?.size}
         onPageSizeChange={setSize}
+        disableNavigationAll
       />
     </PageLayout>
   )

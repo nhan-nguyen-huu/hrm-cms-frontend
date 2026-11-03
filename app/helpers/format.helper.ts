@@ -1,4 +1,7 @@
 import { commonHelper } from '~/helpers/common.helper'
+import i18n from '~/lib/i18n'
+import { ELanguage } from '~/shared/enums/common.enum'
+import type { TFormatNumber } from '~/shared/types/common.type'
 
 export const fortmatHelper = {
   onlyNumber: (value: string, maxLength?: number) => {
@@ -43,5 +46,27 @@ export const fortmatHelper = {
       unitIndex++
     }
     return `${commonHelper.formatNumber(value)} ${UNITS[unitIndex]}`
+  },
+  formatCurrency: (value: number = 0, formatNumberType: TFormatNumber = 'CURRENCY') => {
+    const language = i18n.language
+    const mappingLocale: Record<ELanguage, string> = {
+      [ELanguage.Ko]: 'ko-KR',
+      [ELanguage.En]: 'en-US',
+      [ELanguage.Vi]: 'vi-VN'
+    }
+    const locale = mappingLocale[language as ELanguage]
+    switch (formatNumberType) {
+      case 'NUMBER':
+        return new Intl.NumberFormat(locale, {
+          maximumFractionDigits: 0
+        }).format(value)
+
+      case 'CURRENCY':
+        return new Intl.NumberFormat(locale, {
+          style: 'currency',
+          currency: 'VND',
+          maximumFractionDigits: 0
+        }).format(value)
+    }
   }
 }

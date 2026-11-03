@@ -3,6 +3,11 @@ import { EmployeeService } from '~/services/employee.service'
 import { QUERY_KEY } from '~/shared/constants/query-key.constant'
 
 export const useGetListEmployeeApi = createListApiHook(QUERY_KEY.EMPLOYEE.GET_LIST, EmployeeService.GetListEmployee)
+export const useGetListDraftEmployeeApi = createListApiHook(
+  QUERY_KEY.EMPLOYEE.GET_LIST_DRAFT,
+  EmployeeService.GetListDraftEmployee
+)
+
 export const useGetDetailEmployeeApi = createDetailApiHook(
   QUERY_KEY.EMPLOYEE.GET_DETAIL,
   EmployeeService.GetDetailEmployee

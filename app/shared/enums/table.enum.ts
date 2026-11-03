@@ -17,6 +17,14 @@ export enum EEmployeeProfileTableKey {
   Status = 'status'
 }
 
+export enum EDraftEmployeeTableKey {
+  DraftProfile = 'draftProfile',
+  Department = 'department',
+  StepCurrentlyPause = 'stepCurrentlyPause',
+  NeedAdditional = 'needAdditional',
+  Update = 'update'
+}
+
 export enum EProjectTableKey {
   Name = 'name',
   Code = 'code',
@@ -46,4 +54,11 @@ export enum EEmployeeEventTableKey {
   OccurredAt = 'occurredAt',
   Actor = 'actorFullName',
   Content = 'message'
+}
+
+export enum EEmployementContractFormKey {
+  ContractType = 'contractType',
+  ContractNumber = 'contractNumber',
+  EffectiveNess = 'effectiveNess',
+  Status = 'status'
 }

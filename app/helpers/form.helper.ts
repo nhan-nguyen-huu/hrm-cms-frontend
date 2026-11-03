@@ -1,4 +1,5 @@
 import type {
+  TFilterPanelDraftEmployeeFormSchema,
   TFilterPanelEmployeeDocumentFormSchema,
   TFilterPanelEmployeeEventFormSchema,
   TFilterPanelEmployeeProfileFormSchema,
@@ -11,10 +12,12 @@ import {
   EGender,
   EMaritalStatus,
   ENationality,
+  EOnboardingStep,
   EOrgEventType
 } from '~/shared/enums/common.enum'
 import {
   EAddProjectMemberFormKey,
+  EFilterPanelDraftEmployeeProfileFormKey,
   EFilterPanelEmployeeDocumentFormKey,
   EFilterPanelEmployeeEventFormKey,
   EFilterPanelEmployeeProfileFormKey,
@@ -72,6 +75,16 @@ export const formHelper = {
       ...formHelper.getDefaultValuesFilterPanel(searchParams, DEFAULT_VALUES),
       [EFilterPanelEmployeeProfileFormKey.EmploymentStatus]:
         (searchParams.get('employmentStatus') as EEmployeeStatus) ?? DEFAULT_VALUES?.employmentStatus
+    }
+  },
+  getDefaultValuesDraftEmployee: (
+    searchParams: URLSearchParams,
+    DEFAULT_VALUES: TFilterPanelDraftEmployeeFormSchema
+  ) => {
+    return {
+      ...formHelper.getDefaultValuesFilterPanel(searchParams, DEFAULT_VALUES),
+      [EFilterPanelDraftEmployeeProfileFormKey.CurrentStep]:
+        (searchParams.get('currentStep') as EOnboardingStep) ?? DEFAULT_VALUES?.currentStep
     }
   },
   getDefaultValuesEmployeeDocument: (

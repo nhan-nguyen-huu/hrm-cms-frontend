@@ -6,6 +6,10 @@ export enum EFilterPanelEmployeeProfileFormKey {
   EmploymentStatus = 'employmentStatus'
 }
 
+export enum EFilterPanelDraftEmployeeProfileFormKey {
+  CurrentStep = 'currentStep'
+}
+
 export enum EFilterPanelProjectFormKey {
   Department = 'department',
   Status = 'status',

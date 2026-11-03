@@ -3,6 +3,7 @@ import { API_EMPLOYEE } from '~/shared/constants/api.constant'
 import type { IApiPagination, IApiResponse } from '~/shared/models/common.model'
 import type {
   IAddEmployeeDocumentPayload,
+  IDraftEmployee,
   IEmployee,
   IEmployeeDocument,
   IEmployeeParams,
@@ -15,6 +16,9 @@ export const EmployeeService = {
   },
   GetDetailEmployee: async (id?: number): Promise<IApiResponse<IEmployee>> => {
     return await axiosClient.get(API_EMPLOYEE.GET_DETAIL_URL(id))
+  },
+  GetListDraftEmployee: async (params?: IEmployeeParams): Promise<IApiResponse<IApiPagination<IDraftEmployee>>> => {
+    return await axiosClient.get(API_EMPLOYEE.GET_LIST_DRAFT_URL, { params })
   },
   // Not paginated: the API returns every document of the employee
   GetEmployeeDocuments: async (userId?: number): Promise<IApiResponse<IEmployeeDocument[]>> => {
