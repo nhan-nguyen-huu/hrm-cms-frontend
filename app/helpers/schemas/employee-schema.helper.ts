@@ -11,6 +11,7 @@ import {
   EWorkShift
 } from '~/shared/enums/common.enum'
 import {
+  EAccountEmployeeFormKey,
   EContractEmployeeFormKey,
   EJobEmployeeFormKey,
   EPersonalEmployeeFormKey,
@@ -157,3 +158,12 @@ export const getContractEmployeeSchema = (t: TFunction) =>
   })
 
 export type TContractEmployeeSchema = z.infer<ReturnType<typeof getContractEmployeeSchema>>
+
+export const getAccountEmployeeSchema = (t: TFunction) =>
+  z.object({
+    [EAccountEmployeeFormKey.Email]: z.string().nonempty({ message: t('inputValidate.thisInformationIsRequired') }),
+    [EAccountEmployeeFormKey.SendInviteEmail]: z.boolean(),
+    [EAccountEmployeeFormKey.RequirePasswordChange]: z.boolean()
+  })
+
+export type TAccountEmployeeSchema = z.infer<ReturnType<typeof getAccountEmployeeSchema>>

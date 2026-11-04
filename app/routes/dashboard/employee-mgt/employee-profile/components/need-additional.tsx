@@ -12,7 +12,7 @@ const NeedAdditional = ({ missingFields = [] }: INeedAdditionalProps) => {
         {missingFields.map((item, index) => (
           <li key={`${item.step}-${item.field}-${index}`} className='flex items-start gap-1 text-xs'>
             <span>•</span>
-            <span>{item.message}</span>
+            <span className='wrap-break-word whitespace-normal'>{item.message}</span>
           </li>
         ))}
       </ul>

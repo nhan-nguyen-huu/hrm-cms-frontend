@@ -19,6 +19,8 @@ export const API_EMPLOYEE = {
   SAVE_PERSONAL_URL: '/employee/draft/step/personal',
   SAVE_JOB_URL: '/employee/draft/step/job',
   SAVE_CONTRACT_URL: '/employee/draft/step/contract',
+  SAVE_ACCOUNT_URL: '/employee/draft/step/account',
+  CREATE_EMPLOYEE_URL: '/employee/draft/submit',
   GET_LIST_DEPARTMENT_URL: '/employee/draft/department/option',
   GET_LIST_PROJECT_URL: '/employee/draft/project/option',
   GET_LIST_JOB_TITLE_URL: '/employee/draft/job-title/option',

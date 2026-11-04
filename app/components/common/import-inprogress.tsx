@@ -22,7 +22,7 @@ const ImportInprogress = ({ progressItems = [] }: IImportInprogressProps) => {
                   item.isDone ? 'bg-primary' : 'bg-muted'
                 )}
               >
-                <Check className={cn('size-3', item.isDone ? 'text-white' : 'text-[#93A2B6]')} />
+                <Check className={cn('size-2.5', item.isDone ? 'text-white' : 'text-[#93A2B6]')} />
               </section>
               <p className={item.isDone ? 'text-app-primay' : 'text-[#93A2B6]'}>{item.label}</p>
             </section>

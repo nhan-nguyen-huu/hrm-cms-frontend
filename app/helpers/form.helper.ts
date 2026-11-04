@@ -18,6 +18,7 @@ import {
   EProjectStatus
 } from '~/shared/enums/common.enum'
 import {
+  EAccountEmployeeFormKey,
   EAddProjectMemberFormKey,
   EContractEmployeeFormKey,
   EFilterPanelDraftEmployeeProfileFormKey,
@@ -114,6 +115,11 @@ export const formHelper = {
     [EContractEmployeeFormKey.SocialInsuranceNumber]: '',
     [EContractEmployeeFormKey.BankName]: '',
     [EContractEmployeeFormKey.BankAccountNumber]: ''
+  }),
+  getDefaultValuesAccountEmployee: () => ({
+    [EAccountEmployeeFormKey.Email]: '',
+    [EAccountEmployeeFormKey.SendInviteEmail]: true,
+    [EAccountEmployeeFormKey.RequirePasswordChange]: true
   }),
   getDefaultValuesEmployee: (searchParams: URLSearchParams, DEFAULT_VALUES: TFilterPanelEmployeeProfileFormSchema) => {
     return {

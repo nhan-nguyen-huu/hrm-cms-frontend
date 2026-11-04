@@ -264,6 +264,7 @@ export interface IContract {
 }
 
 export interface IAccount {
+  id?: number
   username?: string
   email?: string
   requirePasswordChange?: boolean
