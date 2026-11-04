@@ -53,7 +53,7 @@ const ActionUpsertEmployee = ({
           </Button>
         )}
         {activeStepNumber === 3 && (
-          <Button onClick={() => onCreate?.()}>
+          <Button onClick={() => onCreate?.()} disabled={disabledContinueAction}>
             <Check />
             <span>{t('action.createEmployeeProfile')}</span>
           </Button>

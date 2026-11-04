@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { type UseFormReturn, useFieldArray } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { InfoCircleIcon } from '~/assets/svgs'
+import { DangerIcon, InfoCircleIcon } from '~/assets/svgs'
 import ButtonAction from '~/components/actions/button-action'
 import CardCustom from '~/components/customs/card-custom'
 import FormDateTimePickerField from '~/components/forms/form-date-time-picker-field'
@@ -25,6 +25,8 @@ const ContractEmployeeForm = ({ form }: IContractEmployeeFormProps) => {
   const contractTypeOptions = DATA.GET_OPTIONS_CONTRACT_TYPE(t)
   const probationSalaryRateValue = form.watch(EContractEmployeeFormKey.ProbationSalaryRate)
   const baseSalaryValue = form.watch(EContractEmployeeFormKey.BaseSalary)
+  const allowancesValue = form.watch(EContractEmployeeFormKey.Allowances)
+
   const {
     fields: allowanceFields,
     append: appendAllowance,
@@ -33,7 +35,21 @@ const ContractEmployeeForm = ({ form }: IContractEmployeeFormProps) => {
     control: form.control,
     name: EContractEmployeeFormKey.Allowances
   })
-
+  const estimatedCostsData = [
+    {
+      label: t('inputLabel.probationSalary'),
+      value: formatHelper.formatCurrency(Number(baseSalaryValue))
+    },
+    {
+      label: t('title.fixedAllowance'),
+      value: formatHelper.formatCurrency(
+        allowancesValue?.reduce(
+          (total, allowance) => total + Number(formatHelper.formatPrice(allowance.amount).raw || 0),
+          0
+        ) ?? 0
+      )
+    }
+  ]
   useEffect(() => {
     const baseSalary = formatHelper.formatPrice(baseSalaryValue).raw
     const probationSalaryRate = formatHelper.formatNumber(probationSalaryRateValue)
@@ -362,11 +378,29 @@ const ContractEmployeeForm = ({ form }: IContractEmployeeFormProps) => {
           </section>
         </CardCustom>
       </section>
-      <aside className='col-span-12 sm:col-span-4 md:col-span-3'>
+      <aside className='col-span-12 sm:col-span-4 md:col-span-3 flex flex-col gap-4'>
+        <CardCustom title={t('title.estimatedCosts')}>
+          <section className='flex flex-col gap-2'>
+            {estimatedCostsData?.map((item, index) => {
+              return (
+                <section key={index} className='flex items-center justify-between gap-2 flex-wrap'>
+                  <p className='text-[#6E7F96]'>{item?.label}</p>
+                  <p className='font-semibold'>{item?.value}</p>
+                </section>
+              )
+            })}
+          </section>
+        </CardCustom>
         <CardCustom title={t('title.note')}>
-          <section className='flex items-start gap-3'>
-            <InfoCircleIcon className='size-5 shrink-0 text-app-primay' />
-            <p className='text-app-primay'>{t('msg.probationInsuranceNote')}</p>
+          <section className='flex flex-col gap-4'>
+            <section className='flex items-start gap-3'>
+              <InfoCircleIcon className='size-5 shrink-0 text-blue-500' />
+              <p className='text-app-primay'>{t('msg.probationInsuranceNote')}</p>
+            </section>
+            <section className='flex items-start gap-3'>
+              <DangerIcon className='size-5 shrink-0 text-orange-400' />
+              <p className='text-app-primay'>{t('msg.allowanceInsuranceNote')}</p>
+            </section>
           </section>
         </CardCustom>
       </aside>

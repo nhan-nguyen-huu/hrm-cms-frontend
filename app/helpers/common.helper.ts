@@ -37,6 +37,23 @@ export const commonHelper = {
       .replace(/_([a-zA-Z])/g, (_, char) => char.toUpperCase())
       .replace(/^([A-Z])/, (m, char) => char.toLowerCase())
   },
+  getCompanyEmail: (fullName?: string) => {
+    const [firstName, ...otherNames] = fullName?.trim().split(/\s+/) ?? []
+    const lastName = otherNames.at(-1)
+    if (!firstName || !lastName) return ''
+
+    const normalizeName = (name: string) =>
+      name
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/gi, 'd')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '')
+    const normalizedFirstName = normalizeName(firstName)
+    const normalizedLastName = normalizeName(lastName)
+
+    return normalizedFirstName && normalizedLastName ? `${normalizedLastName}.${normalizedFirstName}@specominc.com` : ''
+  },
   convertTitleHeader: (titles: string[], t: TFunction) => {
     const mappingKey = titles?.map((title) => t(title))
     return mappingKey.join(' / ')

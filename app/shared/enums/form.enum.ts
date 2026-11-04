@@ -102,6 +102,12 @@ export enum EContractEmployeeFormKey {
   BankAccountNumber = 'bankAccountNumber'
 }
 
+export enum EAccountEmployeeFormKey {
+  Email = 'email',
+  SendInviteEmail = 'sendInviteEmail',
+  RequirePasswordChange = 'requirePasswordChange'
+}
+
 export enum EFilterPanelEmployeeDocumentFormKey {
   DocumentType = 'documentType',
   Status = 'documentStatus'

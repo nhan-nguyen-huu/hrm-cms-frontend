@@ -5,6 +5,8 @@ import dayjs from 'dayjs'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
+import { toast } from 'sonner'
+import AccountEmployeeForm from '~/components/forms/employee/account-employee-form'
 import ContractEmployeeForm from '~/components/forms/employee/contract-employee-form'
 import JobEmployeeForm from '~/components/forms/employee/job-employee-form'
 import PersonalEmployeeForm from '~/components/forms/employee/personal-employee-form'
@@ -12,9 +14,11 @@ import SkelethonLoading from '~/components/loading/skelethon-loading'
 import { DATE_FORMAT, commonHelper, formatHelper } from '~/helpers'
 import { formHelper } from '~/helpers/form.helper'
 import {
+  type TAccountEmployeeSchema,
   type TContractEmployeeSchema,
   type TJobEmployeeSchema,
   type TPersonalEmployeeSchema,
+  getAccountEmployeeSchema,
   getContractEmployeeSchema,
   getJobEmployeeSchema,
   getPersonalEmployeeSchema
@@ -27,9 +31,14 @@ import HeaderUpsertEmployee from '~/routes/dashboard/employee-mgt/employee-profi
 import { EmployeeService } from '~/services/employee.service'
 import { ROUTES } from '~/shared/constants/routes.constant'
 import { EGender, EMaritalStatus, ENationality, EOnboardingStep } from '~/shared/enums/common.enum'
-import { EContractEmployeeFormKey, EJobEmployeeFormKey, EPersonalEmployeeFormKey } from '~/shared/enums/form.enum'
+import {
+  EAccountEmployeeFormKey,
+  EContractEmployeeFormKey,
+  EJobEmployeeFormKey,
+  EPersonalEmployeeFormKey
+} from '~/shared/enums/form.enum'
 import type { eScreenMode } from '~/shared/models/common.model'
-import type { IContract, IJob, IPersonal } from '~/shared/models/employee.model'
+import type { IAccount, IContract, IJob, IPersonal } from '~/shared/models/employee.model'
 
 interface IUpsertEmployeeProps {
   screenMode: eScreenMode
@@ -39,12 +48,14 @@ type TSaveStepVariables =
   | { step: EOnboardingStep.Personal; payload: IPersonal }
   | { step: EOnboardingStep.Job; payload: IJob }
   | { step: EOnboardingStep.Contract; payload: IContract }
+  | { step: EOnboardingStep.Account; payload: IAccount }
 
 const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
   console.log(screenMode)
   const { t } = useTranslation()
   const { searchParams, updateQueries } = useQueryParams()
-  const id = searchParams.get('id') ?? ''
+  const idFromUrl = searchParams.get('id') ?? ''
+  const [id, setId] = useState<number | undefined>(idFromUrl ? Number(idFromUrl) : undefined)
   const activeStepParam = (searchParams.get('step') as EOnboardingStep) ?? EOnboardingStep.Personal
   const [activeStep, setActiveStep] = useState<EOnboardingStep>(activeStepParam)
   const { activeStepKey } = commonHelper.getOnboardingStep(activeStep)
@@ -54,9 +65,10 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
   const {
     data: dataInfoEmployeeDraft,
     isLoading: isLoadingDataInfoEmployeeDraft,
-    isRefetching: isRefetchingDataInfoEmployeeDraft
+    isRefetching: isRefetchingDataInfoEmployeeDraft,
+    refetch: refetchDataInfoEmployeeDraft
   } = useGetInfoEmployeeDraftApi({
-    id: Number(id),
+    id: id,
     options: {
       enabled: !!id
     }
@@ -86,6 +98,14 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
     mode: 'all'
   })
 
+  // Account employee form
+  const accountEmployeeSchema = getAccountEmployeeSchema(t)
+  const accountEmployeeForm = useForm<TAccountEmployeeSchema>({
+    resolver: zodResolver(accountEmployeeSchema),
+    defaultValues: formHelper.getDefaultValuesAccountEmployee(),
+    mode: 'all'
+  })
+
   // Action
   const handleCancel = () => {
     navi(
@@ -100,7 +120,16 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
       step: prevStepKey
     })
   }
-
+  const createEmployeeMutation = useMutationApi({
+    mutationFn: EmployeeService.CreateEmployee,
+    onSuccess: (res) => {
+      const isSuccess = res?.result
+      if (isSuccess) {
+        toast.success(t('msg.createEmployeeSuccess'))
+        handleCancel()
+      }
+    }
+  })
   const saveStepMutation = useMutationApi({
     mutationFn: (variables: TSaveStepVariables) => {
       switch (variables.step) {
@@ -110,11 +139,24 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
           return EmployeeService.SaveJobStep(variables.payload)
         case EOnboardingStep.Contract:
           return EmployeeService.SaveContractStep(variables.payload)
+        case EOnboardingStep.Account:
+          return EmployeeService.SaveAccountStep(variables.payload)
       }
     },
     onSuccess: (res, variables) => {
       const isSuccess = res?.result
       if (isSuccess) {
+        if (variables.step === EOnboardingStep.Account) {
+          createEmployeeMutation.mutate({
+            id: res?.data?.id
+          })
+          return
+        }
+        if (variables.step === EOnboardingStep.Personal) {
+          setId(res?.data?.id)
+        } else {
+          refetchDataInfoEmployeeDraft()
+        }
         const { nextStepKey } = commonHelper.getOnboardingStep(variables.step)
         setActiveStep(nextStepKey)
         updateQueries({
@@ -170,15 +212,29 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
       effectiveDate: formValues.effectiveDate ? dayjs(formValues.effectiveDate).startOf('day').format(DATE_FORMAT) : '',
       expiryDate: formValues.expiryDate ? dayjs(formValues.expiryDate).startOf('day').format(DATE_FORMAT) : undefined,
       probationSalaryRate: Number(formValues.probationSalaryRate),
-      baseSalary: Number(formValues.baseSalary),
-      probationSalary: Number(formValues.probationSalary),
-      insuranceSalary: Number(formValues.insuranceSalary),
+      baseSalary: formValues.baseSalary ? Number(formatHelper.formatPrice(formValues.baseSalary)?.raw) : undefined,
+      probationSalary: formValues.probationSalary
+        ? Number(formatHelper.formatPrice(formValues.probationSalary)?.raw)
+        : undefined,
+      insuranceSalary: formValues.insuranceSalary
+        ? Number(formatHelper.formatPrice(formValues.insuranceSalary)?.raw)
+        : undefined,
       allowances: formValues.allowances?.map((allowance) => ({
         allowanceName: allowance.allowanceName?.trim(),
         amount: Number(formatHelper.formatPrice(allowance.amount).raw)
       }))
     }
     saveStepMutation.mutate({ step: EOnboardingStep.Contract, payload })
+  }
+
+  const handleSaveAccount = () => {
+    const formValues = accountEmployeeForm.getValues()
+    const payload: IAccount = {
+      ...formValues,
+      id: id ? Number(id) : undefined,
+      email: formValues.email.trim()
+    }
+    saveStepMutation.mutate({ step: EOnboardingStep.Account, payload })
   }
 
   const handleContinue = () => {
@@ -203,6 +259,8 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
         return !jobEmployeeForm.formState.isValid
       case EOnboardingStep.Contract:
         return !contractEmployeeForm.formState.isValid
+      case EOnboardingStep.Account:
+        return !accountEmployeeForm.formState.isValid
       default:
         return true
     }
@@ -285,6 +343,16 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
     })
   }
 
+  const handleParseAccountForm = () => {
+    if (!id || !dataInfoEmployeeDraft?.payload?.account) return
+    const account = dataInfoEmployeeDraft.payload.account
+    accountEmployeeForm.reset({
+      [EAccountEmployeeFormKey.Email]: account.email ?? '',
+      [EAccountEmployeeFormKey.SendInviteEmail]: account.sendInviteEmail ?? true,
+      [EAccountEmployeeFormKey.RequirePasswordChange]: account.requirePasswordChange ?? true
+    })
+  }
+
   const handleParseFormByStep = () => {
     switch (activeStep) {
       case EOnboardingStep.Personal:
@@ -295,6 +363,9 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
         break
       case EOnboardingStep.Contract:
         handleParseContractForm()
+        break
+      case EOnboardingStep.Account:
+        handleParseAccountForm()
         break
     }
   }
@@ -329,6 +400,28 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
           />
         )}
         {activeStep === EOnboardingStep.Contract && <ContractEmployeeForm form={contractEmployeeForm} />}
+        {activeStep === EOnboardingStep.Account && (
+          <AccountEmployeeForm
+            form={accountEmployeeForm}
+            data={dataInfoEmployeeDraft}
+            fullName={
+              personalEmployeeForm.getValues(EPersonalEmployeeFormKey.FullName) ||
+              dataInfoEmployeeDraft?.payload?.personal?.fullName
+            }
+            personalEmail={
+              personalEmployeeForm.getValues(EPersonalEmployeeFormKey.PersonalEmail) ||
+              dataInfoEmployeeDraft?.payload?.personal?.personalEmail
+            }
+            effectiveDate={
+              contractEmployeeForm.getValues(EContractEmployeeFormKey.EffectiveDate)
+                ? dayjs(contractEmployeeForm.getValues(EContractEmployeeFormKey.EffectiveDate))
+                    .startOf('day')
+                    .format(DATE_FORMAT)
+                : dataInfoEmployeeDraft?.payload?.contract?.effectiveDate
+            }
+            onChangeActiveStep={setActiveStep}
+          />
+        )}
       </SkelethonLoading>
 
       {/* Action */}
@@ -337,7 +430,7 @@ const UpsertEmployee = ({ screenMode }: IUpsertEmployeeProps) => {
         activeStep={activeStep}
         onBack={handleBack}
         onContinue={handleContinue}
-        // onCreate={handleCreate}
+        onCreate={handleSaveAccount}
         disabledContinueAction={handleGetDisabledContinueAction()}
       />
     </>
